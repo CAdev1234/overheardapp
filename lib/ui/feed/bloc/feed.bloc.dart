@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/numericalset.dart';
@@ -95,7 +95,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
   }
 
   Stream<FeedState> _mapFetchFeedEventToState(FeedFetchEvent feedFetchEvent) async* {
-    yield FeedLoadingState();
+    yield const FeedLoadingState();
     filterOption = feedFetchEvent.filterOption!;
     lastFetchedId = 0;
     var params = {
@@ -109,25 +109,25 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
     if(result['status']){
       userModel = UserModel.fromJson(result['user']);
       if(userModel.community_id == null){
-        yield NoCommunityState();
+        yield const NoCommunityState();
         currentPage = 1;
         return;
       }
     }
     else{
       currentPage = 1;
-      yield FeedLoadFailedState();
+      yield const FeedLoadFailedState();
       return;
     }
     await Future.delayed(
       const Duration(milliseconds: 100),
     );
     currentPage = 1;
-    yield FeedLoadDoneState();
+    yield const FeedLoadDoneState();
   }
 
   Stream<FeedState> _mapGetFeedEventToState(GetFeedEvent getFeedEvent) async* {
-    yield FeedLoadingState();
+    yield const FeedLoadingState();
     var params = {
       'feed_id': getFeedEvent.feedId,
       'filterOption': filterOption
@@ -141,18 +141,18 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
         return;
       }
       else{
-        yield FeedLoadFailedState();
+        yield const FeedLoadFailedState();
         return;
       }
     }
     catch(exception){
-      yield FeedLoadFailedState();
+      yield const FeedLoadFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapGetLocationEventToState(GetLocationEvent getLocationEvent) async* {
-    yield FeedLocationGettingState();
+    yield const FeedLocationGettingState();
     var params = {
       'lat': getLocationEvent.lat,
       'lng': getLocationEvent.lng
@@ -163,11 +163,11 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
       userModel = UserModel.fromJson(result['user']);
 
     }
-    yield FeedLocationGetDoneState();
+    yield const FeedLocationGetDoneState();
   }
 
   Stream<FeedState> _mapPostEventToState(FeedPostEvent feedPostEvent) async* {
-    yield FeedPostingState();
+    yield const FeedPostingState();
     var params = {
       'title': feedPostEvent.title,
       'content': feedPostEvent.content,
@@ -187,38 +187,38 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
         try{
           var attaches_result = await feedRepository.postFeedAttaches(media_params);
           if(attaches_result){
-            yield FeedPostDoneState();
+            yield const FeedPostDoneState();
             return;
           }
           else{
             showToast('Media Posting Failed', gradientStart);
-            yield FeedPostFailedState();
+            yield const FeedPostFailedState();
             return;
           }
         }
         catch(exception){
           showToast('Media Posting Failed', gradientStart);
-          yield FeedPostFailedState();
+          yield const FeedPostFailedState();
           return;
         }
 
       }
       else{
         showToast('Content Posting Failed', gradientStart); // content_result['message']
-        yield FeedPostFailedState();
+        yield const FeedPostFailedState();
         return;
       }
 
     }
     catch(exception){
       showToast('Content Posting Failed', gradientStart);
-      yield FeedPostFailedState();
+      yield const FeedPostFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapReportEventToState(ReportFeedEvent reportFeedEvent) async* {
-    yield FeedLoadingState();
+    yield const FeedLoadingState();
     var params = {
       'feed_id': reportFeedEvent.feed.id,
       'reported_author_id': reportFeedEvent.feed.publisher?.id,
@@ -230,24 +230,24 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
       var result = await feedRepository.reportFeed(params);
       if(result['status']){
         showToast(result['message'], gradientStart);
-        yield FeedLoadDoneState();
+        yield const FeedLoadDoneState();
         return;
       }
       else{
         showToast(result['message'], gradientStart);
-        yield FeedLoadFailedState();
+        yield const FeedLoadFailedState();
         return;
       }
     }
     catch(exception){
       showToast('Reporting Failed', gradientStart);
-      yield FeedLoadFailedState();
+      yield const FeedLoadFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapLeaveCommentToState(LeaveCommentEvent leaveCommentEvent) async* {
-    yield FeedCommentingState();
+    yield const FeedCommentingState();
     var params = {
       'feed_id': leaveCommentEvent.feed.id,
       'comment': leaveCommentEvent.comment
@@ -256,23 +256,23 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
     try{
       var result = await feedRepository.commentFeed(params);
       if(result['status']){
-        yield FeedCommentDoneState();
+        yield const FeedCommentDoneState();
         return;
       }
       else{
         showToast(result['message'], gradientStart);
-        yield FeedCommentFailedState();
+        yield const FeedCommentFailedState();
         return;
       }
     }
     catch(exception){
-      yield FeedCommentFailedState();
+      yield const FeedCommentFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapCommentVoteToState(CommentVoteEvent commentVoteEvent) async* {
-    yield FeedCommentingState();
+    yield const FeedCommentingState();
     var params = {
       'comment_id': commentVoteEvent.commentId,
       'isUp': commentVoteEvent.isUp
@@ -282,25 +282,25 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
       var result = await feedRepository.commentVote(params);
       if(result['status']){
         showToast(result['message'], gradientStart);
-        this.commentItem = CommentModel.fromJson(result['comment']);
-        yield FeedCommentDoneState();
+        commentItem = CommentModel.fromJson(result['comment']);
+        yield const FeedCommentDoneState();
         return;
       }
       else{
         showToast(result['message'], gradientStart);
-        yield FeedCommentFailedState();
+        yield const FeedCommentFailedState();
         return;
       }
     }
     catch(exception){
       showToast('Vote Failed', gradientStart);
-      yield FeedCommentFailedState();
+      yield const FeedCommentFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapFeedVoteToState(FeedVoteEvent feedVoteEvent) async* {
-    yield FeedCommentingState();
+    yield const FeedCommentingState();
     var params = {
       'feed_id': feedVoteEvent.feedId,
       'isUp': feedVoteEvent.isUp
@@ -310,31 +310,31 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
       var result = await feedRepository.feedVote(params);
       if(result['status']){
         showToast(result['message'], gradientStart);
-        this.feedItem = FeedModel.fromJson(result['feed']);
-        yield FeedCommentDoneState();
+        feedItem = FeedModel.fromJson(result['feed']);
+        yield const FeedCommentDoneState();
         return;
       }
       else{
         showToast(result['message'], gradientStart);
-        yield FeedCommentFailedState();
+        yield const FeedCommentFailedState();
         return;
       }
     }
     catch(exception){
       showToast('Vote Failed', gradientStart);
-      yield FeedCommentFailedState();
+      yield const FeedCommentFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapFeedMediaFetchToState(FeedMediaFetchEvent feedMediaFetchEvent) async* {
-    yield FeedMediaFetchingState();
+    yield const FeedMediaFetchingState();
     try{
-      if(feedItem.media != null && feedItem.media.length > 0){
+      if(feedItem.media != null && feedItem.media.isNotEmpty){
         for(int i = 0; i < feedItem.media.length; i++){
           String mimeType = mime(feedItem.media[i].url) as String;
           if(imageMimeTypes.contains(mimeType)){
-            this.pickedThumbnails.add(MediaType(type: 0, url: feedItem.media[i].url));
+            pickedThumbnails.add(MediaType(type: 0, url: feedItem.media[i].url));
           }
           else if(videoMimeTypes.contains(mimeType)){
             final thumbnail = await VideoThumbnail.thumbnailFile(
@@ -348,67 +348,67 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
           }
         }
       }
-      yield FeedMediaFetchDoneState();
+      yield const FeedMediaFetchDoneState();
     }
     catch(exception){
-      yield FeedMediaFetchFailedState();
+      yield const FeedMediaFetchFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapFeedEditEventToState(FeedEditEvent feedEditEvent) async* {
-    yield FeedLoadingState();
+    yield const FeedLoadingState();
     var params = {
       'feed_id': feedEditEvent.id,
       'title': feedEditEvent.title,
       'content': feedEditEvent.content,
       'tags': feedEditEvent.tags,
       'location': feedEditEvent.location,
-      'urls': feedEditEvent.urls.map((item) => item.url != null ? item.url : '').toList()
+      'urls': feedEditEvent.urls.map((item) => item.url ?? '').toList()
     };
     try{
-      var content_result = await feedRepository.editFeedContent(params);
-      if(content_result['status']){
-        var feed_id = content_result['feed_id'];
+      var contentResult = await feedRepository.editFeedContent(params);
+      if(contentResult['status']){
+        var feedId = contentResult['feed_id'];
         /// Post Feed Attached Files and Feed Id
-        var media_params = {
-          'feed_id': feed_id,
+        var mediaParams = {
+          'feed_id': feedId,
           'files': feedEditEvent.attaches
         };
         try{
-          var attaches_result = await feedRepository.postFeedAttaches(media_params);
-          if(attaches_result){
+          var attachesResult = await feedRepository.postFeedAttaches(mediaParams);
+          if(attachesResult){
             showToast('Feed Edit Done', gradientStart);
-            yield FeedPostDoneState();
+            yield const FeedPostDoneState();
             return;
           }
           else{
             showToast('Media Posting Failed', gradientStart);
-            yield FeedPostFailedState();
+            yield const FeedPostFailedState();
             return;
           }
         }
         catch(exception){
           showToast('Media Posting Failed', gradientStart);
-          yield FeedPostFailedState();
+          yield const FeedPostFailedState();
           return;
         }
 
       }
       else{
         showToast('Content Posting Failed', gradientStart);
-        yield FeedPostFailedState();
+        yield const FeedPostFailedState();
         return;
       }
     }
     catch(exception){
-      yield FeedLoadFailedState();
+      yield const FeedLoadFailedState();
       return;
     }
   }
 
   Stream<FeedState> _mapFeedDeleteToState(FeedDeleteEvent feedDeleteEvent) async* {
-    yield FeedDeletingState();
+    yield const FeedDeletingState();
     var params = {
       'feed_id': feedDeleteEvent.feed_id
     };
@@ -416,17 +416,17 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
       var result = await feedRepository.deleteFeedContent(params);
       if(result['status']){
         showToast('Delete Posting Success', gradientStart);
-        yield FeedDeleteDoneState();
+        yield const FeedDeleteDoneState();
         return;
       }
       else{
         showToast('Delete Posting Failed', gradientStart);
-        yield FeedDeleteFailedState();
+        yield const FeedDeleteFailedState();
         return;
       }
     }
     catch(exception){
-      yield FeedDeleteFailedState();
+      yield const FeedDeleteFailedState();
       return;
     }
   }

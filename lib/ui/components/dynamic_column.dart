@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 
 typedef DynamicColumnBuilder<T> = Future<List<T>> Function(int currentListSize);
 
@@ -89,7 +89,7 @@ class _DynamicColumnState<T> extends State<DynamicColumn<T>>
         StreamBuilder<PageState>(
           stream: _streamController.stream,
           initialData:
-          (_itemList.length == 0) ? PageState.firstLoad : PageState.pageLoad,
+          (_itemList.isEmpty) ? PageState.firstLoad : PageState.pageLoad,
           builder: (BuildContext context, AsyncSnapshot<PageState> snapshot) {
             if (!snapshot.hasData) {
               return widget.onLoading;

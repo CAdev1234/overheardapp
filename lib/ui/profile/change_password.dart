@@ -12,7 +12,7 @@ import 'package:overheard_flutter_app/utils/ui_elements.dart';
 import 'bloc/profile.state.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
-  ChangePasswordScreen({Key? key}) : super(key: key);
+  const ChangePasswordScreen({Key? key}) : super(key: key);
 
   @override
   _ChangePasswordScreenState createState() {
@@ -61,7 +61,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   onTap: (){
                     Navigator.of(context).pop();
                   },
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       CancelButtonText,
@@ -73,7 +73,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                   ),
                 ),
-                middle: Text(
+                middle: const Text(
                   changePasswordText,
                   style: TextStyle(
                       fontSize: appBarTitleFontSize,
@@ -83,24 +83,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
                 trailing: GestureDetector(
                   onTap: () async {
-                    if(oldPasswordController.text == null || oldPasswordController.text == ""){
+                    if(oldPasswordController.text == ""){
                       showToast(passwordEmptyErrorText, gradientStart);
                       return;
                     }
-                    if(newPasswordController.text == null || newPasswordController.text == ""){
+                    if(newPasswordController.text == ""){
                       showToast(passwordEmptyErrorText, gradientStart);
                       return;
                     }
-                    if(confirmPasswordController.text == null || confirmPasswordController.text == ""){
+                    if(confirmPasswordController.text == ""){
                       showToast(passwordEmptyErrorText, gradientStart);
                       return;
                     }
                     if(newPasswordController.text != confirmPasswordController.text){
                       showToast(passwordMismatchErrorText, gradientStart);
                     }
-                    profileBloc..add(ChangePasswordEvent(oldPassword: oldPasswordController.text, newPassword: newPasswordController.text));
+                    profileBloc.add(ChangePasswordEvent(oldPassword: oldPasswordController.text, newPassword: newPasswordController.text));
                   },
-                  child: Container(
+                  child: const SizedBox(
                     width: 50,
                     child: Align(
                       alignment: Alignment.centerRight,
@@ -124,21 +124,21 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(height: 30,),
+                          const SizedBox(height: 30,),
                           /// Old password field
                           Center(
                             child: Container(
                               width: MediaQuery.of(context).size.width - 10 * 2,
                               height: 40,
                               alignment: Alignment.center,
-                              padding: EdgeInsets.only(left: 20, right: 20),
+                              padding: const EdgeInsets.only(left: 20, right: 20),
                               decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Theme(
                                 data: Theme.of(context).copyWith(
-                                    textSelectionHandleColor: Colors.transparent,
+                                    // textSelectionHandleColor: Colors.transparent,
                                     primaryColor: Colors.transparent,
                                     scaffoldBackgroundColor:Colors.transparent,
                                     bottomAppBarColor: Colors.transparent
@@ -149,25 +149,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   textAlign: TextAlign.start,
                                   keyboardType: TextInputType.text,
                                   obscureText: true,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(color: primaryWhiteTextColor),
                                     hintText: oldPasswordHintText,
                                     contentPadding: EdgeInsets.only(
                                       bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                     ),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                       ),
                                     ),
-                                    focusedBorder: const OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                       ),
                                     ),
                                   ),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: primaryWhiteTextColor,
                                       fontSize: primaryTextFieldFontSize
                                   ),
@@ -175,7 +175,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
 
                           /// New password field
                           Center(
@@ -183,14 +183,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               width: MediaQuery.of(context).size.width - 10 * 2,
                               height: 40,
                               alignment: Alignment.center,
-                              padding: EdgeInsets.only(left: 20, right: 20),
+                              padding: const EdgeInsets.only(left: 20, right: 20),
                               decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Theme(
                                 data: Theme.of(context).copyWith(
-                                    textSelectionHandleColor: Colors.transparent,
+                                    // textSelectionHandleColor: Colors.transparent,
                                     primaryColor: Colors.transparent,
                                     scaffoldBackgroundColor:Colors.transparent,
                                     bottomAppBarColor: Colors.transparent
@@ -201,25 +201,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   textAlign: TextAlign.start,
                                   keyboardType: TextInputType.text,
                                   obscureText: true,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(color: primaryWhiteTextColor),
                                     hintText: newPasswordHintText,
                                     contentPadding: EdgeInsets.only(
                                       bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                     ),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                       ),
                                     ),
-                                    focusedBorder: const OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                       ),
                                     ),
                                   ),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: primaryWhiteTextColor,
                                       fontSize: primaryTextFieldFontSize
                                   ),
@@ -227,7 +227,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
 
                           /// Confirm password field
                           Center(
@@ -235,14 +235,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               width: MediaQuery.of(context).size.width - 10 * 2,
                               height: 40,
                               alignment: Alignment.center,
-                              padding: EdgeInsets.only(left: 20, right: 20),
+                              padding: const EdgeInsets.only(left: 20, right: 20),
                               decoration: BoxDecoration(
                                   color: Colors.white.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(10)
                               ),
                               child: Theme(
                                 data: Theme.of(context).copyWith(
-                                    textSelectionHandleColor: Colors.transparent,
+                                    // textSelectionHandleColor: Colors.transparent,
                                     primaryColor: Colors.transparent,
                                     scaffoldBackgroundColor:Colors.transparent,
                                     bottomAppBarColor: Colors.transparent
@@ -253,25 +253,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   textAlign: TextAlign.start,
                                   keyboardType: TextInputType.text,
                                   obscureText: true,
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                     border: InputBorder.none,
                                     hintStyle: TextStyle(color: primaryWhiteTextColor),
                                     hintText: confirmPasswordPlaceholder,
                                     contentPadding: EdgeInsets.only(
                                       bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                     ),
-                                    enabledBorder: const OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                       ),
                                     ),
-                                    focusedBorder: const OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: Colors.transparent,
                                       ),
                                     ),
                                   ),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: primaryWhiteTextColor,
                                       fontSize: primaryTextFieldFontSize
                                   ),
@@ -279,12 +279,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          const SizedBox(height: 10,),
                         ],
                       ),
-                      state is PasswordChangingState ? 
-                      CupertinoActivityIndicator():
-                      SizedBox.shrink()
+                      state is PasswordChangingState ? const CupertinoActivityIndicator() : const SizedBox.shrink()
                     ],
                   ),
                 ),

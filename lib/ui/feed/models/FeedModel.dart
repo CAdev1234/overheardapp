@@ -57,47 +57,47 @@ class FeedModel {
     if (json['media'] != null) {
       media = [];
       json['media'].forEach((v) {
-        media.add(new MediaItem.fromJson(v));
+        media.add(MediaItem.fromJson(v));
       });
     }
     publisher = json['publisher'] != null
-        ? new UserModel.fromJson(json['publisher'])
+        ? UserModel.fromJson(json['publisher'])
         : null;
     if (json['tags'] != null) {
       tags = [];
       json['tags'].forEach((v) {
-        tags.add(new TagItem.fromJson(v));
+        tags.add(TagItem.fromJson(v));
       });
     }
     if (json['comments'] != null) {
       comments = [];
       json['comments'].forEach((v) {
-        comments.add(new CommentModel.fromJson(v));
+        comments.add(CommentModel.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['content'] = this.content;
-    data['upvotes'] = this.upvotes;
-    data['downvotes'] = this.downvotes;
-    data['seen_count'] = this.seenCount;
-    data['comments_count'] = this.commentsCount;
-    data['post_datetime'] = this.postDatetime;
-    if (this.media != null) {
-      data['media'] = this.media.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['content'] = content;
+    data['upvotes'] = upvotes;
+    data['downvotes'] = downvotes;
+    data['seen_count'] = seenCount;
+    data['comments_count'] = commentsCount;
+    data['post_datetime'] = postDatetime;
+    if (media != null) {
+      data['media'] = media.map((v) => v.toJson()).toList();
     }
-    if (this.publisher != null) {
-      data['publisher'] = this.publisher?.toJson();
+    if (publisher != null) {
+      data['publisher'] = publisher?.toJson();
     }
-    if (this.tags != null) {
-      data['tags'] = this.tags.map((v) => v.toJson()).toList();
+    if (tags != null) {
+      data['tags'] = tags.map((v) => v.toJson()).toList();
     }
-    if (this.comments != null) {
-      data['comments'] = this.comments.map((v) => v.toJson()).toList();
+    if (comments != null) {
+      data['comments'] = comments.map((v) => v.toJson()).toList();
     }
     return data;
   }

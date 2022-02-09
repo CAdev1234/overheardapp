@@ -3,11 +3,11 @@ import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
 import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 
 abstract class FeedState extends Equatable{
-  FeedState();
+  const FeedState();
 }
 
 class FeedLoadingState extends FeedState {
-  FeedLoadingState(): super();
+  const FeedLoadingState(): super();
 
   @override
   List<Object> get props => [];
@@ -19,7 +19,7 @@ class FeedLoadingState extends FeedState {
 class FeedLoadDoneState extends FeedState {
   final FeedModel? feed;
   final UserModel? userModel;
-  FeedLoadDoneState({this.feed, this.userModel}) : super();
+  const FeedLoadDoneState({this.feed, this.userModel}) : super();
 
   @override
   List<Object> get props => [];
@@ -29,7 +29,7 @@ class FeedLoadDoneState extends FeedState {
 }
 
 class NoCommunityState extends FeedState {
-  NoCommunityState() : super();
+  const NoCommunityState() : super();
 
   @override
   List<Object> get props => [];
@@ -39,7 +39,7 @@ class NoCommunityState extends FeedState {
 }
 
 class FeedLoadFailedState extends FeedState {
-  FeedLoadFailedState() : super();
+  const FeedLoadFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -49,7 +49,7 @@ class FeedLoadFailedState extends FeedState {
 }
 
 class FeedLocationGettingState extends FeedState {
-  FeedLocationGettingState() : super();
+  const FeedLocationGettingState() : super();
 
   @override
   List<Object> get props => [];
@@ -59,7 +59,7 @@ class FeedLocationGettingState extends FeedState {
 }
 
 class FeedLocationGetDoneState extends FeedState {
-  FeedLocationGetDoneState() : super();
+  const FeedLocationGetDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -69,7 +69,7 @@ class FeedLocationGetDoneState extends FeedState {
 }
 
 class FeedPostingState extends FeedState {
-  FeedPostingState() : super();
+  const FeedPostingState() : super();
 
   @override
   List<Object> get props => [];
@@ -79,7 +79,7 @@ class FeedPostingState extends FeedState {
 }
 
 class FeedPostDoneState extends FeedState {
-  FeedPostDoneState() : super();
+  const FeedPostDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -89,7 +89,7 @@ class FeedPostDoneState extends FeedState {
 }
 
 class FeedPostFailedState extends FeedState {
-  FeedPostFailedState() : super();
+  const FeedPostFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -99,7 +99,7 @@ class FeedPostFailedState extends FeedState {
 }
 
 class FeedCommentingState extends FeedState {
-  FeedCommentingState() : super();
+  const FeedCommentingState() : super();
 
   @override
   List<Object> get props => [];
@@ -109,7 +109,7 @@ class FeedCommentingState extends FeedState {
 }
 
 class FeedCommentDoneState extends FeedState {
-  FeedCommentDoneState() : super();
+  const FeedCommentDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -119,7 +119,7 @@ class FeedCommentDoneState extends FeedState {
 }
 
 class FeedCommentFailedState extends FeedState {
-  FeedCommentFailedState() : super();
+  const FeedCommentFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -129,7 +129,7 @@ class FeedCommentFailedState extends FeedState {
 }
 
 class FeedMediaFetchingState extends FeedState {
-  FeedMediaFetchingState() : super();
+  const FeedMediaFetchingState() : super();
 
   @override
   List<Object> get props => [];
@@ -139,7 +139,7 @@ class FeedMediaFetchingState extends FeedState {
 }
 
 class FeedMediaFetchDoneState extends FeedState {
-  FeedMediaFetchDoneState() : super();
+  const FeedMediaFetchDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -149,7 +149,7 @@ class FeedMediaFetchDoneState extends FeedState {
 }
 
 class FeedMediaFetchFailedState extends FeedState {
-  FeedMediaFetchFailedState() : super();
+  const FeedMediaFetchFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -159,7 +159,7 @@ class FeedMediaFetchFailedState extends FeedState {
 }
 
 class FeedDeletingState extends FeedState {
-  FeedDeletingState() : super();
+  const FeedDeletingState() : super();
 
   @override
   List<Object> get props => [];
@@ -169,7 +169,7 @@ class FeedDeletingState extends FeedState {
 }
 
 class FeedDeleteDoneState extends FeedState {
-  FeedDeleteDoneState() : super();
+  const FeedDeleteDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -179,7 +179,7 @@ class FeedDeleteDoneState extends FeedState {
 }
 
 class FeedDeleteFailedState extends FeedState {
-  FeedDeleteFailedState() : super();
+  const FeedDeleteFailedState() : super();
 
   @override
   List<Object> get props => [];

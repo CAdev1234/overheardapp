@@ -30,15 +30,15 @@ class CommunityModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['lat'] = this.lat;
-    data['lng'] = this.lng;
-    data['participants'] = this.participants;
-    data['radius'] = this.radius;
-    data['ads_price'] = this.adsPrice;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['name'] = name;
+    data['lat'] = lat;
+    data['lng'] = lng;
+    data['participants'] = participants;
+    data['radius'] = radius;
+    data['ads_price'] = adsPrice;
+    data['created_at'] = createdAt;
     return data;
   }
 }

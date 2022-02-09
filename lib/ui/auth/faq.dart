@@ -10,7 +10,7 @@ import 'bloc/auth.bloc.dart';
 import 'bloc/auth.state.dart';
 
 class FaqScreen extends StatefulWidget {
-  FaqScreen({Key? key}) : super(key: key);
+  const FaqScreen({Key? key}) : super(key: key);
 
   @override
   _FaqScreenState createState() {

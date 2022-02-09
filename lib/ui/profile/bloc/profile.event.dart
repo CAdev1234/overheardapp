@@ -1,15 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 abstract class ProfileEvent extends Equatable{
-  ProfileEvent();
+  const ProfileEvent();
 
-  @override
   List<Object> get pros => [];
 }
 
 class ProfileFetchEvent extends ProfileEvent{
   final int? user_id;
-  ProfileFetchEvent({this.user_id}) : super();
+  const ProfileFetchEvent({this.user_id}) : super();
 
   @override
   List<Object> get props => [];
@@ -23,7 +22,7 @@ class ProfileCompleteEvent extends ProfileEvent {
   final String? phonenumber;
   final String bio;
   final bool reporter_request;
-  ProfileCompleteEvent({required this.firstName, required this.lastName, this.userName, this.email, this.phonenumber, required this.bio, required this.reporter_request}) : super();
+  const ProfileCompleteEvent({required this.firstName, required this.lastName, this.userName, this.email, this.phonenumber, required this.bio, required this.reporter_request}) : super();
 
   @override
   List<Object> get props => [];
@@ -32,7 +31,7 @@ class ProfileCompleteEvent extends ProfileEvent {
 class ProfileFollowEvent extends ProfileEvent {
   final int user_id;
 
-  ProfileFollowEvent({required this.user_id}) : super();
+  const ProfileFollowEvent({required this.user_id}) : super();
 
   @override
   List<Object> get props => [];
@@ -41,28 +40,28 @@ class ProfileFollowEvent extends ProfileEvent {
 class ProfileBlockEvent extends ProfileEvent {
   final int user_id;
 
-  ProfileBlockEvent({required this.user_id}) : super();
+  const ProfileBlockEvent({required this.user_id}) : super();
 
   @override
   List<Object> get props => [];
 }
 
 class FetchCommunityEvent extends ProfileEvent {
-  FetchCommunityEvent(): super();
+  const FetchCommunityEvent(): super();
 
   @override
   List<Object> get props => [];
 }
 
 class CommunityResetEvent extends ProfileEvent {
-  CommunityResetEvent() : super();
+  const CommunityResetEvent() : super();
 
   @override
   List<Object> get props => [];
 }
 
 class CommunityConfirmEvent extends ProfileEvent {
-  CommunityConfirmEvent() : super();
+  const CommunityConfirmEvent() : super();
 
   @override
   List<Object> get props => [];
@@ -70,21 +69,21 @@ class CommunityConfirmEvent extends ProfileEvent {
 
 class FollowerFetchEvent extends ProfileEvent {
   final int selectedIndex;
-  FollowerFetchEvent({required this.selectedIndex}) : super();
+  const FollowerFetchEvent({required this.selectedIndex}) : super();
 
   @override
   List<Object> get props => [];
 }
 
 class FetchBlockedUsersEvent extends ProfileEvent {
-  FetchBlockedUsersEvent() : super();
+  const FetchBlockedUsersEvent() : super();
 
   @override
   List<Object> get props => [];
 }
 
 class LogoutEvent extends ProfileEvent{
-  LogoutEvent() : super();
+  const LogoutEvent() : super();
 
   @override
   List<Object> get props => [];
@@ -94,7 +93,7 @@ class ChangePasswordEvent extends ProfileEvent {
   final String oldPassword;
   final String newPassword;
 
-  ChangePasswordEvent({required this.oldPassword, required this.newPassword}) : super();
+  const ChangePasswordEvent({required this.oldPassword, required this.newPassword}) : super();
 
   @override
   List<Object> get props => [];

@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
 
 abstract class ProfileState extends Equatable{
-  ProfileState();
+  const ProfileState();
 }
 
 class ProfileLoadingState extends ProfileState {
-  ProfileLoadingState() : super();
+  const ProfileLoadingState() : super();
 
   @override
   List<Object> get props => [];
@@ -17,7 +17,7 @@ class ProfileLoadingState extends ProfileState {
 
 class ProfileLoadDoneState extends ProfileState {
   final UserModel? userModel;
-  ProfileLoadDoneState({this.userModel}) : super();
+  const ProfileLoadDoneState({this.userModel}) : super();
 
   @override
   List<Object> get props => [];
@@ -27,7 +27,7 @@ class ProfileLoadDoneState extends ProfileState {
 }
 
 class ProfileLoadFailedState extends ProfileState {
-  ProfileLoadFailedState() : super();
+  const ProfileLoadFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -37,7 +37,7 @@ class ProfileLoadFailedState extends ProfileState {
 }
 
 class ProfileUpdateDoneState extends ProfileState {
-  ProfileUpdateDoneState() : super();
+  const ProfileUpdateDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -47,7 +47,7 @@ class ProfileUpdateDoneState extends ProfileState {
 }
 
 class ProfileUpdateFailedState extends ProfileState {
-  ProfileUpdateFailedState() : super();
+  const ProfileUpdateFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -57,7 +57,7 @@ class ProfileUpdateFailedState extends ProfileState {
 }
 
 class ProfileFollowingState extends ProfileState {
-  ProfileFollowingState() : super();
+  const ProfileFollowingState() : super();
 
   @override
   List<Object> get props => [];
@@ -67,7 +67,7 @@ class ProfileFollowingState extends ProfileState {
 }
 
 class ProfileFollowDoneState extends ProfileState {
-  ProfileFollowDoneState() : super();
+  const ProfileFollowDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -77,7 +77,7 @@ class ProfileFollowDoneState extends ProfileState {
 }
 
 class ProfileFollowFailedState extends ProfileState {
-  ProfileFollowFailedState() : super();
+  const ProfileFollowFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -87,7 +87,7 @@ class ProfileFollowFailedState extends ProfileState {
 }
 
 class CommunityConfirmLoadingState extends ProfileState {
-  CommunityConfirmLoadingState() : super();
+  const CommunityConfirmLoadingState() : super();
 
   @override
   List<Object> get props => [];
@@ -97,7 +97,7 @@ class CommunityConfirmLoadingState extends ProfileState {
 }
 
 class CommunityConfirmedState extends ProfileState {
-  CommunityConfirmedState() : super();
+  const CommunityConfirmedState() : super();
 
   @override
   List<Object> get props => [];
@@ -107,7 +107,7 @@ class CommunityConfirmedState extends ProfileState {
 }
 
 class CommunityConfirmFailedState extends ProfileState {
-  CommunityConfirmFailedState() : super();
+  const CommunityConfirmFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -117,7 +117,7 @@ class CommunityConfirmFailedState extends ProfileState {
 }
 
 class CommunityLoadingState extends ProfileState {
-  CommunityLoadingState() : super();
+  const CommunityLoadingState() : super();
 
   @override
   List<Object> get props => [];
@@ -127,7 +127,7 @@ class CommunityLoadingState extends ProfileState {
 }
 
 class CommunityDoneState extends ProfileState {
-  CommunityDoneState() : super();
+  const CommunityDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -137,7 +137,7 @@ class CommunityDoneState extends ProfileState {
 }
 
 class CommunityLoadFailedState extends ProfileState {
-  CommunityLoadFailedState() : super();
+  const CommunityLoadFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -147,7 +147,7 @@ class CommunityLoadFailedState extends ProfileState {
 }
 
 class FollowerFetchingState extends ProfileState {
-  FollowerFetchingState() : super();
+  const FollowerFetchingState() : super();
 
   @override
   List<Object> get props => [];
@@ -157,7 +157,7 @@ class FollowerFetchingState extends ProfileState {
 }
 
 class FollowerFetchDoneState extends ProfileState {
-  FollowerFetchDoneState() : super();
+  const FollowerFetchDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -167,7 +167,7 @@ class FollowerFetchDoneState extends ProfileState {
 }
 
 class FollowerFetchFailedState extends ProfileState {
-  FollowerFetchFailedState() : super();
+  const FollowerFetchFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -177,7 +177,7 @@ class FollowerFetchFailedState extends ProfileState {
 }
 
 class FollowingFetchingState extends ProfileState {
-  FollowingFetchingState() : super();
+  const FollowingFetchingState() : super();
 
   @override
   List<Object> get props => [];
@@ -187,7 +187,7 @@ class FollowingFetchingState extends ProfileState {
 }
 
 class FollowingFetchDoneState extends ProfileState {
-  FollowingFetchDoneState() : super();
+  const FollowingFetchDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -197,7 +197,7 @@ class FollowingFetchDoneState extends ProfileState {
 }
 
 class FollowingFetchFailedState extends ProfileState {
-  FollowingFetchFailedState() : super();
+  const FollowingFetchFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -207,7 +207,7 @@ class FollowingFetchFailedState extends ProfileState {
 }
 
 class PasswordChangingState extends ProfileState {
-  PasswordChangingState() : super();
+  const PasswordChangingState() : super();
 
   @override
   List<Object> get props => [];
@@ -217,7 +217,7 @@ class PasswordChangingState extends ProfileState {
 }
 
 class PasswordChangedState extends ProfileState {
-  PasswordChangedState() : super();
+  const PasswordChangedState() : super();
 
   @override
   List<Object> get props => [];
@@ -227,7 +227,7 @@ class PasswordChangedState extends ProfileState {
 }
 
 class PasswordChangeFailedState extends ProfileState {
-  PasswordChangeFailedState() : super();
+  const PasswordChangeFailedState() : super();
 
   @override
   List<Object> get props => [];

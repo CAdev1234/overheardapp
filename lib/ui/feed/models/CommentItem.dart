@@ -6,7 +6,7 @@ class CommentModel {
 
   CommentModel.fromJson(Map<String, dynamic> json) {
     comment =
-    json['comment'] != null ? new Comment.fromJson(json['comment']) : null;
+    json['comment'] != null ? Comment.fromJson(json['comment']) : null;
     if (json['comment_user'] != null) {
       commentUser = [];
       json['comment_user'].forEach((v) {
@@ -16,12 +16,12 @@ class CommentModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.comment != null) {
-      data['comment'] = this.comment!.toJson();
+    final Map<String, dynamic> data = {};
+    if (comment != null) {
+      data['comment'] = comment!.toJson();
     }
-    if (this.commentUser != null) {
-      data['comment_user'] = this.commentUser!.map((v) => v.toJson()).toList();
+    if (commentUser != null) {
+      data['comment_user'] = commentUser!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -56,14 +56,14 @@ class Comment {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['post_id'] = this.postId;
-    data['commenter_id'] = this.commenterId;
-    data['comment_content'] = this.commentContent;
-    data['upvotes'] = this.upvotes;
-    data['downvotes'] = this.downvotes;
-    data['comment_datetime'] = this.commentDatetime;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['post_id'] = postId;
+    data['commenter_id'] = commenterId;
+    data['comment_content'] = commentContent;
+    data['upvotes'] = upvotes;
+    data['downvotes'] = downvotes;
+    data['comment_datetime'] = commentDatetime;
     return data;
   }
 }
@@ -94,13 +94,13 @@ class CommentUser {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['avatar'] = this.avatar;
-    data['bio'] = this.bio;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['name'] = name;
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['avatar'] = avatar;
+    data['bio'] = bio;
     return data;
   }
 }

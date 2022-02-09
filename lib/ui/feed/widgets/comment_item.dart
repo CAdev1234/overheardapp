@@ -14,10 +14,11 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class CommentItem extends StatefulWidget{
   final CommentModel comment;
-  CommentItem({required this.comment});
+  // ignore: use_key_in_widget_constructors
+  const CommentItem({required this.comment});
   @override
   CommentItemState createState() {
-    return new CommentItemState();
+    return CommentItemState();
   }
 
 }
@@ -29,7 +30,7 @@ class CommentItemState extends State<CommentItem> {
   @override
   void initState(){
     super.initState();
-    feedBloc = new FeedBloc(feedRepository: FeedRepository());
+    feedBloc = FeedBloc(feedRepository: FeedRepository());
     feedBloc.commentItem = widget.comment;
   }
 
@@ -46,7 +47,7 @@ class CommentItemState extends State<CommentItem> {
           return Column(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: primaryWhiteTextColor.withOpacity(0.2),
                 ),
@@ -55,7 +56,7 @@ class CommentItemState extends State<CommentItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Avatar
-                    Container(
+                    SizedBox(
                       width: 50,
                       height: 50,
                       child: feedBloc.commentItem.commentUser![0].avatar == null || feedBloc.commentItem.commentUser![0].avatar!.isEmpty ? Image.asset(
@@ -80,12 +81,12 @@ class CommentItemState extends State<CommentItem> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width - 150,
                                 child: Row(
                                   children: [
@@ -104,7 +105,7 @@ class CommentItemState extends State<CommentItem> {
                                   ],
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 50,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
@@ -129,7 +130,7 @@ class CommentItemState extends State<CommentItem> {
                         ),
                         /// Comment Content
                         const SizedBox(height: 10,),
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
                           child: Text(
                             feedBloc.commentItem.comment!.commentContent!,
@@ -143,7 +144,7 @@ class CommentItemState extends State<CommentItem> {
 
                         /// Votes
                         const SizedBox(height: 10,),
-                        Container(
+                        SizedBox(
                           width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -155,7 +156,7 @@ class CommentItemState extends State<CommentItem> {
                                     onTap: (){
                                       feedBloc.add(CommentVoteEvent(commentId: feedBloc.commentItem.comment!.id!, isUp: false));
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       child: Row(
                                         children: [
                                           const Icon(
@@ -181,7 +182,7 @@ class CommentItemState extends State<CommentItem> {
                                     onTap: (){
                                       feedBloc.add(CommentVoteEvent(commentId: feedBloc.commentItem.comment!.id!, isUp: true));
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       child: Row(
                                         children: [
                                           const Icon(

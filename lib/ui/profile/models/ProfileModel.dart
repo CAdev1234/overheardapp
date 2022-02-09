@@ -36,7 +36,7 @@ class ProfileModel {
     isActive = json['isActive'];
     isVerified = json['isVerified'];
     community = json['community'] != null
-        ? new Community.fromJson(json['community'])
+        ? Community.fromJson(json['community'])
         : null;
     totalPost = json['totalPost'];
     isBlocked = json['isBlocked'];
@@ -44,21 +44,21 @@ class ProfileModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['firstname'] = this.firstname;
-    data['lastname'] = this.lastname;
-    data['avatar'] = this.avatar;
-    data['bio'] = this.bio;
-    data['community_id'] = this.communityId;
-    data['isActive'] = this.isActive;
-    data['isVerified'] = this.isVerified;
-    if (this.community != null) {
-      data['community'] = this.community!.toJson();
+    final Map<String, dynamic> data = {};
+    data['name'] = name;
+    data['firstname'] = firstname;
+    data['lastname'] = lastname;
+    data['avatar'] = avatar;
+    data['bio'] = bio;
+    data['community_id'] = communityId;
+    data['isActive'] = isActive;
+    data['isVerified'] = isVerified;
+    if (community != null) {
+      data['community'] = community!.toJson();
     }
-    data['totalPost'] = this.totalPost;
-    data['isBlocked'] = this.isBlocked;
-    data['isFollowing'] = this.isFollowing;
+    data['totalPost'] = totalPost;
+    data['isBlocked'] = isBlocked;
+    data['isFollowing'] = isFollowing;
     return data;
   }
 }
@@ -92,14 +92,14 @@ class Community {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['zip_code'] = this.zipCode;
-    data['participants'] = this.participants;
-    data['radius'] = this.radius;
-    data['ads_price'] = this.adsPrice;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['name'] = name;
+    data['zip_code'] = zipCode;
+    data['participants'] = participants;
+    data['radius'] = radius;
+    data['ads_price'] = adsPrice;
+    data['created_at'] = createdAt;
     return data;
   }
 }

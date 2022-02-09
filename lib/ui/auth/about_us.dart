@@ -10,7 +10,7 @@ import 'bloc/auth.bloc.dart';
 import 'bloc/auth.state.dart';
 
 class AboutUsScreen extends StatefulWidget {
-  AboutUsScreen({Key? key}) : super(key: key);
+  const AboutUsScreen({Key? key}) : super(key: key);
 
   @override
   _AboutUsScreenState createState() {
@@ -44,7 +44,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       child: Container(
         decoration: primaryBoxDecoration,
         child: Scaffold(
-          appBar: CupertinoNavigationBar(
+          appBar: const CupertinoNavigationBar(
             middle: Text(
               aboutUsText,
               style: TextStyle(
@@ -64,7 +64,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(

@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
+// import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/chat/bloc/chat.bloc.dart';
 import 'package:overheard_flutter_app/ui/chat/bloc/chat.state.dart';
 import 'package:overheard_flutter_app/ui/chat/repository/chat.repository.dart';
 
 class ChatScreen extends StatefulWidget{
+  const ChatScreen({Key? key}) : super(key: key);
+
   @override
   ChatScreenState createState() {
-    // TODO: implement createState
-    return new ChatScreenState();
+    return ChatScreenState();
   }
 
 }
@@ -23,7 +24,7 @@ class ChatScreenState extends State<ChatScreen>{
   @override
   void initState(){
     super.initState();
-    chatBloc = new ChatBloc(chatRepository: ChatRepository());
+    chatBloc = ChatBloc(chatRepository: ChatRepository());
   }
 
   @override

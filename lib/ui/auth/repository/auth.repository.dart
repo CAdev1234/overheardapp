@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/services/restclient.dart';
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -25,29 +25,30 @@ class AuthRepository extends RestApiClient{
 
   Future<Map<dynamic, dynamic>?> signInWithEmail(Map<String, dynamic> credential) async {
     try{
-      final result = await postData("$SIGNIN_URL", credential);
+      final result = await postData(SIGNIN_URL, credential);
 
       if(result!.statusCode == HttpStatus.ok){
         return json.decode(result.body);
       }
     }
     catch(exception){
-      print(exception);
-      return Map();
+      // print(exception);
+      return {};
     }
+    return null;
   }
 
   Future<Map<dynamic, dynamic>> signInWithToken() async {
     try{
-      final result = await postData("$SIGNIN_WITH_TOKEN_URL", Map());
+      final result = await postData(SIGNIN_WITH_TOKEN_URL, {});
       if(result!.statusCode == HttpStatus.ok){
         return json.decode(result.body);
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
-    return Map();
+    return {};
   }
 
   Future<Map<dynamic, dynamic>> signInWithFirebase(Map<String, dynamic> credential) async {
@@ -58,9 +59,9 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
-    return Map();
+    return {};
   }
 
   Future<Map?> signUpWithEmail(Map<String, dynamic> credential) async {
@@ -71,7 +72,7 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
     return null;
   }
@@ -190,7 +191,7 @@ class AuthRepository extends RestApiClient{
   // }
 
   String generateNonce([int length = 32]) {
-    final charset =
+    const charset =
         '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
     final random = Random.secure();
     return List.generate(length, (_) => charset[random.nextInt(charset.length)])

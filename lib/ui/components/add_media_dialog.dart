@@ -7,7 +7,7 @@ WidgetBuilder mediaAddingRequestDialog(BuildContext context){
   return (context) => CupertinoActionSheet(
     actions: [
       CupertinoActionSheetAction(
-        child: Text(
+        child: const Text(
           takePhotoText,
           style: TextStyle(
               color: primaryColor,
@@ -20,7 +20,7 @@ WidgetBuilder mediaAddingRequestDialog(BuildContext context){
         },
       ),
       CupertinoActionSheetAction(
-        child: Text(
+        child: const Text(
           chooseFromLibraryText,
           style: TextStyle(
               color: primaryColor,
@@ -34,7 +34,7 @@ WidgetBuilder mediaAddingRequestDialog(BuildContext context){
       )
     ],
     cancelButton: CupertinoActionSheetAction(
-      child: Text(
+      child: const Text(
         CancelButtonText,
         style: TextStyle(
             color: primaryColor,

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,9 +22,11 @@ import 'package:overheard_flutter_app/utils/ui_elements.dart';
 import 'package:location/location.dart';
 
 class FeedScreen extends StatefulWidget{
+  const FeedScreen({Key? key}) : super(key: key);
+
   @override
   FeedScreenState createState() {
-    return new FeedScreenState();
+    return FeedScreenState();
   }
 
 }
@@ -153,6 +155,7 @@ class FeedScreenState extends State<FeedScreen>{
                             feedBloc.searchKey = value;
                             try
                             {
+                              // ignore: unnecessary_null_comparison
                               if(timer != null) {
                                 timer.cancel();
                               }
@@ -162,7 +165,7 @@ class FeedScreenState extends State<FeedScreen>{
                             }
                             catch(exception)
                             {
-                              print(exception.toString());
+                              // print(exception.toString());
                             }
                           },
                           cursorColor: primaryPlaceholderTextColor,
@@ -173,7 +176,7 @@ class FeedScreenState extends State<FeedScreen>{
                             hintStyle: const TextStyle(color: primaryWhiteTextColor),
                             hintText: searchPlaceholder,
                             prefixIcon: const Icon(Icons.search, color: primaryWhiteTextColor),
-                            suffixIcon: searchController.text.length > 0 ?
+                            suffixIcon: searchController.text.isNotEmpty ?
                             GestureDetector(
                               onTap: (){
                                 searchController.text = "";
@@ -215,7 +218,7 @@ class FeedScreenState extends State<FeedScreen>{
                             prefix: [
                               state is FeedLoadDoneState ?
                               Column(
-                                children: [
+                                children: const [
                                   /// Slider
                                   /*Container(
                                     height: 150,
@@ -364,7 +367,7 @@ class FeedScreenState extends State<FeedScreen>{
                               ):
                               state is NoCommunityState ?
                               Column(
-                                children: [
+                                children: const [
                                   SizedBox.shrink()
                                 ],
                               ):
@@ -377,13 +380,13 @@ class FeedScreenState extends State<FeedScreen>{
                             itemBuilder: (BuildContext context, FeedModel feed) {
                               return FeedItem(parentState: this, feed: feed, userModel: feedBloc.userModel, isDetail: false, isProfile: false,);
                             },
-                            onPageLoading: CupertinoActivityIndicator(),
-                            onLoading: CupertinoActivityIndicator(),
+                            onPageLoading: const CupertinoActivityIndicator(),
+                            onLoading: const CupertinoActivityIndicator(),
                             pageFetch: feedBloc.pageFetch,
                             onError: (dynamic error) => const Center(
                               child: Text('Something Went Wrong'),
                             ),
-                            initialData: <FeedModel>[],
+                            initialData: const <FeedModel>[],
                             onEmpty: state is NoCommunityState ?
                             Container(
                               padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
@@ -399,7 +402,7 @@ class FeedScreenState extends State<FeedScreen>{
                                   ),
                                   GestureDetector(
                                     onTap: () async {
-                                      Location location = new Location();
+                                      Location location = Location();
 
                                       bool _serviceEnabled;
                                       PermissionStatus _permissionGranted;
@@ -425,7 +428,7 @@ class FeedScreenState extends State<FeedScreen>{
 
                                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                         create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
-                                        child: CommunityScreen(),
+                                        child: const CommunityScreen(),
                                       )));
                                     },
                                     child: const Text(

@@ -7,14 +7,14 @@ import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/feed/bloc/feed.bloc.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
+// import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 
 import 'bloc/feed.state.dart';
 
 class LocationScreen extends StatefulWidget {
   Position position;
-  LocationScreen({required this.position});
+  LocationScreen({Key? key, required this.position}) : super(key: key);
   @override
   State<LocationScreen> createState() => LocationScreenState();
 }
@@ -27,14 +27,14 @@ class LocationScreenState extends State<LocationScreen> {
   @override
   void initState(){
     super.initState();
-    feedBloc = new FeedBloc(feedRepository: FeedRepository());
+    feedBloc = FeedBloc(feedRepository: FeedRepository());
   }
 
   @override
   Widget build(BuildContext context) {
     // GeoCoord currentLocation = widget.position != null ? GeoCoord(widget.position.latitude, widget.position.longitude) : GeoCoord(40.688841, -74.044015);
 
-    return new BlocListener(
+    return BlocListener(
       bloc: feedBloc,
       listener: (context, state){
         if(state is FeedLocationGetDoneState){
@@ -48,7 +48,7 @@ class LocationScreenState extends State<LocationScreen> {
         }
       },
       child: Scaffold(
-        appBar: CupertinoNavigationBar(
+        appBar: const CupertinoNavigationBar(
           middle: Text(
             locationPickerAppBarTitle,
             style: TextStyle(
@@ -96,7 +96,7 @@ class LocationScreenState extends State<LocationScreen> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: 40,
-                      margin: EdgeInsets.only(bottom: 20),
+                      margin: const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
                         color: gradientEnd,
                         borderRadius: BorderRadius.circular(10),
@@ -105,7 +105,7 @@ class LocationScreenState extends State<LocationScreen> {
                             color: primaryWhiteTextColor
                         ),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           SaveButtonText,
                           textScaleFactor: 1.0,

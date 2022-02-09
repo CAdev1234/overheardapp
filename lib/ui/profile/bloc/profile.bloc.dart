@@ -126,7 +126,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   }
 
   Stream<ProfileState> communityFetch(FetchCommunityEvent communityFetchEvent) async* {
-    yield CommunityLoadingState();
+    yield const CommunityLoadingState();
     currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     var params = {
       'page': currentPage,
@@ -147,7 +147,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
         currentPage++;
         lastFetchedId = fetchedCommunities.last.id!;
         this.fetchedCommunities = fetchedCommunities;
-        yield CommunityDoneState();
+        yield const CommunityDoneState();
         return;
       }
       else{
@@ -155,14 +155,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
           showToast(result['message'], gradientStart);
         }
         this.fetchedCommunities = [];
-        yield CommunityLoadFailedState();
+        yield const CommunityLoadFailedState();
         return;
       }
     }
     else{
       showToast(result['message'], gradientStart);
       this.fetchedCommunities = [];
-      yield CommunityLoadFailedState();
+      yield const CommunityLoadFailedState();
       return;
     }
   }
@@ -245,13 +245,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   }
 
   Stream<ProfileState> _mapProfileCompleteEventToState(ProfileCompleteEvent profileCompleteEvent) async* {
-    yield ProfileLoadingState();
+    yield const ProfileLoadingState();
 
     if(avatarImageFile != null){
-      var avatar_response = await profileRepository.updateAvatar(avatarImageFile!);
-      if(!avatar_response){
+      var avatarResponse = await profileRepository.updateAvatar(avatarImageFile!);
+      if(!avatarResponse){
         showToast('Avatar Update Failed', gradientStart);
-        yield ProfileUpdateFailedState();
+        yield const ProfileUpdateFailedState();
         return;
       }
     }
@@ -269,16 +269,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
     var response = await profileRepository.completeProfile(profile);
     if(response['status']){
       showToast(response['message'], gradientStart);
-      yield ProfileUpdateDoneState();
+      yield const ProfileUpdateDoneState();
     }
     else{
       showToast(response['message'], gradientStart);
-      yield ProfileUpdateFailedState();
+      yield const ProfileUpdateFailedState();
     }
   }
 
   Stream<ProfileState> _mapProfileFetchToState(ProfileFetchEvent profileFetchEvent) async* {
-    yield ProfileLoadingState();
+    yield const ProfileLoadingState();
     var params = {
       'user_id': profileFetchEvent.user_id
     };
@@ -293,7 +293,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
     }
     else{
       showToast('Getting Profile Failed', gradientStart);
-      yield ProfileLoadFailedState();
+      yield const ProfileLoadFailedState();
       return;
     }
   }
@@ -309,21 +309,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
         if(following){
           followText = unfollowButtonText;
           initState();
-          yield ProfileFollowingState();
+          yield const ProfileFollowingState();
           await Future.delayed(
             const Duration(milliseconds: 100),
           );
-          yield ProfileLoadDoneState();
+          yield const ProfileLoadDoneState();
           return;
         }
         else{
           followText = followButtonText;
           initState();
-          yield ProfileFollowingState();
+          yield const ProfileFollowingState();
           await Future.delayed(
             const Duration(milliseconds: 100),
           );
-          yield ProfileLoadDoneState();
+          yield const ProfileLoadDoneState();
           return;
         }
       }
@@ -347,12 +347,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
       if(result['status']){
         bool blocked = result['isBlocked'];
         if(!blocked){
-          yield ProfileLoadingState();
+          yield const ProfileLoadingState();
           resetBlockedUser();
           await Future.delayed(
             const Duration(milliseconds: 100),
           );
-          yield ProfileLoadDoneState();
+          yield const ProfileLoadDoneState();
           return;
         }
       }
@@ -368,7 +368,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   }
 
   Stream<ProfileState> _mapResetEventToState(CommunityResetEvent communityResetEvent) async* {
-    yield CommunityLoadingState();
+    yield const CommunityLoadingState();
     var params = {
       'page': currentPage,
       'pageCount': communityPageCount,
@@ -377,29 +377,29 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
     var result = await profileRepository.fetchCommunity(params);
     if(result['status']){
       userModel = UserModel.fromJson(result['user']);
-      yield CommunityDoneState();
+      yield const CommunityDoneState();
     }
     else{
-      yield CommunityLoadFailedState();
+      yield const CommunityLoadFailedState();
     }
   }
 
   Stream<ProfileState> _mapConfirmEventToState(CommunityConfirmEvent communityConfirmEvent) async* {
-    yield CommunityConfirmLoadingState();
+    yield const CommunityConfirmLoadingState();
     var params = {
       'community_id': joinedCommunity
     };
     var result = await profileRepository.confirmCommunity(params);
     if(result['status']){
-      yield CommunityConfirmedState();
+      yield const CommunityConfirmedState();
     }
     else{
-      yield CommunityConfirmFailedState();
+      yield const CommunityConfirmFailedState();
     }
   }
 
   Stream<ProfileState> _mapFollowerFetchToState(FollowerFetchEvent fetchEvent) async* {
-    yield ProfileLoadingState();
+    yield const ProfileLoadingState();
     if(fetchEvent.selectedIndex == 0){
       resetFollowr();
     }
@@ -409,21 +409,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
     await Future.delayed(
       const Duration(milliseconds: 100),
     );
-    yield ProfileLoadDoneState();
+    yield const ProfileLoadDoneState();
   }
 
   Stream<ProfileState> _mapFetchBlockedUserToState(FetchBlockedUsersEvent fetchBlockedUsersEvent) async* {
-    yield ProfileLoadingState();
+    yield const ProfileLoadingState();
     resetBlockedUser();
     await Future.delayed(
       const Duration(milliseconds: 100),
     );
-    yield ProfileLoadDoneState();
+    yield const ProfileLoadDoneState();
   }
 
   Stream<ProfileState> _mapPasswordChangeToState(ChangePasswordEvent changePasswordEvent) async* {
 
-    yield PasswordChangingState();
+    yield const PasswordChangingState();
 
     var params = {
       'old_password': changePasswordEvent.oldPassword,
@@ -435,22 +435,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
       if(result['status']){
         if(result['changed']){
           showToast(passwordChangedText, gradientStart);
-          yield PasswordChangedState();
+          yield const PasswordChangedState();
           return;
         }
         else{
           showToast(result['message'], gradientStart);
-          yield PasswordChangedState();
+          yield const PasswordChangedState();
           return;
         }
       }
       else{
-        yield PasswordChangeFailedState();
+        yield const PasswordChangeFailedState();
         return;
       }
     }
     catch(exception){
-      yield PasswordChangeFailedState();
+      yield const PasswordChangeFailedState();
     }
   }
 }

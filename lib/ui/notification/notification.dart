@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
+// import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/notification/bloc/notification.bloc.dart';
 import 'package:overheard_flutter_app/ui/notification/repository/notification.repository.dart';
 
 import 'bloc/notification.state.dart';
 
 class NotificationScreen extends StatefulWidget{
+  const NotificationScreen({Key? key}) : super(key: key);
+
   @override
   NotificationScreenState createState() {
-    return new NotificationScreenState();
+    return NotificationScreenState();
   }
 
 }
@@ -23,7 +25,7 @@ class NotificationScreenState extends State<NotificationScreen>{
   @override
   void initState(){
     super.initState();
-    notificationBloc = new NotificationBloc(notificationRepository: NotificationRepository());
+    notificationBloc = NotificationBloc(notificationRepository: NotificationRepository());
   }
 
   @override

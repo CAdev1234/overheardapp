@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,13 +12,13 @@ import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 import 'package:overheard_flutter_app/ui/feed/widgets/comment_item.dart';
 import 'package:overheard_flutter_app/ui/feed/widgets/feed_item.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
-import 'package:timeago/timeago.dart' as timeago;
+// import 'package:timeago/timeago.dart' as timeago;
 import 'bloc/feed.bloc.dart';
 import 'bloc/feed.state.dart';
 
 class PostDetailScreen extends StatefulWidget{
   final int feedId;
-  PostDetailScreen({required this.feedId});
+  const PostDetailScreen({Key? key, required this.feedId}) : super(key: key);
   @override
   PostDetailScreenState createState() {
     return PostDetailScreenState();
@@ -70,7 +70,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                   children: [
                     Expanded(
                       child: state is FeedLoadingState || state is FeedCommentDoneState || state is FeedCommentingState?
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: const Center(
@@ -87,7 +87,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                               //feedDetailItem(context, state.userModel, state.feed),
                               FeedItem(feed: state.feed!, userModel: state.userModel!, isDetail: true, isProfile: true,),
                               /// Divider
-                              state.feed!.comments.length > 0 ?
+                              state.feed!.comments.isNotEmpty ?
                               Container(
                                 height: 1,
                                 decoration: BoxDecoration(
@@ -96,7 +96,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                               ):
                               const SizedBox.shrink(),
                               /// Comments
-                              state.feed!.comments.length > 0 ?
+                              state.feed!.comments.isNotEmpty ?
                               Container(
                                 decoration: BoxDecoration(
                                     color: primaryWhiteTextColor.withOpacity(0.2)
@@ -149,7 +149,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                           ),
                         ),
                       ) :
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height,
                         child: const Center(
@@ -164,7 +164,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 60,
                       child: Row(
@@ -222,7 +222,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                           IconButton(
                             onPressed: (){
                               if(state is FeedLoadDoneState){
-                                if(commentController.text == null || commentController.text == ""){
+                                if(commentController.text == ""){
                                   showToast("Comment has not be empty", gradientStart);
                                   return;
                                 }

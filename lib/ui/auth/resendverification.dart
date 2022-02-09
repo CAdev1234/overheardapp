@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
@@ -14,9 +14,11 @@ import 'package:overheard_flutter_app/utils/ui_elements.dart';
 import 'bloc/auth.state.dart';
 
 class ResendVerificationScreen extends StatefulWidget{
+  const ResendVerificationScreen({Key? key}) : super(key: key);
+
   @override
   ResendVerificationScreenState createState() {
-    return new ResendVerificationScreenState();
+    return ResendVerificationScreenState();
   }
 
 }
@@ -106,7 +108,7 @@ class ResendVerificationScreenState extends State<ResendVerificationScreen>{
                         ),
                       GestureDetector(
                         onTap: (){
-                          if(emailController.text == null || emailController.text == ''){
+                          if(emailController.text == ''){
                             showToast(emailEmptyErrorText, gradientStart);
                             return;
                           }

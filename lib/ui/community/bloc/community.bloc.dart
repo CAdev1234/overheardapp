@@ -103,24 +103,24 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
         }
         fetchedCommunities = (result['communities'] as List).map((community) => CommunityModel.fromJson(community)).toList();
         this.fetchedCommunities = fetchedCommunities;
-        yield CommunityDoneState();
+        yield const CommunityDoneState();
         return;
       }
       else{
         showToast(result['message'], gradientStart);
         this.fetchedCommunities = [];
-        yield CommunityLoadFailedState();
+        yield const CommunityLoadFailedState();
         return;
       }
     }
     catch(exception) {
-      yield CommunityLoadFailedState();
+      yield const CommunityLoadFailedState();
       return;
     }
   }
 
   Stream<CommunityState> _mapResetEventToState(CommunityResetEvent communityResetEvent) async* {
-    yield CommunityLoadingState();
+    yield const CommunityLoadingState();
     var params = {
       'page': currentPage,
       'pageCount': communityPageCount,
@@ -132,29 +132,29 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
     if(result['status']){
       userModel = UserModel.fromJson(result['user']);
       fetchedCommunities = (result['communities'] as List).map((community) => CommunityModel.fromJson(community)).toList();
-      yield CommunityDoneState();
+      yield const CommunityDoneState();
     }
     else{
-      yield CommunityLoadFailedState();
+      yield const CommunityLoadFailedState();
     }
   }
 
   Stream<CommunityState> _mapConfirmEventToState(CommunityConfirmEvent communityConfirmEvent) async* {
-    yield CommunityConfirmLoadingState();
+    yield const CommunityConfirmLoadingState();
     var params = {
       'community_id': joinedCommunity
     };
     var result = await communityRepository.confirmCommunity(params);
     if(result['status']){
-      yield CommunityConfirmedState();
+      yield const CommunityConfirmedState();
     }
     else{
-      yield CommunityConfirmFailedState();
+      yield const CommunityConfirmFailedState();
     }
   }
 
   Stream<CommunityState> _mapCommunitySubmitToState(CommunitySubmitEvent submitEvent) async* {
-    yield CommunityLoadingState();
+    yield const CommunityLoadingState();
     var params = {
       'lat': submitEvent.lat,
       'lng': submitEvent.lng,
@@ -164,17 +164,17 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
       var result = await communityRepository.submitCommunity(params);
       if(result['status']){
         showToast(result['message'], gradientStart, gravity: ToastGravity.CENTER);
-        yield CommunityDoneState();
+        yield const CommunityDoneState();
         return;
       }
       else{
-        yield CommunityLoadFailedState();
+        yield const CommunityLoadFailedState();
         showToast(result['message'], gradientStart, gravity: ToastGravity.CENTER);
         return;
       }
     }
     catch(exception){
-      yield CommunityLoadFailedState();
+      yield const CommunityLoadFailedState();
       showToast('Community Submit Failed', gradientStart, gravity: ToastGravity.CENTER);
       return;
     }

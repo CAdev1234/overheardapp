@@ -6,7 +6,7 @@ import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/auth/about_us.dart';
 import 'package:overheard_flutter_app/ui/auth/bloc/auth.bloc.dart';
-import 'package:overheard_flutter_app/ui/auth/faq.dart';
+// import 'package:overheard_flutter_app/ui/auth/faq.dart';
 import 'package:overheard_flutter_app/ui/auth/privacypolicy.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/ui/auth/signin.dart';
@@ -19,9 +19,11 @@ import 'bloc/profile.bloc.dart';
 import 'bloc/profile.state.dart';
 
 class SettingScreen extends StatefulWidget{
+  const SettingScreen({Key? key}) : super(key: key);
+
   @override
   SettingScreenState createState() {
-    return new SettingScreenState();
+    return SettingScreenState();
   }
 
 }
@@ -31,7 +33,7 @@ class SettingScreenState extends State<SettingScreen>{
   @override
   void initState(){
     super.initState();
-    profileBloc = new ProfileBloc(profileRepository: ProfileRepository());
+    profileBloc = ProfileBloc(profileRepository: ProfileRepository());
   }
 
   @override
@@ -91,7 +93,7 @@ class SettingScreenState extends State<SettingScreen>{
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                               create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                              child: ChangePasswordScreen(),
+                              child: const ChangePasswordScreen(),
                             )));
                           },
                           child: Container(
@@ -168,7 +170,7 @@ class SettingScreenState extends State<SettingScreen>{
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                               create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                              child: BlockedUserScreen(),
+                              child: const BlockedUserScreen(),
                             )));
                           },
                           child: Container(
@@ -305,7 +307,7 @@ class SettingScreenState extends State<SettingScreen>{
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                               create: (context) => AuthBloc(authRepository: AuthRepository()),
-                              child: TermsOfUseScreen(),
+                              child: const TermsOfUseScreen(),
                             )));
                           },
                           child: Container(
@@ -345,7 +347,7 @@ class SettingScreenState extends State<SettingScreen>{
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                               create: (context) => AuthBloc(authRepository: AuthRepository()),
-                              child: PrivacyPolicyScreen(),
+                              child: const PrivacyPolicyScreen(),
                             )));
                           },
                           child: Container(
@@ -385,7 +387,7 @@ class SettingScreenState extends State<SettingScreen>{
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                               create: (context) => AuthBloc(authRepository: AuthRepository()),
-                              child: AboutUsScreen(),
+                              child: const AboutUsScreen(),
                             )));
                           },
                           child: Container(
@@ -510,7 +512,7 @@ class SettingScreenState extends State<SettingScreen>{
                                   MaterialPageRoute(
                                       builder: (context) => BlocProvider(
                                         create: (context) => AuthBloc(authRepository: AuthRepository()),
-                                        child: SignInScreen(),
+                                        child: const SignInScreen(),
                                       )
                                   ),
                                   ModalRoute.withName("/Signin")

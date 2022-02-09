@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
+// import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
-import 'package:overheard_flutter_app/ui/chat/bloc/chat.bloc.dart';
-import 'package:overheard_flutter_app/ui/chat/chat.dart';
-import 'package:overheard_flutter_app/ui/chat/repository/chat.repository.dart';
+// import 'package:overheard_flutter_app/ui/chat/bloc/chat.bloc.dart';
+// import 'package:overheard_flutter_app/ui/chat/chat.dart';
+// import 'package:overheard_flutter_app/ui/chat/repository/chat.repository.dart';
 import 'package:overheard_flutter_app/ui/feed/bloc/feed.bloc.dart';
 import 'package:overheard_flutter_app/ui/feed/create.dart';
 import 'package:overheard_flutter_app/ui/feed/feed.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 import 'package:overheard_flutter_app/ui/home/bloc/home.bloc.dart';
 import 'package:overheard_flutter_app/ui/home/repository/home.repository.dart';
-import 'package:overheard_flutter_app/ui/notification/bloc/notification.bloc.dart';
-import 'package:overheard_flutter_app/ui/notification/notification.dart';
-import 'package:overheard_flutter_app/ui/notification/repository/notification.repository.dart';
+// import 'package:overheard_flutter_app/ui/notification/bloc/notification.bloc.dart';
+// import 'package:overheard_flutter_app/ui/notification/notification.dart';
+// import 'package:overheard_flutter_app/ui/notification/repository/notification.repository.dart';
 import 'package:overheard_flutter_app/ui/profile/bloc/profile.bloc.dart';
 import 'package:overheard_flutter_app/ui/profile/profile.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
@@ -26,10 +26,11 @@ import 'bloc/home.state.dart';
 
 class HomeScreen extends StatefulWidget{
   final UserModel? userModel;
-  HomeScreen({this.userModel});
+  // ignore: use_key_in_widget_constructors
+  const HomeScreen({this.userModel});
   @override
   HomeScreenState createState() {
-    return new HomeScreenState();
+    return HomeScreenState();
   }
 
 }
@@ -53,7 +54,7 @@ class HomeScreenState extends State<HomeScreen>
     pages.add(
         BlocProvider(
           create: (context) => FeedBloc(feedRepository: FeedRepository()),
-          child: FeedScreen(),
+          child: const FeedScreen(),
         )
     );
     /// Adding Chat UI
@@ -67,7 +68,7 @@ class HomeScreenState extends State<HomeScreen>
     pages.add(
         BlocProvider(
           create: (context) => FeedBloc(feedRepository: FeedRepository()),
-          child: CreateScreen(),
+          child: const CreateScreen(),
         )
     );
     /// Adding Notification UI
@@ -131,7 +132,7 @@ class HomeScreenState extends State<HomeScreen>
                   HomeScreenState state = this;
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                     create: (context) => FeedBloc(feedRepository: FeedRepository()),
-                    child: CreateScreen(),
+                    child: const CreateScreen(),
                   )));
                   setState(() {
                     tabIndex = oldIndex;

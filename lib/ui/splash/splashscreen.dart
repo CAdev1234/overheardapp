@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -26,8 +26,10 @@ import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget{
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
-  SplashScreenState createState() => new SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
 class SplashScreenState extends State<SplashScreen>{
@@ -39,18 +41,18 @@ class SplashScreenState extends State<SplashScreen>{
   void initState(){
     super.initState();
     authBloc = AuthBloc(authRepository: AuthRepository());
-    authBloc.add(SignInWithTokenEvent());
+    authBloc.add(const SignInWithTokenEvent());
     startTime();
   }
 
   startTime() async {
-    var _duration = Duration(seconds: 5);
+    var _duration = const Duration(seconds: 5);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if(prefs.getBool(isFirstLogin) != null && prefs.getBool(isFirstLogin)!){
-      timer = new Timer(_duration, navigationToIntro);
+      timer = Timer(_duration, navigationToIntro);
     }
     else{
-      timer = new Timer(_duration, navigationToSignIn);
+      timer = Timer(_duration, navigationToSignIn);
     }
     return timer;
   }
@@ -58,12 +60,12 @@ class SplashScreenState extends State<SplashScreen>{
   void navigationToSignIn() {
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
       create: (context) => AuthBloc(authRepository: AuthRepository()),
-      child: SignInScreen(),
+      child: const SignInScreen(),
     )));
   }
 
   void navigationToIntro() {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => SignInScreen()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => const SignInScreen()));
   }
 
   @override
@@ -83,7 +85,7 @@ class SplashScreenState extends State<SplashScreen>{
             timer.cancel();
             if(state.userModel.community_id == null){
 
-              Location location = new Location();
+              Location location = Location();
 
               bool _serviceEnabled;
               PermissionStatus _permissionGranted;
@@ -109,13 +111,13 @@ class SplashScreenState extends State<SplashScreen>{
 
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                 create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
-                child: CommunityScreen(),
+                child: const CommunityScreen(),
               )));
             }
             else{
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                 create: (context) => HomeBloc(homeRepository: HomeRepository()),
-                child: HomeScreen(),
+                child: const HomeScreen(),
               )));
             }
           }
@@ -125,7 +127,7 @@ class SplashScreenState extends State<SplashScreen>{
         decoration: primaryBoxDecoration,
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: Container(
+          body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Center(
               child: Column(
@@ -136,13 +138,13 @@ class SplashScreenState extends State<SplashScreen>{
                     height: MediaQuery.of(context).size.width * 0.4,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                             image: AssetImage('assets/images/logo.png',),
                             fit: BoxFit.cover
                         )
                     ),
                   ),
-                  Text(
+                  const Text(
                     appName,
                     style: TextStyle(
                         color: primaryWhiteTextColor,

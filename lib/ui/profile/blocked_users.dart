@@ -3,7 +3,7 @@ import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
@@ -14,12 +14,14 @@ import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.d
 
 import 'bloc/profile.bloc.dart';
 import 'bloc/profile.state.dart';
-import 'models/FollowModel.dart';
+// import 'models/FollowModel.dart';
 
 class BlockedUserScreen extends StatefulWidget{
+  const BlockedUserScreen({Key? key}) : super(key: key);
+
   @override
   BlockedUserScreenState createState() {
-    return new BlockedUserScreenState();
+    return BlockedUserScreenState();
   }
 
 }
@@ -30,7 +32,7 @@ class BlockedUserScreenState extends State<BlockedUserScreen>{
   @override
   void initState(){
     super.initState();
-    profileBloc = new ProfileBloc(profileRepository: ProfileRepository());
+    profileBloc = ProfileBloc(profileRepository: ProfileRepository());
   }
 
   @override
@@ -75,7 +77,7 @@ class BlockedUserScreenState extends State<BlockedUserScreen>{
                       ):
                       PaginationList<BlockedModel>(
                         shrinkWrap: true,
-                        prefix: [],
+                        prefix: const [],
                         physics: const BouncingScrollPhysics(),
                         padding: const EdgeInsets.only(
                           left: 5,
@@ -94,12 +96,12 @@ class BlockedUserScreenState extends State<BlockedUserScreen>{
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   /// Avatar
-                                  Container(
+                                  SizedBox(
                                     width: 50,
                                     height: 50,
                                     child: CircularProfileAvatar(
                                       '',
-                                      child: user.avatar == null || user.avatar!.length == 0 ? Image.asset(
+                                      child: user.avatar == null || user.avatar!.isEmpty ? Image.asset(
                                         'assets/images/user_avatar.png',
                                       ):
                                       CachedNetworkImage(
@@ -127,7 +129,7 @@ class BlockedUserScreenState extends State<BlockedUserScreen>{
                                   Expanded(
                                     child: Column(
                                       children: [
-                                        Container(
+                                        SizedBox(
                                           width: MediaQuery.of(context).size.width - 150,
                                           child: Row(
                                             mainAxisAlignment: MainAxisAlignment.start,
@@ -190,7 +192,7 @@ class BlockedUserScreenState extends State<BlockedUserScreen>{
                         initialData: const <BlockedModel>[],
                         onLoading: const CupertinoActivityIndicator(),
                         onPageLoading: const CupertinoActivityIndicator(),
-                        onEmpty: Container(
+                        onEmpty: SizedBox(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height,
                           child: const Center(

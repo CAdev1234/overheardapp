@@ -1,25 +1,25 @@
 import 'dart:async';
 
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:faker/faker.dart';
+// import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+// import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/numericalset.dart';
+// import 'package:overheard_flutter_app/constants/numericalset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/community/bloc/community.bloc.dart';
 import 'package:overheard_flutter_app/ui/community/bloc/community.event.dart';
 import 'package:overheard_flutter_app/ui/community/bloc/community.state.dart';
-import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
+// import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
 import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
 import 'package:overheard_flutter_app/ui/community/submit_community.dart';
-import 'package:overheard_flutter_app/ui/components/pagination.dart';
+// import 'package:overheard_flutter_app/ui/components/pagination.dart';
 import 'package:overheard_flutter_app/ui/home/bloc/home.bloc.dart';
 import 'package:overheard_flutter_app/ui/home/home.dart';
 import 'package:overheard_flutter_app/ui/home/repository/home.repository.dart';
@@ -27,9 +27,11 @@ import 'package:overheard_flutter_app/utils/ui_elements.dart';
 import 'package:location/location.dart';
 
 class CommunityScreen extends StatefulWidget{
+  const CommunityScreen({Key? key}) : super(key: key);
+
   @override
   CommunityScreenState createState() {
-    return new CommunityScreenState();
+    return CommunityScreenState();
   }
 
 }
@@ -42,7 +44,7 @@ class CommunityScreenState extends State<CommunityScreen>{
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late Timer timer;
 
-  Set<Marker> markers = Set();
+  Set<Marker> markers = {};
   late BitmapDescriptor pinLocationIcon;
   late BitmapDescriptor pinSelectedLocationIcon;
 
@@ -50,17 +52,17 @@ class CommunityScreenState extends State<CommunityScreen>{
   void initState(){
     super.initState();
     setCustomMapPin();
-    communityBloc = new CommunityBloc(communityRepository: CommunityRepository());
-    communityBloc..add(FetchCommunityEvent());
-    searchController = new TextEditingController();
+    communityBloc = CommunityBloc(communityRepository: CommunityRepository());
+    communityBloc.add(const FetchCommunityEvent());
+    searchController = TextEditingController();
   }
 
   void setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
+        const ImageConfiguration(devicePixelRatio: 2.5),
         'assets/images/community_marker.png');
     pinSelectedLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
+        const ImageConfiguration(devicePixelRatio: 2.5),
         'assets/images/community_marker_selected.png');
   }
 
@@ -72,7 +74,7 @@ class CommunityScreenState extends State<CommunityScreen>{
       listener: (context, state){
         if(state is CommunityDoneState) {
           markers.clear();
-          communityBloc.fetchedCommunities.forEach((community) {
+          for (var community in communityBloc.fetchedCommunities) {
             markers.add(
                 Marker(
                   markerId: MarkerId(community.name as String),
@@ -90,12 +92,12 @@ class CommunityScreenState extends State<CommunityScreen>{
                   }
                 )
             );
-          });
+          }
         }
         else if(state is CommunityConfirmedState){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
             create: (context) => HomeBloc(homeRepository: HomeRepository()),
-            child: HomeScreen(),
+            child: const HomeScreen(),
           )));
         }
         else if(state is CommunityConfirmFailedState){
@@ -107,7 +109,7 @@ class CommunityScreenState extends State<CommunityScreen>{
         child: Scaffold(
           key: _scaffoldKey,
           appBar: CupertinoNavigationBar(
-            middle: Text(
+            middle: const Text(
               nearestCommunityAppBarTitle,
               style: TextStyle(
                   fontSize: appBarTitleFontSize,
@@ -119,10 +121,10 @@ class CommunityScreenState extends State<CommunityScreen>{
               onTap: (){
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                   create: (context) => HomeBloc(homeRepository: HomeRepository()),
-                  child: HomeScreen(),
+                  child: const HomeScreen(),
                 )));
               },
-              child: Container(
+              child: const SizedBox(
                 width: 50,
                 child: Align(
                   alignment: Alignment.centerRight,
@@ -147,7 +149,7 @@ class CommunityScreenState extends State<CommunityScreen>{
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                         height: 10
                     ),
                     /// Search Form
@@ -162,7 +164,7 @@ class CommunityScreenState extends State<CommunityScreen>{
                         ),
                         child: Theme(
                           data: Theme.of(context).copyWith(
-                              textSelectionHandleColor: Colors.transparent,
+                              // textSelectionHandleColor: Colors.transparent,
                               primaryColor: Colors.transparent,
                               scaffoldBackgroundColor:Colors.transparent,
                               bottomAppBarColor: Colors.transparent
@@ -177,13 +179,13 @@ class CommunityScreenState extends State<CommunityScreen>{
                                 if(timer != null) {
                                   timer.cancel();
                                 }
-                                timer = new Timer(new Duration(seconds: 1), () => {
-                                  communityBloc..add(CommunityResetEvent())
+                                timer = Timer(const Duration(seconds: 1), () => {
+                                  communityBloc.add(const CommunityResetEvent())
                                 });
                               }
                               catch(exception)
                               {
-                                print(exception.toString());
+                                // print(exception.toString());
                               }
                             },
                             cursorColor: primaryPlaceholderTextColor,
@@ -191,35 +193,35 @@ class CommunityScreenState extends State<CommunityScreen>{
                             keyboardType: TextInputType.text,
                             decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintStyle: TextStyle(color: primaryWhiteTextColor),
+                              hintStyle: const TextStyle(color: primaryWhiteTextColor),
                               hintText: searchPlaceholder,
-                              prefixIcon: Icon(Icons.search, color: primaryWhiteTextColor),
-                              suffixIcon: searchController.text.length > 0 ?
+                              prefixIcon: const Icon(Icons.search, color: primaryWhiteTextColor),
+                              suffixIcon: searchController.text.isNotEmpty ?
                               GestureDetector(
                                 onTap: (){
                                   searchController.text = "";
                                   communityBloc.resetBloc();
                                   communityBloc.searchKey = searchController.text;
-                                  communityBloc..add(CommunityResetEvent());
+                                  communityBloc.add(const CommunityResetEvent());
                                 },
-                                child: Icon(Icons.cancel, color: primaryWhiteTextColor),
+                                child: const Icon(Icons.cancel, color: primaryWhiteTextColor),
                               ):
-                              SizedBox.shrink(),
-                              contentPadding: EdgeInsets.only(
+                              const SizedBox.shrink(),
+                              contentPadding: const EdgeInsets.only(
                                 bottom: 40 / 2,  // HERE THE IMPORTANT PART
                               ),
                               enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                 ),
                               ),
                               focusedBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Colors.transparent,
                                 ),
                               ),
                             ),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: primaryWhiteTextColor,
                                 fontSize: primaryTextFieldFontSize
                             ),
@@ -227,11 +229,11 @@ class CommunityScreenState extends State<CommunityScreen>{
                         ),
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    const SizedBox(height: 10,),
                     /// Community List
                     Expanded(
                       child: state is CommunityLoadingState ?
-                      Center(child: CupertinoActivityIndicator()) :
+                      const Center(child: CupertinoActivityIndicator()) :
                       GoogleMap(
                         onTap: (location) async {
                           setState(() {
@@ -239,7 +241,7 @@ class CommunityScreenState extends State<CommunityScreen>{
                           });
                         },
                         initialCameraPosition: communityBloc.currentPosition == null ?
-                          CameraPosition(target: LatLng(40.688841, -74.044015), zoom: 11) :
+                          const CameraPosition(target: LatLng(40.688841, -74.044015), zoom: 11) :
                           CameraPosition(target: LatLng(communityBloc.currentPosition.latitude, communityBloc.currentPosition.longitude), zoom: 11),
                         mapType: MapType.normal,
                         markers: markers,
@@ -363,14 +365,14 @@ class CommunityScreenState extends State<CommunityScreen>{
           bottomNavigationBar: BlocBuilder<CommunityBloc, CommunityState>(
             bloc: communityBloc,
             builder: (context, state){
-              return Container(
+              return SizedBox(
                 height: 120,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
                       onTap: () async {
-                        Location location = new Location();
+                        Location location = Location();
 
                         bool _serviceEnabled;
                         PermissionStatus _permissionGranted;
@@ -394,14 +396,14 @@ class CommunityScreenState extends State<CommunityScreen>{
                           }
                         }
                         if(communityBloc.joinedCommunity != null){
-                          communityBloc..add(CommunityConfirmEvent());
+                          communityBloc.add(const CommunityConfirmEvent());
                         }
                         else{
                           showToast(joinedCommunityEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                         }
                       },
                       child: Container(
-                        padding: EdgeInsets.only(bottom: 10, top: 10),
+                        padding: const EdgeInsets.only(bottom: 10, top: 10),
                         margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2, right: MediaQuery.of(context).size.width * 0.2, bottom: 10),
                         width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
@@ -412,8 +414,8 @@ class CommunityScreenState extends State<CommunityScreen>{
                             )
                         ),
                         child: state is CommunityConfirmLoadingState ?
-                          CupertinoActivityIndicator():
-                          Text(
+                          const CupertinoActivityIndicator():
+                          const Text(
                             confirmButtonText,
                             textScaleFactor: 1.0,
                             textAlign: TextAlign.center,
@@ -428,11 +430,11 @@ class CommunityScreenState extends State<CommunityScreen>{
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                           create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
-                          child: SubmitCommunityScreen(),
+                          child: const SubmitCommunityScreen(),
                         )));
                       },
                       child: Container(
-                        padding: EdgeInsets.only(bottom: 10, top: 10),
+                        padding: const EdgeInsets.only(bottom: 10, top: 10),
                         margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2, right: MediaQuery.of(context).size.width * 0.2, bottom: 10),
                         width: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
@@ -442,7 +444,7 @@ class CommunityScreenState extends State<CommunityScreen>{
                                 color: primaryWhiteTextColor
                             )
                         ),
-                        child: Text(
+                        child: const Text(
                           submitCommunityButtonText,
                           textScaleFactor: 1.0,
                           textAlign: TextAlign.center,

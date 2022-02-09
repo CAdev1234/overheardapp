@@ -14,34 +14,34 @@ class CommunityRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
-    return Map();
+    return {};
   }
 
   Future<Map<dynamic, dynamic>> confirmCommunity(Map<dynamic, dynamic> params) async {
     try{
-      final result = await postData("$CONFIRM_COMMUNITY_URL", params as Map<String, dynamic>);
+      final result = await postData(CONFIRM_COMMUNITY_URL, params as Map<String, dynamic>);
       if(result!.statusCode == HttpStatus.ok){
         return json.decode(result.body);
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
-    return Map();
+    return {};
   }
 
   Future<Map<dynamic, dynamic>> submitCommunity(Map<dynamic, dynamic> params) async {
     try{
-      final result = await postData("$SUMBIT_COMMUNITY_URL", params as Map<String, dynamic>);
+      final result = await postData(SUMBIT_COMMUNITY_URL, params as Map<String, dynamic>);
       if(result!.statusCode == HttpStatus.ok){
         return json.decode(result.body);
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
-    return Map();
+    return {};
   }
 }

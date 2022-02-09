@@ -1,16 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 abstract class HomeState extends Equatable{
-  HomeState();
+  const HomeState();
 }
 
 class TabIndexState extends HomeState {
   final int tabIndex;
 
-  TabIndexState({required this.tabIndex});
+  const TabIndexState({required this.tabIndex});
 
   @override
-  // TODO: implement props
   List<Object> get props => [];
 
   @override

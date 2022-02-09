@@ -22,10 +22,10 @@ import 'package:location/location.dart';
 
 class CompleteProfileScreen extends StatefulWidget{
   final UserModel user;
-  CompleteProfileScreen({required this.user});
+  const CompleteProfileScreen({Key? key, required this.user}) : super(key: key);
   @override
   CompleteProfileScreenState createState() {
-    return new CompleteProfileScreenState();
+    return CompleteProfileScreenState();
   }
 
 }
@@ -82,7 +82,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
 
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
             create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
-            child: CommunityScreen(),
+            child: const CommunityScreen(),
           )));
         }
         else if(state is ProfileUpdateFailedState){
@@ -178,7 +178,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                       },
                                     ),
                                     CupertinoActionSheetAction(
-                                      child: Text(
+                                      child: const Text(
                                           chooseFromLibraryText,
                                           style: TextStyle(
                                               color: primaryColor,
@@ -207,7 +207,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                     )
                                   ],
                                   cancelButton: CupertinoActionSheetAction(
-                                    child: Text(
+                                    child: const Text(
                                         CancelButtonText,
                                         style: TextStyle(
                                             color: primaryColor,
@@ -222,7 +222,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                 )
                             );
                           },
-                          child: Text(
+                          child: const Text(
                               uploadPhotoText,
                               style: TextStyle(
                                   color: primaryWhiteTextColor,
@@ -231,18 +231,18 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                               textScaleFactor: 1.0,
                           ),
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white,
+                                // accentColor: Colors.white,
                                 dividerColor: Colors.white,
                                 hintColor: Colors.white
                             ),
@@ -251,14 +251,14 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: firstNamePlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -266,16 +266,16 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white,
+                                // accentColor: Colors.white,
                                 dividerColor: Colors.white,
                                 hintColor: Colors.white
                             ),
@@ -284,14 +284,14 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: lastNamePlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -299,16 +299,16 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white,
+                                // accentColor: Colors.white,
                                 dividerColor: Colors.white,
                                 hintColor: Colors.white
                             ),
@@ -317,14 +317,14 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: bioPlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -332,10 +332,10 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 15, right: 15),
+                          padding: const EdgeInsets.only(left: 15, right: 15),
                           child: MergeSemantics(
                             child: ListTile(
-                              title: Text(
+                              title: const Text(
                                   verifiedReporterRequestText,
                                   style: TextStyle(
                                     color: primaryWhiteTextColor,
@@ -375,16 +375,16 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
             builder: (context, state){
               return GestureDetector(
                 onTap: (){
-                  if(firstNameController.text == null || firstNameController.text == ""){
-                    Scaffold.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
+                  if(firstNameController.text == ""){
+                    ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
                     return;
                   }
-                  if(lastNameController.text == null || lastNameController.text == ""){
-                    Scaffold.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
+                  if(lastNameController.text == ""){
+                    ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
                     return;
                   }
-                  if(bioController.text == null || bioController.text == ""){
-                    Scaffold.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
+                  if(bioController.text == ""){
+                    ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
                     return;
                   }
 

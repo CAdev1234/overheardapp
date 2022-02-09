@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
+// import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
 import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
 import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
@@ -16,7 +16,8 @@ import 'bloc/feed.state.dart';
 
 class ReportScreen extends StatefulWidget{
   final FeedModel feed;
-  ReportScreen({required this.feed});
+  // ignore: use_key_in_widget_constructors
+  const ReportScreen({Key? key, required this.feed});
   @override
   ReportScreenState createState() {
     return ReportScreenState();
@@ -32,9 +33,9 @@ class ReportScreenState extends State<ReportScreen>{
   @override
   void initState(){
     super.initState();
-    feedBloc = new FeedBloc(feedRepository: FeedRepository());
-    reasonController = new TextEditingController();
-    contentController = new TextEditingController();
+    feedBloc = FeedBloc(feedRepository: FeedRepository());
+    reasonController = TextEditingController();
+    contentController = TextEditingController();
   }
 
   @override
@@ -74,11 +75,11 @@ class ReportScreenState extends State<ReportScreen>{
             ),
             trailing: GestureDetector(
               onTap: (){
-                if(reasonController.text == null || reasonController.text == ""){
+                if(reasonController.text == ""){
                   showToast(reportReasonEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
                   return;
                 }
-                if(contentController.text == null || contentController.text == ""){
+                if(contentController.text == ""){
                   showToast(reportContentEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
                   return;
                 }
@@ -88,9 +89,9 @@ class ReportScreenState extends State<ReportScreen>{
                   reportContent: contentController.text
                 ));
               },
-              child: Container(
+              child: const SizedBox(
                 width: 50,
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     SendButtonText,
@@ -229,7 +230,7 @@ class ReportScreenState extends State<ReportScreen>{
                         ),
                       ),
                       state is FeedLoadingState ?
-                      Container(
+                      SizedBox(
                         height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: const Center(

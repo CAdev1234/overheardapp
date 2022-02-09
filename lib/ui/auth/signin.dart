@@ -26,15 +26,17 @@ import 'package:overheard_flutter_app/ui/profile/bloc/profile.bloc.dart';
 import 'package:overheard_flutter_app/ui/profile/complete_profile.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
-import 'package:location/location.dart';
+// import 'package:location/location.dart';
 import 'package:uni_links/uni_links.dart';
 import 'dart:io' show Platform;
 
-import '../../main.dart';
+// import '../../main.dart';
 import 'bloc/auth.state.dart';
 import 'newpassword.dart';
 
 class SignInScreen extends StatefulWidget{
+  const SignInScreen({Key? key}) : super(key: key);
+
   @override
   SignInScreenState createState() {
     return SignInScreenState();
@@ -114,14 +116,14 @@ class SignInScreenState extends State<SignInScreen>{
         )));
       }
     }, onError: (Object err) {
-      print('got err: $err');
+      // print('got err: $err');
     });
 
     // Get the latest link
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       _initialLink = await getInitialLink();
-      print('initial link: $_initialLink');
+      // print('initial link: $_initialLink');
       if (_initialLink != null) _initialUri = Uri.parse(_initialLink as String);
     } on PlatformException {
       _initialLink = 'Failed to get initial link.';
@@ -161,17 +163,17 @@ class SignInScreenState extends State<SignInScreen>{
 
     // Attach a second listener to the stream
     uriLinkStream.listen((Uri? uri) {
-      print('got uri: ${uri?.path} ${uri?.queryParametersAll}');
+      // print('got uri: ${uri?.path} ${uri?.queryParametersAll}');
     }, onError: (Object err) {
-      print('got err: $err');
+      // print('got err: $err');
     });
 
     // Get the latest Uri
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       _initialUri = await getInitialUri();
-      print('initial uri: ${_initialUri?.path}'
-          ' ${_initialUri?.queryParametersAll}');
+      // print('initial uri: ${_initialUri?.path}'
+      //     ' ${_initialUri?.queryParametersAll}');
       _initialLink = _initialUri?.toString();
     } on PlatformException {
       _initialUri = null;
@@ -200,7 +202,7 @@ class SignInScreenState extends State<SignInScreen>{
       bloc: authBloc,
       listener: (context, state) async {
         if(state is SignInSuccessState) {
-          Location location = new Location();
+          Location location = Location();
           bool _serviceEnabled;
           PermissionStatus _permissionGranted;
           LocationData _locationData;
@@ -233,13 +235,13 @@ class SignInScreenState extends State<SignInScreen>{
             if(state.userModel.community_id == null){
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                 create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
-                child: CommunityScreen(),
+                child: const CommunityScreen(),
               )));
             }
             else{
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                 create: (context) => HomeBloc(homeRepository: HomeRepository()),
-                child: HomeScreen(),
+                child: const HomeScreen(),
               )));
             }
           }
@@ -247,13 +249,13 @@ class SignInScreenState extends State<SignInScreen>{
         else if(state is VerifySuccessState){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
             create: (context) => AuthBloc(authRepository: AuthRepository()),
-            child: SignInScreen(),
+            child: const SignInScreen(),
           )));
         }
         else if(state is VerifyFailedState){
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
             create: (context) => AuthBloc(authRepository: AuthRepository()),
-            child: ResendVerificationScreen(),
+            child: const ResendVerificationScreen(),
           )));
         }
       },
@@ -276,13 +278,13 @@ class SignInScreenState extends State<SignInScreen>{
                           height: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                   image: AssetImage('assets/images/logo.png',),
                                   fit: BoxFit.cover
                               )
                           ),
                         ),
-                        Text(
+                        const Text(
                           appName,
                           style: TextStyle(
                               color: primaryWhiteTextColor,
@@ -294,30 +296,30 @@ class SignInScreenState extends State<SignInScreen>{
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white
+                                // accentColor: Colors.white
                             ),
                             child: TextField(
                               controller: emailController,
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: emailPlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -325,16 +327,16 @@ class SignInScreenState extends State<SignInScreen>{
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white
+                                // accentColor: Colors.white
                             ),
                             child: TextField(
                               controller: passwordController,
@@ -344,21 +346,21 @@ class SignInScreenState extends State<SignInScreen>{
                               obscureText: true,
                               decoration: InputDecoration(
                                   hintText: passwordPlaceholder,
-                                  hintStyle: TextStyle(color: primaryWhiteTextColor),
-                                  enabledBorder: UnderlineInputBorder(
+                                  hintStyle: const TextStyle(color: primaryWhiteTextColor),
+                                  enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   ),
                                   suffixIcon: GestureDetector(
                                     onTap: (){
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                                         create: (context) => AuthBloc(authRepository: AuthRepository()),
-                                        child: ResetPassword(),
+                                        child: const ResetPassword(),
                                       )));
                                     },
                                     child: Container(
                                       width: 150,
                                       alignment: Alignment.centerRight,
-                                      child: Text(
+                                      child: const Text(
                                         forgotYourPassword,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -370,34 +372,34 @@ class SignInScreenState extends State<SignInScreen>{
                                     ),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         GestureDetector(
                           onTap: (){
-                            if(emailController.text == null || emailController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                            if(emailController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                               return;
                             }
-                            if(passwordController.text == null || passwordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                            if(passwordController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                               return;
                             }
-                            authBloc..add(SignInEvent(email: emailController.text, password: passwordController.text));
+                            authBloc.add(SignInEvent(email: emailController.text, password: passwordController.text));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width * 0.7,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
@@ -408,8 +410,8 @@ class SignInScreenState extends State<SignInScreen>{
                                 )
                             ),
                             child: state is LoadingState?
-                            CupertinoActivityIndicator() :
-                            Text(
+                            const CupertinoActivityIndicator() :
+                            const Text(
                               signInText,
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -421,17 +423,17 @@ class SignInScreenState extends State<SignInScreen>{
                             ),
                           ),
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             GestureDetector(
                               onTap: (){
-                                authBloc..add(FacebookSignInEvent());
+                                authBloc.add(const FacebookSignInEvent());
                               },
                               child: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
@@ -439,7 +441,7 @@ class SignInScreenState extends State<SignInScreen>{
                                         width: 3
                                     )
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   FontAwesomeIcons.facebookF,
                                   color: primaryWhiteTextColor,
                                 ),
@@ -447,10 +449,10 @@ class SignInScreenState extends State<SignInScreen>{
                             ),
                             Platform.isIOS ? GestureDetector(
                               onTap: (){
-                                authBloc..add(AppleSignInEvent());
+                                authBloc.add(const AppleSignInEvent());
                               },
                               child: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
@@ -458,18 +460,18 @@ class SignInScreenState extends State<SignInScreen>{
                                         width: 3
                                     )
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   FontAwesomeIcons.apple,
                                   color: primaryWhiteTextColor,
                                 ),
                               ),
-                            ): SizedBox.shrink(),
+                            ): const SizedBox.shrink(),
                             GestureDetector(
                               onTap: (){
-                                authBloc..add(TwitterSignInEvent());
+                                authBloc.add(const TwitterSignInEvent());
                               },
                               child: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
@@ -477,13 +479,13 @@ class SignInScreenState extends State<SignInScreen>{
                                         width: 3
                                     )
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   FontAwesomeIcons.twitter,
                                   color: primaryWhiteTextColor,
                                 ),
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                           ],
                         ),
                       ],
@@ -494,11 +496,11 @@ class SignInScreenState extends State<SignInScreen>{
             },
           ),
           bottomNavigationBar: Container(
-              padding: EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     noAccount,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
@@ -506,15 +508,15 @@ class SignInScreenState extends State<SignInScreen>{
                     ),
                     textScaleFactor: 1.0,
                   ),
-                  SizedBox(width: 5,),
+                  const SizedBox(width: 5,),
                   GestureDetector(
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                         create: (context) => AuthBloc(authRepository: AuthRepository()),
-                        child: SignUpScreen(),
+                        child: const SignUpScreen(),
                       )));
                     },
-                    child: Text(
+                    child: const Text(
                       signUpText,
                       style: TextStyle(
                           fontSize: primaryButtonFontSize,

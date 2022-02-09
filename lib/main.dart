@@ -14,15 +14,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
+    return const CupertinoApp(
       color: primaryColor,
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
+      localizationsDelegates: [
         DefaultMaterialLocalizations.delegate,
         DefaultCupertinoLocalizations.delegate,
         DefaultWidgetsLocalizations.delegate,
       ],
-      theme: const CupertinoThemeData(
+      theme: CupertinoThemeData(
           brightness: Brightness.light,
           primaryColor: CupertinoDynamicColor(
               color: gradientStart,

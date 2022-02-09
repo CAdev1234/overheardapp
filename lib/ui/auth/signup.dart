@@ -17,9 +17,11 @@ import 'bloc/auth.event.dart';
 import 'bloc/auth.state.dart';
 
 class SignUpScreen extends StatefulWidget{
+  const SignUpScreen({Key? key}) : super(key: key);
+
   @override
   SignUpScreenState createState() {
-    return new SignUpScreenState();
+    return SignUpScreenState();
   }
 
 }
@@ -35,11 +37,11 @@ class SignUpScreenState extends State<SignUpScreen>{
   @override
   void initState(){
     super.initState();
-    authBloc = new AuthBloc(authRepository: AuthRepository());
-    emailController = new TextEditingController();
-    usernameController = new TextEditingController();
-    passwordController = new TextEditingController();
-    confirmPasswordController = new TextEditingController();
+    authBloc = AuthBloc(authRepository: AuthRepository());
+    emailController = TextEditingController();
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
   }
   @override
   Widget build(BuildContext context) {
@@ -72,13 +74,13 @@ class SignUpScreenState extends State<SignUpScreen>{
                           height: MediaQuery.of(context).size.width * 0.4,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                   image: AssetImage('assets/images/logo.png',),
                                   fit: BoxFit.cover
                               )
                           ),
                         ),
-                        Text(
+                        const Text(
                           appName,
                           style: TextStyle(
                               color: primaryWhiteTextColor,
@@ -90,16 +92,16 @@ class SignUpScreenState extends State<SignUpScreen>{
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white,
+                                // accentColor: Colors.white,
                                 dividerColor: Colors.white,
                                 hintColor: Colors.white
                             ),
@@ -108,14 +110,14 @@ class SignUpScreenState extends State<SignUpScreen>{
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: emailPlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -123,16 +125,16 @@ class SignUpScreenState extends State<SignUpScreen>{
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white,
+                                // accentColor: Colors.white,
                                 dividerColor: Colors.white,
                                 hintColor: Colors.white
                             ),
@@ -141,14 +143,14 @@ class SignUpScreenState extends State<SignUpScreen>{
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: usernamePlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -156,16 +158,16 @@ class SignUpScreenState extends State<SignUpScreen>{
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white
+                                // accentColor: Colors.white
                             ),
                             child: TextField(
                               controller: passwordController,
@@ -173,14 +175,14 @@ class SignUpScreenState extends State<SignUpScreen>{
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: passwordPlaceholder,
                                 hintStyle: TextStyle(color: primaryWhiteTextColor),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white),
                                 ),
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -188,16 +190,16 @@ class SignUpScreenState extends State<SignUpScreen>{
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white
+                                // accentColor: Colors.white
                             ),
                             child: TextField(
                               controller: confirmPasswordController,
@@ -205,46 +207,46 @@ class SignUpScreenState extends State<SignUpScreen>{
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.visiblePassword,
                               obscureText: true,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 hintText: confirmPasswordPlaceholder,
                                 hintStyle: TextStyle(color: primaryWhiteTextColor),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.white),
                                 ),
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         GestureDetector(
                           onTap: (){
-                            if(emailController.text == null || emailController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                            if(emailController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                               return;
                             }
-                            if(usernameController.text == null || usernameController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
+                            if(usernameController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
                               return;
                             }
-                            if(passwordController.text == null || passwordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                            if(passwordController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
                               return;
                             }
                             if(passwordController.text != confirmPasswordController.text){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                               return;
                             }
-                            authBloc..add(SignUpEvent(
+                            authBloc.add(SignUpEvent(
                                 email: emailController.text,
                                 userName: usernameController.text,
                                 password: passwordController.text
@@ -304,7 +306,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                             );*/
                           },
                           child: Container(
-                            padding: EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(12),
                             width: MediaQuery.of(context).size.width * 0.7,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
@@ -315,8 +317,8 @@ class SignUpScreenState extends State<SignUpScreen>{
                                 )
                             ),
                             child: state is LoadingState ?
-                            CupertinoActivityIndicator():
-                            Text(
+                            const CupertinoActivityIndicator():
+                            const Text(
                               signUpText,
                               textAlign: TextAlign.center,
                               style: TextStyle(
@@ -328,17 +330,17 @@ class SignUpScreenState extends State<SignUpScreen>{
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             GestureDetector(
                               onTap: (){
-                                authBloc..add(FacebookSignUpEvent());
+                                authBloc.add(const FacebookSignUpEvent());
                               },
                               child: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
@@ -346,7 +348,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                         width: 3
                                     )
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   FontAwesomeIcons.facebookF,
                                   color: primaryWhiteTextColor,
                                 ),
@@ -354,10 +356,10 @@ class SignUpScreenState extends State<SignUpScreen>{
                             ),
                             Platform.isIOS ? GestureDetector(
                               onTap: (){
-                                authBloc..add(AppleSignUpEvent());
+                                authBloc.add(const AppleSignUpEvent());
                               },
                               child: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
@@ -365,18 +367,18 @@ class SignUpScreenState extends State<SignUpScreen>{
                                         width: 3
                                     )
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   FontAwesomeIcons.apple,
                                   color: primaryWhiteTextColor,
                                 ),
                               ),
-                            ): SizedBox.shrink(),
+                            ): const SizedBox.shrink(),
                             GestureDetector(
                               onTap: (){
-                                authBloc..add(TwitterSignUpEvent());
+                                authBloc.add(const TwitterSignUpEvent());
                               },
                               child: Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(50),
                                     border: Border.all(
@@ -384,22 +386,22 @@ class SignUpScreenState extends State<SignUpScreen>{
                                         width: 3
                                     )
                                 ),
-                                child: Icon(
+                                child: const Icon(
                                   FontAwesomeIcons.twitter,
                                   color: primaryWhiteTextColor,
                                 ),
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                           ],
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Container(
-                            padding: EdgeInsets.only(bottom: 20),
+                            padding: const EdgeInsets.only(bottom: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
+                                const Text(
                                   haveAccount,
                                   style: TextStyle(
                                       color: primaryWhiteTextColor,
@@ -407,12 +409,12 @@ class SignUpScreenState extends State<SignUpScreen>{
                                   ),
                                   textScaleFactor: 1.0,
                                 ),
-                                SizedBox(width: 5,),
+                                const SizedBox(width: 5,),
                                 GestureDetector(
                                   onTap: (){
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     signInText,
                                     style: TextStyle(
                                         fontSize: primaryButtonFontSize,
@@ -425,14 +427,14 @@ class SignUpScreenState extends State<SignUpScreen>{
                               ],
                             )
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Container(
-                            padding: EdgeInsets.only(bottom: 20, left: 40, right: 40),
+                            padding: const EdgeInsets.only(bottom: 20, left: 40, right: 40),
                             child: Wrap(
                               alignment: WrapAlignment.center,
                               direction: Axis.horizontal,
                               children: [
-                                Text(
+                                const Text(
                                   'By Clicking ',
                                   style: TextStyle(
                                       color: primaryWhiteTextColor,
@@ -440,7 +442,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                   ),
                                   textScaleFactor: 1.0,
                                 ),
-                                Text(
+                                const Text(
                                   signUpText,
                                   style: TextStyle(
                                       color: primaryWhiteTextColor,
@@ -449,7 +451,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                   ),
                                   textScaleFactor: 1.0,
                                 ),
-                                Text(
+                                const Text(
                                   ' you agree to our  ',
                                   style: TextStyle(
                                       color: primaryWhiteTextColor,
@@ -464,7 +466,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                       child: TermsOfUseScreen(),
                                     )));
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     termsOfUse,
                                     style: TextStyle(
                                         fontSize: smallTextFontSize + 1,
@@ -474,7 +476,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                     textScaleFactor: 1.0,
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   ' and ',
                                   style: TextStyle(
                                       color: primaryWhiteTextColor,
@@ -486,10 +488,10 @@ class SignUpScreenState extends State<SignUpScreen>{
                                   onTap: (){
                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                                       create: (context) => AuthBloc(authRepository: AuthRepository()),
-                                      child: PrivacyPolicyScreen(),
+                                      child: const PrivacyPolicyScreen(),
                                     )));
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     privacyPolicy,
                                     style: TextStyle(
                                         fontSize: smallTextFontSize + 1,

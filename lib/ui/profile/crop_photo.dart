@@ -14,7 +14,7 @@ import 'bloc/profile.state.dart';
 class CropPhotoScreen extends StatefulWidget{
   final image;
 
-  const CropPhotoScreen({Key? key, @required this.image}) : super(key: key);
+  const CropPhotoScreen({Key? key, required this.image}) : super(key: key);
   @override
   CropPhotoScreenState createState() {
     return CropPhotoScreenState();
@@ -77,9 +77,9 @@ class CropPhotoScreenState extends State<CropPhotoScreen>{
                 final croppedFile = await crop!.cropCompleted(File(widget.image!), preferredSize: 500);
                 Navigator.of(context).pop(croppedFile);
               },
-              child: Container(
+              child: const SizedBox(
                 width: 50,
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     DoneButtonText,

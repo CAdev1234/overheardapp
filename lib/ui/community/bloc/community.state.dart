@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 abstract class CommunityState extends Equatable{
-  CommunityState();
+  const CommunityState();
 }
 
 class CommunityLoadingState extends CommunityState {
-  CommunityLoadingState() : super();
+  const CommunityLoadingState() : super();
 
   @override
   List<Object> get props => [];
@@ -15,7 +15,7 @@ class CommunityLoadingState extends CommunityState {
 }
 
 class CommunityDoneState extends CommunityState {
-  CommunityDoneState() : super();
+  const CommunityDoneState() : super();
 
   @override
   List<Object> get props => [];
@@ -25,7 +25,7 @@ class CommunityDoneState extends CommunityState {
 }
 
 class CommunityLoadFailedState extends CommunityState {
-  CommunityLoadFailedState() : super();
+  const CommunityLoadFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -35,7 +35,7 @@ class CommunityLoadFailedState extends CommunityState {
 }
 
 class CommunityConfirmLoadingState extends CommunityState {
-  CommunityConfirmLoadingState() : super();
+  const CommunityConfirmLoadingState() : super();
 
   @override
   List<Object> get props => [];
@@ -45,7 +45,7 @@ class CommunityConfirmLoadingState extends CommunityState {
 }
 
 class CommunityConfirmedState extends CommunityState {
-  CommunityConfirmedState() : super();
+  const CommunityConfirmedState() : super();
 
   @override
   List<Object> get props => [];
@@ -55,7 +55,7 @@ class CommunityConfirmedState extends CommunityState {
 }
 
 class CommunityConfirmFailedState extends CommunityState {
-  CommunityConfirmFailedState() : super();
+  const CommunityConfirmFailedState() : super();
 
   @override
   List<Object> get props => [];

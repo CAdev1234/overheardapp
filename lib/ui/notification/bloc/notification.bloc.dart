@@ -10,7 +10,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState>{
 
   @override
   Stream<NotificationState> mapEventToState(NotificationEvent event) async* {
-    // TODO: implement mapEventToState
     throw UnimplementedError();
   }
 }

@@ -17,7 +17,7 @@ import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 
 import '../edit.dart';
-import '../post_detail.dart';
+// import '../post_detail.dart';
 import '../report.dart';
 
 Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed){
@@ -25,14 +25,14 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
     children: [
       Container(
         color: primaryWhiteTextColor.withOpacity(0.2),
-        padding: EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
+        padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
         child: Column(
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 /// Avatar
-                Container(
+                SizedBox(
                   width: 50,
                   height: 50,
                   child: CircularProfileAvatar(
@@ -65,7 +65,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                 Expanded(
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width - 150,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +84,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                           ],
                         ),
                       ),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width - 150,
                         child: Row(
                           children: [
@@ -185,7 +185,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                                 onPressed: () async {
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                     create: (context) => FeedBloc(feedRepository: FeedRepository()),
-                                    child: EditScreen(),
+                                    child: const EditScreen(),
                                   )));
                                 },
                               ):
@@ -247,7 +247,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
             /// Post Media
             Column(
               children: [
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.width * 0.6,
                   child: Swiper(
                     itemBuilder: (BuildContext context, int index) {
@@ -345,7 +345,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                 ),
                 const SizedBox(height: 10),
                 /// Post Title
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
                     children: [
@@ -366,7 +366,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                 ),
                 const SizedBox(height: 10),
                 /// Post Content
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Text(
                     feed.content!,
@@ -382,7 +382,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
             ),
             const SizedBox(height: 10),
             /// Post Tags
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: postTagFontSize + 5,
               child: ListView(
@@ -420,7 +420,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                       onTap: (){
 
                       },
-                      child: Container(
+                      child: SizedBox(
                         child: Row(
                           children: [
                             const Icon(
@@ -446,7 +446,7 @@ Widget feedDetailItem(BuildContext context, UserModel userModel, FeedModel feed)
                       onTap: (){
 
                       },
-                      child: Container(
+                      child: SizedBox(
                         child: Row(
                           children: [
                             const Icon(

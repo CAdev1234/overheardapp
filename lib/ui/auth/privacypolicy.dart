@@ -10,6 +10,8 @@ import 'bloc/auth.bloc.dart';
 import 'bloc/auth.state.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget{
+  const PrivacyPolicyScreen({Key? key}) : super(key: key);
+
   @override
   PrivacyPolicyScreenState createState() {
     return PrivacyPolicyScreenState();

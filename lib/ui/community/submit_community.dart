@@ -13,6 +13,8 @@ import 'bloc/community.bloc.dart';
 import 'bloc/community.state.dart';
 
 class SubmitCommunityScreen extends StatefulWidget{
+  const SubmitCommunityScreen({Key? key}) : super(key: key);
+
   @override
   SubmitCommunityScreenState createState() {
     return SubmitCommunityScreenState();
@@ -45,7 +47,7 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
       child: Container(
         decoration: primaryBoxDecoration,
         child: Scaffold(
-          appBar: CupertinoNavigationBar(
+          appBar: const CupertinoNavigationBar(
             middle: Text(
               submitCommunityAppBarTitle,
               style: TextStyle(
@@ -65,34 +67,34 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                             height: 10
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          decoration: const BoxDecoration(
                             color: Colors.transparent,
                           ),
                           child: Theme(
                             data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
+                                // textSelectionHandleColor: Colors.white,
                                 primaryColor: primaryDividerColor,
                                 scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white
+                                // accentColor: Colors.white
                             ),
                             child: TextField(
                               controller: communityNameController,
                               cursorColor: primaryPlaceholderTextColor,
                               textAlign: TextAlign.start,
                               keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   hintText: communityNamePlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
@@ -130,18 +132,18 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
                             ),
                           ),
                         ),*/
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         GestureDetector(
                           onTap: () async {
-                            if(communityNameController.text == null || communityNameController.text == ""){
+                            if(communityNameController.text == ""){
                               showToast(communityNameEmptyErrorText, gradientStart);
                               return;
                             }
                             Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-                            communityBloc..add(CommunitySubmitEvent(lat: position.latitude, lng: position.longitude, name: communityNameController.text));
+                            communityBloc.add(CommunitySubmitEvent(lat: position.latitude, lng: position.longitude, name: communityNameController.text));
                           },
                           child: Container(
-                            padding: EdgeInsets.only(bottom: 10, top: 10),
+                            padding: const EdgeInsets.only(bottom: 10, top: 10),
                             margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.2, right: MediaQuery.of(context).size.width * 0.2, bottom: 10),
                             width: MediaQuery.of(context).size.width * 0.7,
                             decoration: BoxDecoration(
@@ -152,8 +154,8 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
                                 )
                             ),
                             child: state is CommunityLoadingState ?
-                            CupertinoActivityIndicator() :
-                            Text(
+                            const CupertinoActivityIndicator() :
+                            const Text(
                               SubmitButtonText,
                               textScaleFactor: 1.0,
                               textAlign: TextAlign.center,

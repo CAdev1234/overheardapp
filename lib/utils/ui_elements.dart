@@ -1,4 +1,4 @@
-import 'dart:ui';
+// import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
@@ -22,7 +22,7 @@ SnackBar getSnackBar(BuildContext context, String message){
     content: Text(
       message,
       textScaleFactor: 1.0,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: primaryButtonMiddleFontSize,
         color: primaryWhiteTextColor,
       ),
@@ -30,7 +30,7 @@ SnackBar getSnackBar(BuildContext context, String message){
     action: SnackBarAction(
       label: OkbuttonText,
       onPressed: (){
-        Scaffold.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
       },
     ),
   );

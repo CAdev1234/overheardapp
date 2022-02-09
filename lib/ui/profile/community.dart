@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
+// import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
-import 'package:overheard_flutter_app/ui/components/pagination.dart';
+// import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
+// import 'package:overheard_flutter_app/ui/components/pagination.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 
 import 'bloc/profile.bloc.dart';
@@ -17,9 +17,11 @@ import 'bloc/profile.event.dart';
 import 'bloc/profile.state.dart';
 
 class EditCommunityScreen extends StatefulWidget{
+  const EditCommunityScreen({Key? key}) : super(key: key);
+
   @override
   EditCommunityScreenState createState() {
-    return new EditCommunityScreenState();
+    return EditCommunityScreenState();
   }
 
 }
@@ -30,7 +32,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
   late BuildContext context;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   late Timer timer;
-  Set<Marker> markers = Set();
+  Set<Marker> markers = {};
   late BitmapDescriptor pinLocationIcon;
   late BitmapDescriptor pinSelectedLocationIcon;
   int communityId = 0;
@@ -39,17 +41,17 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
   void initState(){
     super.initState();
     setCustomMapPin();
-    profileBloc = new ProfileBloc(profileRepository: ProfileRepository());
-    profileBloc..add(FetchCommunityEvent());
-    searchController = new TextEditingController();
+    profileBloc = ProfileBloc(profileRepository: ProfileRepository());
+    profileBloc.add(const FetchCommunityEvent());
+    searchController = TextEditingController();
   }
 
   void setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
+        const ImageConfiguration(devicePixelRatio: 2.5),
         'assets/images/community_marker.png');
     pinSelectedLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
+        const ImageConfiguration(devicePixelRatio: 2.5),
         'assets/images/community_marker_selected.png');
   }
 
@@ -62,7 +64,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
           setState(() {
             profileBloc.initState();
             profileBloc.searchKey = searchController.text;
-            profileBloc..add(FetchCommunityEvent());
+            profileBloc.add(const FetchCommunityEvent());
           });
         }
         else if(state is CommunityConfirmFailedState){
@@ -70,7 +72,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
         }
         else if(state is CommunityDoneState) {
           markers.clear();
-          profileBloc.fetchedCommunities.forEach((community) {
+          for (var community in profileBloc.fetchedCommunities) {
             if(community.id == profileBloc.joinedCommunity) {
               markers.add(
                   Marker(
@@ -111,7 +113,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                   )
               );
             }
-          });
+          }
         }
       },
       child: Container(
@@ -160,7 +162,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                             Navigator.pop(context);
                             /// Join to Another Community
                             if(profileBloc.joinedCommunity != null){
-                              profileBloc.add(CommunityConfirmEvent());
+                              profileBloc.add(const CommunityConfirmEvent());
                             }
                           },
                           child: const Text(
@@ -175,9 +177,9 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                   ),
                 );
               },
-              child: Container(
+              child: const SizedBox(
                 width: 50,
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     DoneButtonText,
@@ -224,16 +226,16 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                               profileBloc.searchKey = searchController.text;
                               try
                               {
-                                if(timer != null) {
-                                  timer.cancel();
-                                }
+                                // if(timer != null) {
+                                //   timer.cancel();
+                                // }
                                 timer = Timer(const Duration(seconds: 1), () => {
-                                  profileBloc..add(FetchCommunityEvent())
+                                  profileBloc..add(const FetchCommunityEvent())
                                 });
                               }
                               catch(exception)
                               {
-                                print(exception.toString());
+                                // print(exception.toString());
                               }
                             },
                             controller: searchController,
@@ -245,14 +247,14 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                               hintStyle: const TextStyle(color: primaryWhiteTextColor),
                               hintText: searchPlaceholder,
                               prefixIcon: const Icon(Icons.search, color: primaryWhiteTextColor),
-                              suffixIcon: searchController.text.length > 0 ?
+                              suffixIcon: searchController.text.isNotEmpty ?
                               GestureDetector(
                                 onTap: (){
                                   setState(() {
                                     searchController.text = "";
                                     profileBloc.initState();
                                     profileBloc.searchKey = searchController.text;
-                                    profileBloc.add(FetchCommunityEvent());
+                                    profileBloc.add(const FetchCommunityEvent());
                                   });
                                 },
                                 child: const Icon(Icons.cancel, color: primaryWhiteTextColor),
@@ -282,7 +284,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                     ),
                     const SizedBox(height: 10,),
                     Expanded(
-                        child: state is CommunityLoadingState ? Center(child: CupertinoActivityIndicator(),):
+                        child: state is CommunityLoadingState ? const Center(child: CupertinoActivityIndicator(),):
                         GoogleMap(
                           onTap: (location) async {
                             setState(() {

@@ -18,7 +18,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>{
   }
 
   Stream<HomeState> _mapChangeTabIndex(ChangeTabIndexEvent changeTabIndexEvent) async* {
-    this.currentTabIndex = changeTabIndexEvent.tabIndex;
-    yield new TabIndexState(tabIndex: changeTabIndexEvent.tabIndex);
+    currentTabIndex = changeTabIndexEvent.tabIndex;
+    yield TabIndexState(tabIndex: changeTabIndexEvent.tabIndex);
   }
 }

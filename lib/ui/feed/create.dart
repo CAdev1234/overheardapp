@@ -28,9 +28,11 @@ import 'bloc/feed.bloc.dart';
 import 'bloc/feed.state.dart';
 
 class CreateScreen extends StatefulWidget{
+  const CreateScreen({Key? key}) : super(key: key);
+
   @override
   CreateScreenState createState() {
-    return new CreateScreenState();
+    return CreateScreenState();
   }
 
 }
@@ -355,7 +357,7 @@ class CreateScreenState extends State<CreateScreen>{
                                           // });
                                         }
                                         catch(exception){
-                                          print(exception);
+                                          // print(exception);
                                         }
                                       }
                                     },
@@ -595,6 +597,7 @@ class CreateScreenState extends State<CreateScreen>{
                                                 XFile video = await ImagePicker().pickImage(
                                                     source: ImageSource.camera) as XFile;
 
+                                                // ignore: unnecessary_null_comparison
                                                 if(video == null){
                                                   return;
                                                 }

@@ -17,9 +17,11 @@ import 'bloc/profile.state.dart';
 import 'crop_photo.dart';
 
 class EditProfileScreen extends StatefulWidget{
+  const EditProfileScreen({Key? key}) : super(key: key);
+
   @override
   EditProfileScreenState createState() {
-    return new EditProfileScreenState();
+    return EditProfileScreenState();
   }
 
 }
@@ -38,7 +40,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     super.initState();
     profileBloc = ProfileBloc(profileRepository: ProfileRepository());
-    profileBloc.add(ProfileFetchEvent());
+    profileBloc.add(const ProfileFetchEvent());
     firstNameController = TextEditingController();
     lastNameController = TextEditingController();
     userNameController = TextEditingController();
@@ -71,7 +73,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
         decoration: primaryBoxDecoration,
         child: Scaffold(
           appBar: CupertinoNavigationBar(
-            middle: Text(
+            middle: const Text(
               editProfileAppBarTitle,
               style: TextStyle(
                   fontSize: appBarTitleFontSize,
@@ -81,28 +83,28 @@ class EditProfileScreenState extends State<EditProfileScreen> {
             ),
             trailing: GestureDetector(
               onTap: (){
-                if(firstNameController.text == null || firstNameController.text == ""){
-                  Scaffold.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
+                if(firstNameController.text == ""){
+                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
                   return;
                 }
-                if(lastNameController.text == null || lastNameController.text == ""){
-                  Scaffold.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
+                if(lastNameController.text == ""){
+                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
                   return;
                 }
-                if(userNameController.text == null || userNameController.text == ""){
-                  Scaffold.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
+                if(userNameController.text == ""){
+                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
                   return;
                 }
-                if(emailController.text == null || emailController.text == ""){
-                  Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                if(emailController.text == ""){
+                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                   return;
                 }
-                if(bioController.text == null || bioController.text == ""){
-                  Scaffold.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
+                if(bioController.text == ""){
+                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
                   return;
                 }
                 if(!EmailValidator.validate(emailController.text)){
-                  Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                   return;
                 }
 
@@ -116,9 +118,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                     reporter_request: false
                 ));
               },
-              child: Container(
+              child: const SizedBox(
                 width: 50,
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     DoneButtonText,
@@ -140,7 +142,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 child: SingleChildScrollView(
                   child: Center(
                     child: state is ProfileLoadingState ?
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       child: const Center(
@@ -283,9 +285,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 120,
-                              child: const Align(
+                              child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10),
@@ -355,9 +357,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 120,
-                              child: const Align(
+                              child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10),
@@ -427,9 +429,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 120,
-                              child: const Align(
+                              child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10),
@@ -499,9 +501,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 120,
-                              child: const Align(
+                              child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10),
@@ -571,9 +573,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Container(
+                            const SizedBox(
                               width: 120,
-                              child: const Align(
+                              child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(left: 10),
@@ -662,7 +664,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                               ),
                             ),
                             Expanded(
-                              child: Container(
+                              child: SizedBox(
                                 height: 200,
                                 child: Theme(
                                   data: Theme.of(context).copyWith(

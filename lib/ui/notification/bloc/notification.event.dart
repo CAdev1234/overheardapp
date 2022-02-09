@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 abstract class NotificationEvent extends Equatable{
-  NotificationEvent();
+  const NotificationEvent();
 
-  @override
   List<Object> get pros => [];
 }
 

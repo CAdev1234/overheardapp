@@ -1,4 +1,4 @@
-import 'package:json_annotation/json_annotation.dart';
+// import 'package:json_annotation/json_annotation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:faker/faker.dart';
@@ -27,10 +27,11 @@ import 'bloc/profile.state.dart';
 class ProfileScreenOld extends StatefulWidget{
   final int user_id;
   final bool isMine;
-  ProfileScreenOld({required this.user_id, required this.isMine});
+  // ignore: use_key_in_widget_constructors
+  const ProfileScreenOld({Key? key, required this.user_id, required this.isMine});
   @override
   ProfileScreenState createState() {
-    return new ProfileScreenState();
+    return ProfileScreenState();
   }
 
 }
@@ -42,7 +43,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
   List<Tab> tabList = [];
   late bool isMine;
 
-  Map<int, Widget> map = new Map();
+  Map<int, Widget> map = {};
   late List<Widget> childWidgets;
   int selectedIndex = 0;
 
@@ -129,7 +130,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                 onPressed: () async {
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                     create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                    child: EditCommunityScreen(),
+                                    child: const EditCommunityScreen(),
                                   )));
                                 },
                               ),
@@ -146,7 +147,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                 onPressed: () async {
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                     create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                    child: FollowerScreen(),
+                                    child: const FollowerScreen(),
                                   )));
                                 },
                               ),
@@ -179,7 +180,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                 onPressed: () async {
                                   var result = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                     create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                    child: EditProfileScreen(),
+                                    child: const EditProfileScreen(),
                                   )));
                                   if(result != null && result){
                                     setState(() {
@@ -252,7 +253,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                 onPressed: () async {
                                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                     create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                    child: FollowerScreen(),
+                                    child: const FollowerScreen(),
                                   )));
                                 },
                               ),
@@ -317,7 +318,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                             children: [
                               CircularProfileAvatar(
                                 '',
-                                child: profileBloc.profileModel.avatar == null || profileBloc.profileModel.avatar!.length == 0 ? Image.asset(
+                                child: profileBloc.profileModel.avatar == null || profileBloc.profileModel.avatar!.isEmpty ? Image.asset(
                                   'assets/images/user_avatar.png',
                                 ):
                                 CachedNetworkImage(
@@ -449,7 +450,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                   decoration: BoxDecoration(
                                     color: primaryWhiteTextColor.withOpacity(0.2),
                                     border: Border(
-                                      bottom: selectedIndex == 1 ? BorderSide(width: 2, color: gradientStart.withOpacity(0.6)) : BorderSide(width: 1, color: Colors.transparent),
+                                      bottom: selectedIndex == 1 ? BorderSide(width: 2, color: gradientStart.withOpacity(0.6)) : const BorderSide(width: 1, color: Colors.transparent),
                                     ),
                                   ),
                                   child: Align(
@@ -512,7 +513,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                   color: primaryWhiteTextColor.withOpacity(0.2)
                               ),
                               child: selectedIndex == 0 ?
-                              Container(
+                              SizedBox(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -548,12 +549,12 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                         ],
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       height: isMine ? MediaQuery.of(context).size.height - 400 : MediaQuery.of(context).size.height - 350,
                                       child: PaginationList<FeedModel>(
                                         shrinkWrap: true,
                                         physics: const BouncingScrollPhysics(),
-                                        prefix: [],
+                                        prefix: const [],
                                         padding: const EdgeInsets.only(
                                           left: 5,
                                           right: 5,
@@ -582,12 +583,12 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                   ],
                                 ),
                               ) :
-                              Container(
+                              SizedBox(
                                 height: MediaQuery.of(context).size.height - 250,
                                 child: PaginationList<User>(
                                   shrinkWrap: true,
                                   physics: const BouncingScrollPhysics(),
-                                  prefix: [],
+                                  prefix: const [],
                                   padding: const EdgeInsets.only(
                                     left: 5,
                                     right: 5,

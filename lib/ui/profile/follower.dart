@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-import 'package:faker/faker.dart';
+// import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/community/models/user.dart';
+// import 'package:overheard_flutter_app/ui/community/models/user.dart';
 import 'package:overheard_flutter_app/ui/components/pagination.dart';
 import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
 import 'package:overheard_flutter_app/ui/profile/models/FollowModel.dart';
@@ -18,9 +18,11 @@ import 'bloc/profile.bloc.dart';
 import 'bloc/profile.state.dart';
 
 class FollowerScreen extends StatefulWidget{
+  const FollowerScreen({Key? key}) : super(key: key);
+
   @override
   FollowerScreenState createState() {
-    return new FollowerScreenState();
+    return FollowerScreenState();
   }
 
 }
@@ -92,7 +94,7 @@ class FollowerScreenState extends State<FollowerScreen>{
                               decoration: BoxDecoration(
                                 color: primaryWhiteTextColor.withOpacity(0.2),
                                 border: Border(
-                                  bottom: selectedIndex == 0 ? BorderSide(width: 2, color: gradientStart.withOpacity(0.6)) : BorderSide(width: 1, color: Colors.transparent),
+                                  bottom: selectedIndex == 0 ? BorderSide(width: 2, color: gradientStart.withOpacity(0.6)) : const BorderSide(width: 1, color: Colors.transparent),
                                 ),
                               ),
                               child: Align(
@@ -122,7 +124,7 @@ class FollowerScreenState extends State<FollowerScreen>{
                               decoration: BoxDecoration(
                                 color: primaryWhiteTextColor.withOpacity(0.2),
                                 border: Border(
-                                  bottom: selectedIndex == 1 ? BorderSide(width: 2, color: gradientStart.withOpacity(0.6)) : BorderSide(width: 1, color: Colors.transparent),
+                                  bottom: selectedIndex == 1 ? BorderSide(width: 2, color: gradientStart.withOpacity(0.6)) : const BorderSide(width: 1, color: Colors.transparent),
                                 ),
                               ),
                               child: Align(
@@ -148,7 +150,7 @@ class FollowerScreenState extends State<FollowerScreen>{
                           ),
                           child: state is ProfileLoadDoneState ?
                           (selectedIndex == 0 ?
-                          Container(
+                          SizedBox(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -225,12 +227,12 @@ class FollowerScreenState extends State<FollowerScreen>{
                                   ),
                                 ),
                                 SizedBox(height: 10,),*/
-                                Container(
+                                SizedBox(
                                   height: MediaQuery.of(context).size.height - 200,
                                   child: PaginationList<FollowModel>(
                                     shrinkWrap: true,
                                     physics: const BouncingScrollPhysics(),
-                                    prefix: [],
+                                    prefix: const [],
                                     padding: const EdgeInsets.only(
                                       left: 5,
                                       right: 5,
@@ -248,12 +250,12 @@ class FollowerScreenState extends State<FollowerScreen>{
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               /// Avatar
-                                              Container(
+                                              SizedBox(
                                                 width: 50,
                                                 height: 50,
                                                 child: CircularProfileAvatar(
                                                   '',
-                                                  child: follow.avatar == null || follow.avatar!.length == 0 ? Image.asset(
+                                                  child: follow.avatar == null || follow.avatar!.isEmpty ? Image.asset(
                                                     'assets/images/user_avatar.png',
                                                   ):
                                                   CachedNetworkImage(
@@ -281,7 +283,7 @@ class FollowerScreenState extends State<FollowerScreen>{
                                               Expanded(
                                                 child: Column(
                                                   children: [
-                                                    Container(
+                                                    SizedBox(
                                                       width: MediaQuery.of(context).size.width - 150,
                                                       child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.start,
@@ -358,7 +360,7 @@ class FollowerScreenState extends State<FollowerScreen>{
                               ],
                             ),
                           ) :
-                          Container(
+                          SizedBox(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -434,12 +436,12 @@ class FollowerScreenState extends State<FollowerScreen>{
                                   ),
                                 ),
                                 SizedBox(height: 10,),*/
-                                Container(
+                                SizedBox(
                                   height: MediaQuery.of(context).size.height - 200,
                                   child: PaginationList<FollowModel>(
                                     shrinkWrap: true,
                                     physics: const BouncingScrollPhysics(),
-                                    prefix: [],
+                                    prefix: const [],
                                     padding: const EdgeInsets.only(
                                       left: 5,
                                       right: 5,
@@ -457,12 +459,12 @@ class FollowerScreenState extends State<FollowerScreen>{
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               /// Avatar
-                                              Container(
+                                              SizedBox(
                                                 width: 50,
                                                 height: 50,
                                                 child: CircularProfileAvatar(
                                                   '',
-                                                  child: follow.avatar == null || follow.avatar!.length == 0 ? Image.asset(
+                                                  child: follow.avatar == null || follow.avatar!.isEmpty ? Image.asset(
                                                     'assets/images/user_avatar.png',
                                                   ):
                                                   CachedNetworkImage(
@@ -490,7 +492,7 @@ class FollowerScreenState extends State<FollowerScreen>{
                                               Expanded(
                                                 child: Column(
                                                   children: [
-                                                    Container(
+                                                    SizedBox(
                                                       width: MediaQuery.of(context).size.width - 150,
                                                       child: Row(
                                                         mainAxisAlignment: MainAxisAlignment.start,

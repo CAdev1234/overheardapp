@@ -10,7 +10,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState>{
 
   @override
   Stream<ChatState> mapEventToState(ChatEvent event) async* {
-    // TODO: implement mapEventToState
     throw UnimplementedError();
   }
 }

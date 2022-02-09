@@ -149,7 +149,7 @@ class _PaginationListState<T> extends State<PaginationList<T>>
             StreamBuilder<PageState>(
               stream: _streamController.stream,
               initialData:
-              (_itemList.length == 0) ? PageState.firstLoad : PageState.pageLoad,
+              (_itemList.isEmpty) ? PageState.firstLoad : PageState.pageLoad,
               builder: (BuildContext context, AsyncSnapshot<PageState> snapshot) {
                 if (!snapshot.hasData) {
                   return widget.onLoading;

@@ -49,7 +49,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
         if(state is SignInSuccessState){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
             create: (context) => AuthBloc(authRepository: AuthRepository()),
-            child: SignInScreen(),
+            child: const SignInScreen(),
           )));
         }
       },
@@ -151,16 +151,16 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         ),
                         GestureDetector(
                           onTap: (){
-                            if(newPasswordController.text == null || newPasswordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                            if(newPasswordController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
                               return;
                             }
-                            if(confirmPasswordController.text == null || confirmPasswordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                            if(confirmPasswordController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
                               return;
                             }
                             if(confirmPasswordController.text != newPasswordController.text){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
                               return;
                             }
                             authBloc.add(ResetPasswordEvent(email: widget.email, token: widget.token, password: newPasswordController.text));

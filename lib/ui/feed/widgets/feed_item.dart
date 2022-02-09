@@ -37,7 +37,8 @@ class FeedItem extends StatefulWidget{
   final bool isDetail;
   final bool isProfile;
 
-  FeedItem({this.parentState, required this.userModel, required this.feed, required this.isDetail, required this.isProfile});
+  // ignore: use_key_in_widget_constructors
+  const FeedItem({this.parentState, required this.userModel, required this.feed, required this.isDetail, required this.isProfile});
   @override
   FeedItemState createState() {
     return FeedItemState();
@@ -55,7 +56,7 @@ class FeedItemState extends State<FeedItem> {
   void initState(){
     super.initState();
     parentState = widget.parentState!;
-    feedBloc = new FeedBloc(feedRepository: FeedRepository());
+    feedBloc = FeedBloc(feedRepository: FeedRepository());
     feedBloc.userModel = widget.userModel;
     feedBloc.feedItem = widget.feed;
   }
@@ -66,7 +67,7 @@ class FeedItemState extends State<FeedItem> {
       bloc: feedBloc,
       listener: (context, state){
         if(state is FeedDeleteDoneState){
-          parentState.feedBloc.add(FeedFetchEvent());
+          parentState.feedBloc.add(const FeedFetchEvent());
         }
       },
       child: BlocBuilder<FeedBloc, FeedState>(
@@ -76,7 +77,7 @@ class FeedItemState extends State<FeedItem> {
             children: [
               Container(
                 color: primaryWhiteTextColor.withOpacity(0.2),
-                padding: EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
+                padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
                 child: Column(
                   children: [
                     GestureDetector(
@@ -95,12 +96,12 @@ class FeedItemState extends State<FeedItem> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           /// Avatar
-                          Container(
+                          SizedBox(
                             width: 50,
                             height: 50,
                             child: CircularProfileAvatar(
                               '',
-                              child: feedBloc.feedItem.publisher!.avatar == null || feedBloc.feedItem.publisher!.avatar!.isEmpty == 0 ? Image.asset(
+                              child: feedBloc.feedItem.publisher!.avatar == null || feedBloc.feedItem.publisher!.avatar!.isEmpty ? Image.asset(
                                 'assets/images/user_avatar.png',
                               ):
                               CachedNetworkImage(
@@ -129,7 +130,7 @@ class FeedItemState extends State<FeedItem> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: MediaQuery.of(context).size.width - 150,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -148,7 +149,7 @@ class FeedItemState extends State<FeedItem> {
                                     ],
                                   ),
                                 ),
-                                Container(
+                                SizedBox(
                                   width: MediaQuery.of(context).size.width - 140,
                                   child: Row(
                                     children: [
@@ -370,7 +371,7 @@ class FeedItemState extends State<FeedItem> {
                     ),
                     const SizedBox(height: 10),
                     /// Post Media
-                    feedBloc.feedItem.media != null && feedBloc.feedItem.media.length > 0 ?
+                    feedBloc.feedItem.media.isNotEmpty ?
                     Column(
                       children: [
                         GestureDetector(
@@ -382,7 +383,7 @@ class FeedItemState extends State<FeedItem> {
                               )));
                             }
                           },
-                          child: Container(
+                          child: SizedBox(
                             height: MediaQuery.of(context).size.width * 0.6,
                             child: Swiper(
                               itemBuilder: (BuildContext context, int index) {
@@ -402,7 +403,7 @@ class FeedItemState extends State<FeedItem> {
                                               borderRadius: BorderRadius.circular(5)
                                           ),
                                         ),
-                                        placeholder: (context, url) => Container(
+                                        placeholder: (context, url) => SizedBox(
                                           width: MediaQuery.of(context).size.width,
                                           height: MediaQuery.of(context).size.width * 0.6,
                                           child: const Center(
@@ -499,7 +500,7 @@ class FeedItemState extends State<FeedItem> {
                           child: PostDetailScreen(feedId: feedBloc.feedItem.id!),
                         )));
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           children: [
@@ -530,7 +531,7 @@ class FeedItemState extends State<FeedItem> {
                           child: PostDetailScreen(feedId: feedBloc.feedItem.id!),
                         )));
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width,
                         child: Text(
                           feedBloc.feedItem.content ?? '',
@@ -546,7 +547,7 @@ class FeedItemState extends State<FeedItem> {
                     const SizedBox.shrink(),
                     const SizedBox(height: 10),
                     /// Post Tags
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: postTagFontSize + 5,
                       child: ListView(
@@ -588,7 +589,7 @@ class FeedItemState extends State<FeedItem> {
                                 }*/
                                 feedBloc.add(FeedVoteEvent(feedId: feedBloc.feedItem.id!, isUp: false));
                               },
-                              child: Container(
+                              child: SizedBox(
                                 child: Row(
                                   children: [
                                     const Icon(
@@ -618,7 +619,7 @@ class FeedItemState extends State<FeedItem> {
                                 }*/
                                 feedBloc.add(FeedVoteEvent(feedId: feedBloc.feedItem.id!, isUp: true));
                               },
-                              child: Container(
+                              child: SizedBox(
                                 child: Row(
                                   children: [
                                     const Icon(
@@ -676,7 +677,7 @@ class FeedItemState extends State<FeedItem> {
                         /// Share Button
                         GestureDetector(
                           onTap: (){
-                            if(feedBloc.feedItem.media.length > 0) {
+                            if(feedBloc.feedItem.media.isNotEmpty) {
                               Share.share(feedBloc.feedItem.media[media_index].url!, subject: feedBloc.feedItem.title);
                             }
                             else {

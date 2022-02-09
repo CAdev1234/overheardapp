@@ -10,9 +10,11 @@ import 'bloc/auth.bloc.dart';
 import 'bloc/auth.state.dart';
 
 class TermsOfUseScreen extends StatefulWidget{
+  const TermsOfUseScreen({Key? key}) : super(key: key);
+
   @override
   TermsOfUseScreenState createState() {
-    return new TermsOfUseScreenState();
+    return TermsOfUseScreenState();
   }
 
 }
@@ -24,7 +26,7 @@ class TermsOfUseScreenState extends State<TermsOfUseScreen>{
   @override
   void initState(){
     super.initState();
-    authBloc = new AuthBloc(authRepository: AuthRepository());
+    authBloc = AuthBloc(authRepository: AuthRepository());
   }
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class TermsOfUseScreenState extends State<TermsOfUseScreen>{
       child: Container(
         decoration: primaryBoxDecoration,
         child: Scaffold(
-          appBar: CupertinoNavigationBar(
+          appBar: const CupertinoNavigationBar(
             middle: Text(
               termsOfUse,
               style: TextStyle(
@@ -55,7 +57,7 @@ class TermsOfUseScreenState extends State<TermsOfUseScreen>{
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(

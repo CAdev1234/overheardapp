@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 abstract class ChatEvent extends Equatable{
-  ChatEvent();
+  const ChatEvent();
 
-  @override
   List<Object> get pros => [];
 }
 

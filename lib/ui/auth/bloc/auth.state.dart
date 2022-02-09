@@ -2,11 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
 
 abstract class AuthState extends Equatable{
-  AuthState();
+  const AuthState();
 }
 
 class LoadingState extends AuthState {
-  LoadingState() : super();
+  const LoadingState() : super();
 
   @override
   List<Object> get props => [];
@@ -18,7 +18,7 @@ class LoadingState extends AuthState {
 class SignInSuccessState extends AuthState {
   final bool isFirstLogin;
   final UserModel userModel;
-  SignInSuccessState({required this.isFirstLogin, required this.userModel}) : super();
+  const SignInSuccessState({required this.isFirstLogin, required this.userModel}) : super();
 
   @override
   List<Object> get props => [];
@@ -28,7 +28,7 @@ class SignInSuccessState extends AuthState {
 }
 
 class SignInFailedState extends AuthState {
-  SignInFailedState() : super();
+  const SignInFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -38,7 +38,7 @@ class SignInFailedState extends AuthState {
 }
 
 class SignUpSuccessState extends AuthState {
-  SignUpSuccessState() : super();
+  const SignUpSuccessState() : super();
 
   @override
   List<Object> get props => [];
@@ -49,7 +49,7 @@ class SignUpSuccessState extends AuthState {
 
 
 class VerifySuccessState extends AuthState {
-  VerifySuccessState() : super();
+  const VerifySuccessState() : super();
 
   @override
   List<Object> get props => [];
@@ -59,7 +59,7 @@ class VerifySuccessState extends AuthState {
 }
 
 class VerifyFailedState extends AuthState {
-  VerifyFailedState() : super();
+  const VerifyFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -69,7 +69,7 @@ class VerifyFailedState extends AuthState {
 }
 
 class SignUpFailedState extends AuthState {
-  SignUpFailedState() : super();
+  const SignUpFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -79,7 +79,7 @@ class SignUpFailedState extends AuthState {
 }
 
 class LoginFailedState extends AuthState {
-  LoginFailedState() : super();
+  const LoginFailedState() : super();
 
   @override
   List<Object> get props => [];
@@ -89,7 +89,7 @@ class LoginFailedState extends AuthState {
 }
 
 class LoginCancelledState extends AuthState {
-  LoginCancelledState() : super();
+  const LoginCancelledState() : super();
 
   @override
   List<Object> get props => [];

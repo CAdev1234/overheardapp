@@ -16,12 +16,12 @@ class MediaItem {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['post_id'] = this.postId;
-    data['filename'] = this.filename;
-    data['url'] = this.url;
-    data['thumbnail'] = this.thumbnail;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['post_id'] = postId;
+    data['filename'] = filename;
+    data['url'] = url;
+    data['thumbnail'] = thumbnail;
     return data;
   }
 }

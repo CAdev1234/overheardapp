@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
 
   AuthBloc({required this.authRepository}) : super(null as AuthState);
 
-  @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
     if(event is SignInEvent) {
       yield* _mapSignInToState(event);
@@ -62,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   }
 
   Stream<AuthState> _mapSignInToState(SignInEvent event) async* {
-    yield LoadingState();
+    yield const LoadingState();
     String email = event.email;
     String password = event.password;
     var credential = {
@@ -72,7 +71,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     var response = await authRepository.signInWithEmail(credential);
     if(response == null) {
       showToast("SignIn Failed", gradientStart);
-      yield SignInFailedState();
+      yield const SignInFailedState();
       return;
     }
     else if(response['status'] && response['user'] != null && response['user']['id'] != null){
@@ -90,46 +89,46 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     }
     else{
       showToast(response['message'], gradientStart);
-      yield SignInFailedState();
+      yield const SignInFailedState();
       return;
     }
-    yield SignInFailedState();
+    // yield SignInFailedState();
   }
 
-  Stream<AuthState> _mapSignInWithTokenToState(SignInWithTokenEvent event) async* {
-    var prefs = await SharedPreferences.getInstance();
-    var accessToken = prefs.getString('AccessToken');
-    if(accessToken == null){
-      return;
-    }
+  // Stream<AuthState> _mapSignInWithTokenToState(SignInWithTokenEvent event) async* {
+  //   var prefs = await SharedPreferences.getInstance();
+  //   var accessToken = prefs.getString('AccessToken');
+  //   if(accessToken == null){
+  //     return;
+  //   }
 
-    var response = await authRepository.signInWithToken();
-    if(response == null) {
-      yield SignInFailedState();
-    }
-    else if(!response['status']) {
-      showToast(response['message'], gradientStart);
-      yield SignInFailedState();
-    }
-    else if(response['user']['id'] != null || response['user']['id'] == ""){
-      UserModel user = UserModel.fromJson(response['user']);
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('AccessToken', response['access_token']);
-      if(user.firstname == null || user.lastname == null){
-        yield SignInSuccessState(isFirstLogin: true, userModel: user);
-      }
-      else{
-        yield SignInSuccessState(isFirstLogin: false, userModel: user);
-      }
-    }
-    else{
-      yield SignInFailedState();
-    }
-    yield SignInFailedState();
-  }
+  //   var response = await authRepository.signInWithToken();
+  //   if(response == null) {
+  //     yield SignInFailedState();
+  //   }
+  //   else if(!response['status']) {
+  //     showToast(response['message'], gradientStart);
+  //     yield SignInFailedState();
+  //   }
+  //   else if(response['user']['id'] != null || response['user']['id'] == ""){
+  //     UserModel user = UserModel.fromJson(response['user']);
+  //     SharedPreferences prefs = await SharedPreferences.getInstance();
+  //     prefs.setString('AccessToken', response['access_token']);
+  //     if(user.firstname == null || user.lastname == null){
+  //       yield SignInSuccessState(isFirstLogin: true, userModel: user);
+  //     }
+  //     else{
+  //       yield SignInSuccessState(isFirstLogin: false, userModel: user);
+  //     }
+  //   }
+  //   else{
+  //     yield SignInFailedState();
+  //   }
+  //   yield SignInFailedState();
+  // }
 
   Stream<AuthState> _mapSignUpToState(SignUpEvent event) async* {
-    yield LoadingState();
+    yield const LoadingState();
     String email = event.email;
     String username = event.userName;
     String password = event.password;
@@ -141,12 +140,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     var result = await authRepository.signUpWithEmail(credential);
     if(result!['status']){
       showToast(result['message'], gradientStart);
-      yield SignUpSuccessState();
+      yield const SignUpSuccessState();
       return;
     }
     else{
       showToast(result['message'], gradientStart);
-      yield SignUpFailedState();
+      yield const SignUpFailedState();
       return;
     }
   }

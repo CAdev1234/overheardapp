@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:async/async.dart';
+// import 'package:async/async.dart';
 import 'package:http/http.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:path/path.dart';
@@ -95,7 +95,7 @@ class RestApiClient {
       return response;
     }
     catch(exception){
-      print(exception.toString());
+      // print(exception.toString());
       return null;
     }
 
@@ -161,7 +161,9 @@ class RestApiClient {
     if (accessToken != null) {authorization = 'Bearer $accessToken';}
     else if (authToken != null) {authorization = 'Bearer $authToken';}
 
-    var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+    // var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+    var stream = http.ByteStream(file.openRead());
+    stream.cast();
     var length = await file.length();
 
     var uri = Uri.parse("$baseApiEndPoint$endpoint");
@@ -175,7 +177,6 @@ class RestApiClient {
       StreamTransformer.fromHandlers(
         handleData: (data, sink) {
           byteCount += data.length;
-          print(byteCount);
           sink.add(data);
         },
         handleError: (error, stack, sink) {},
@@ -200,7 +201,9 @@ class RestApiClient {
     if (accessToken != null) {authorization = 'Bearer $accessToken';}
     else if (authToken != null) {authorization = 'Bearer $authToken';}
 
-    var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+    // var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+    var stream = http.ByteStream(file.openRead());
+    stream.cast();
     var length = await file.length();
 
     var uri = Uri.parse("$baseApiEndPoint$endpoint");
@@ -215,7 +218,7 @@ class RestApiClient {
       StreamTransformer.fromHandlers(
         handleData: (data, sink) {
           byteCount += data.length;
-          print(byteCount);
+          // print(byteCount);
           sink.add(data);
         },
         handleError: (error, stack, sink) {},
@@ -246,8 +249,8 @@ class RestApiClient {
           networkServiceResponse: NetworkServiceResponse<T>(success: true));
     } else {
       var errorResponse = response.body;
-      return new MappedNetworkServiceResponse<T>(
-          networkServiceResponse: new NetworkServiceResponse<T>(
+      return MappedNetworkServiceResponse<T>(
+          networkServiceResponse: NetworkServiceResponse<T>(
               success: false,
               message: "(${response.statusCode}) ${errorResponse.toString()}"));
     }
@@ -267,7 +270,7 @@ class RestApiClient {
       } else if (sub is Map) {
         sub.forEach((k, v) {
           if (path == "") {
-            urlEncode(v, "${Uri.encodeQueryComponent(k)}");
+            urlEncode(v, Uri.encodeQueryComponent(k));
           } else {
             urlEncode(v, "$path%5B${Uri.encodeQueryComponent(k)}%5D");
           }
@@ -291,7 +294,7 @@ class RestApiClient {
   }
 
   String getQueryString(Map data,
-      {String prefix: '&', bool inRecursion: false}) {
+      {String prefix = '&', bool inRecursion = false}) {
     String query = '';
 
     data.forEach((key, value) {
@@ -299,10 +302,10 @@ class RestApiClient {
         key = '[$key]';
       }
       if (value != null) {
-        if (value is String || value is int || value is double)
+        if (value is String || value is int || value is double) {
           query +=
           '$prefix${Uri.encodeQueryComponent(key)}=${Uri.encodeQueryComponent(value.toString())}';
-        else if (value is List || value is Map) {
+        } else if (value is List || value is Map) {
           if (value is List) value = value.asMap();
           value.forEach((k, v) {
             var subQuery = getQueryString({k: v},

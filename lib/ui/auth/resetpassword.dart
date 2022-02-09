@@ -91,34 +91,34 @@ class _ResetPasswordState extends State<ResetPassword> {
                               decoration: InputDecoration(
                                   hintText: emailPlaceholder,
                                   hintStyle: TextStyle(color: primaryWhiteTextColor.withOpacity(0.8)),
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )
                               ),
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: primaryWhiteTextColor,
                                   fontSize: primaryTextFieldFontSize
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         GestureDetector(
                           onTap: (){
-                            if(emailController.text == null || emailController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                            if(emailController.text == ""){
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                               return;
                             }
-                            authBloc..add(RestorePasswordEvent(email: emailController.text));
+                            authBloc.add(RestorePasswordEvent(email: emailController.text));
                           },
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             width: MediaQuery.of(context).size.width * 0.7,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
@@ -128,8 +128,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     width: 1
                                 )
                             ),
-                            child: state is LoadingState ? CupertinoActivityIndicator() :
-                            Text(
+                            child: state is LoadingState ? const CupertinoActivityIndicator() :
+                            const Text(
                               restorePasswordText,
                               textAlign: TextAlign.center,
                               style: TextStyle(

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:file_picker/file_picker.dart';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,33 +10,34 @@ import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:geocoder/geocoder.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime_type/mime_type.dart';
+// import 'package:mime_type/mime_type.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/components/add_media_dialog.dart';
+// import 'package:overheard_flutter_app/ui/components/add_media_dialog.dart';
 import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
 import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 import 'package:overheard_flutter_app/ui/feed/models/MediaType.dart';
 import 'package:overheard_flutter_app/ui/feed/models/TagItem.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:location/location.dart';
+// import 'package:path_provider/path_provider.dart';
+// import 'package:location/location.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
 import 'bloc/feed.bloc.dart';
 import 'bloc/feed.state.dart';
-import 'map_view.dart';
+// import 'map_view.dart';
 
 class EditScreen extends StatefulWidget{
   final FeedModel? feed;
-  EditScreen({this.feed});
+  // ignore: use_key_in_widget_constructors
+  const EditScreen({Key? key, this.feed});
   @override
   EditScreenState createState() {
-    return new EditScreenState();
+    return EditScreenState();
   }
 
 }
@@ -110,15 +111,15 @@ class EditScreenState extends State<EditScreen>{
             ),
             trailing: GestureDetector(
               onTap: (){
-                if(titleController.text == null || titleController.text == ""){
+                if(titleController.text == ""){
                   showToast(feedTitleEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
                   return;
                 }
-                if(contentController.text == null || contentController.text == ""){
+                if(contentController.text == ""){
                   showToast(postContentEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
                   return;
                 }
-                if(locationController.text == null || locationController.text == ""){
+                if(locationController.text == ""){
                   showToast(locationEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
                   return;
                 }
@@ -132,9 +133,9 @@ class EditScreenState extends State<EditScreen>{
                   urls: feedBloc.pickedThumbnails
                 ));
               },
-              child: Container(
+              child: const SizedBox(
                 width: 50,
-                child: const Align(
+                child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
                     SaveButtonText,
@@ -480,7 +481,7 @@ class EditScreenState extends State<EditScreen>{
                         Container(
                           width: MediaQuery.of(context).size.width - 20,
                           height: MediaQuery.of(context).size.width * 0.3,
-                          padding: feedBloc.pickedThumbnails != null && feedBloc.pickedThumbnails.length > 0 ? EdgeInsets.all(10) : EdgeInsets.all(0),
+                          padding: feedBloc.pickedThumbnails.isNotEmpty ? const EdgeInsets.all(10) : const EdgeInsets.all(0),
                           decoration: BoxDecoration(
                               color: primaryWhiteTextColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10)
@@ -489,11 +490,11 @@ class EditScreenState extends State<EditScreen>{
                             child: CupertinoActivityIndicator(),
                           ),
                         ):
-                        feedBloc.pickedThumbnails.length == 0 ?
+                        feedBloc.pickedThumbnails.isEmpty ?
                         Container(
                           width: MediaQuery.of(context).size.width - 20,
                           height: MediaQuery.of(context).size.width * 0.3,
-                          padding: feedBloc.pickedThumbnails != null && feedBloc.pickedThumbnails.length > 0 ? EdgeInsets.all(10) : EdgeInsets.all(0),
+                          padding: feedBloc.pickedThumbnails.isNotEmpty ? const EdgeInsets.all(10) : const EdgeInsets.all(0),
                           decoration: BoxDecoration(
                               color: primaryWhiteTextColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10)
@@ -513,7 +514,7 @@ class EditScreenState extends State<EditScreen>{
                         Container(
                           width: MediaQuery.of(context).size.width - 20,
                           height: MediaQuery.of(context).size.width * 0.3,
-                          padding: feedBloc.pickedThumbnails != null && feedBloc.pickedThumbnails.length > 0 ? EdgeInsets.all(10) : EdgeInsets.all(0),
+                          padding: feedBloc.pickedThumbnails.isNotEmpty ? const EdgeInsets.all(10) : const EdgeInsets.all(0),
                           decoration: BoxDecoration(
                               color: primaryWhiteTextColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10)
@@ -531,7 +532,7 @@ class EditScreenState extends State<EditScreen>{
                         ):
                         Container(
                           width: MediaQuery.of(context).size.width - 20,
-                          padding: feedBloc.feedItem.media != null && feedBloc.feedItem.media.length > 0 ? EdgeInsets.all(10) : EdgeInsets.all(0),
+                          padding: feedBloc.feedItem.media.isNotEmpty ? const EdgeInsets.all(10) : const EdgeInsets.all(0),
                           decoration: BoxDecoration(
                               color: primaryWhiteTextColor.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(10)
@@ -543,7 +544,7 @@ class EditScreenState extends State<EditScreen>{
                             runAlignment: WrapAlignment.start,
                             runSpacing: 10.0,
                             crossAxisAlignment: WrapCrossAlignment.start,
-                            children: feedBloc.pickedThumbnails.length > 0 ?
+                            children: feedBloc.pickedThumbnails.isNotEmpty ?
                             feedBloc.pickedThumbnails.map((file) {
                               int index = feedBloc.pickedThumbnails.indexOf(file);
                               return Stack(
@@ -583,8 +584,8 @@ class EditScreenState extends State<EditScreen>{
                                                   borderRadius: BorderRadius.circular(5)
                                               ),
                                             ),
-                                            placeholder: (context, url) => CupertinoActivityIndicator(),
-                                            errorWidget: (context, url, error) => Icon(Icons.error),
+                                            placeholder: (context, url) => const CupertinoActivityIndicator(),
+                                            errorWidget: (context, url, error) => const Icon(Icons.error),
                                           ),
                                         ):
                                         /// if media is image and url is null, then render local image file
@@ -790,9 +791,7 @@ class EditScreenState extends State<EditScreen>{
                                                 Navigator.of(context).pop();
                                                 XFile image = await ImagePicker().pickImage(
                                                     source: ImageSource.gallery) as XFile;
-                                                if(image == null){
-                                                  return;
-                                                }
+                                                
                                                 setState(() {
                                                   feedBloc.pickedFiles.add(File(image.path));
                                                   feedBloc.thumbnails.add(File(image.path));
@@ -829,9 +828,7 @@ class EditScreenState extends State<EditScreen>{
                                                 Navigator.of(context).pop();
                                                 XFile video = await ImagePicker().pickImage(
                                                     source: ImageSource.gallery) as XFile;
-                                                if(video == null){
-                                                  return;
-                                                }
+                                                
                                                 final thumbnail = await VideoThumbnail.thumbnailFile(
                                                   video: video.path,
                                                   imageFormat: ImageFormat.PNG,
