@@ -1,0 +1,298 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:overheard_flutter_app/constants/colorset.dart';
+import 'package:overheard_flutter_app/constants/fontsizeset.dart';
+import 'package:overheard_flutter_app/constants/stringset.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile.bloc.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
+import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
+import 'package:overheard_flutter_app/utils/ui_elements.dart';
+
+import 'bloc/profile.state.dart';
+
+class ChangePasswordScreen extends StatefulWidget {
+  ChangePasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  _ChangePasswordScreenState createState() {
+    return _ChangePasswordScreenState();
+  }
+}
+
+class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
+
+  late ProfileBloc profileBloc;
+  late TextEditingController oldPasswordController;
+  late TextEditingController newPasswordController;
+  late TextEditingController confirmPasswordController;
+
+  @override
+  void initState() {
+    super.initState();
+    profileBloc = ProfileBloc(profileRepository: ProfileRepository());
+    oldPasswordController = TextEditingController();
+    newPasswordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener(
+      bloc: profileBloc,
+      listener: (context, state){
+        if(state is PasswordChangedState){
+          Navigator.of(context).pop();
+        }
+      },
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        bloc: profileBloc,
+        builder: (context, state){
+          return Container(
+            decoration: primaryBoxDecoration,
+            child: Scaffold(
+              appBar: CupertinoNavigationBar(
+                leading: GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                  },
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      CancelButtonText,
+                      style: TextStyle(
+                          color: primaryWhiteTextColor,
+                          fontSize: primaryButtonMiddleFontSize
+                      ),
+                      textScaleFactor: 1.0,
+                    ),
+                  ),
+                ),
+                middle: Text(
+                  changePasswordText,
+                  style: TextStyle(
+                      fontSize: appBarTitleFontSize,
+                      color: primaryWhiteTextColor
+                  ),
+                  textScaleFactor: 1.0,
+                ),
+                trailing: GestureDetector(
+                  onTap: () async {
+                    if(oldPasswordController.text == null || oldPasswordController.text == ""){
+                      showToast(passwordEmptyErrorText, gradientStart);
+                      return;
+                    }
+                    if(newPasswordController.text == null || newPasswordController.text == ""){
+                      showToast(passwordEmptyErrorText, gradientStart);
+                      return;
+                    }
+                    if(confirmPasswordController.text == null || confirmPasswordController.text == ""){
+                      showToast(passwordEmptyErrorText, gradientStart);
+                      return;
+                    }
+                    if(newPasswordController.text != confirmPasswordController.text){
+                      showToast(passwordMismatchErrorText, gradientStart);
+                    }
+                    profileBloc..add(ChangePasswordEvent(oldPassword: oldPasswordController.text, newPassword: newPasswordController.text));
+                  },
+                  child: Container(
+                    width: 50,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        SaveButtonText,
+                        style: TextStyle(
+                            color: primaryWhiteTextColor,
+                            fontSize: primaryButtonMiddleFontSize
+                        ),
+                        textScaleFactor: 1.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              backgroundColor: Colors.transparent,
+              body: SafeArea(
+                child: Center(
+                  child: Stack(
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 30,),
+                          /// Old password field
+                          Center(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 10 * 2,
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                    textSelectionHandleColor: Colors.transparent,
+                                    primaryColor: Colors.transparent,
+                                    scaffoldBackgroundColor:Colors.transparent,
+                                    bottomAppBarColor: Colors.transparent
+                                ),
+                                child: TextField(
+                                  controller: oldPasswordController,
+                                  cursorColor: primaryPlaceholderTextColor,
+                                  textAlign: TextAlign.start,
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(color: primaryWhiteTextColor),
+                                    hintText: oldPasswordHintText,
+                                    contentPadding: EdgeInsets.only(
+                                      bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                      color: primaryWhiteTextColor,
+                                      fontSize: primaryTextFieldFontSize
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+
+                          /// New password field
+                          Center(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 10 * 2,
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                    textSelectionHandleColor: Colors.transparent,
+                                    primaryColor: Colors.transparent,
+                                    scaffoldBackgroundColor:Colors.transparent,
+                                    bottomAppBarColor: Colors.transparent
+                                ),
+                                child: TextField(
+                                  controller: newPasswordController,
+                                  cursorColor: primaryPlaceholderTextColor,
+                                  textAlign: TextAlign.start,
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(color: primaryWhiteTextColor),
+                                    hintText: newPasswordHintText,
+                                    contentPadding: EdgeInsets.only(
+                                      bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                      color: primaryWhiteTextColor,
+                                      fontSize: primaryTextFieldFontSize
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+
+                          /// Confirm password field
+                          Center(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 10 * 2,
+                              height: 40,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                              child: Theme(
+                                data: Theme.of(context).copyWith(
+                                    textSelectionHandleColor: Colors.transparent,
+                                    primaryColor: Colors.transparent,
+                                    scaffoldBackgroundColor:Colors.transparent,
+                                    bottomAppBarColor: Colors.transparent
+                                ),
+                                child: TextField(
+                                  controller: confirmPasswordController,
+                                  cursorColor: primaryPlaceholderTextColor,
+                                  textAlign: TextAlign.start,
+                                  keyboardType: TextInputType.text,
+                                  obscureText: true,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(color: primaryWhiteTextColor),
+                                    hintText: confirmPasswordPlaceholder,
+                                    contentPadding: EdgeInsets.only(
+                                      bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                    ),
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                      color: primaryWhiteTextColor,
+                                      fontSize: primaryTextFieldFontSize
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10,),
+                        ],
+                      ),
+                      state is PasswordChangingState ? 
+                      CupertinoActivityIndicator():
+                      SizedBox.shrink()
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
