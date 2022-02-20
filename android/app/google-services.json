@@ -15,11 +15,11 @@
         },
         "oauth_client": [
           {
-            "client_id": "1001851391778-c4ue0tf5e4usc9j1r47uoqgvdfo5tvnd.apps.googleusercontent.com",
+            "client_id": "1001851391778-1ru6daaf78ev3fsl21hufuqktmvpksb2.apps.googleusercontent.com",
             "client_type": 1,
             "android_info": {
               "package_name": "net.overheard",
-              "certificate_hash": "75e25e46631099ca63c58f84cb87e272642c440e"
+              "certificate_hash": "eb15f598ec477d0516f684f173d5a965336d2c1e"
             }
           },
           {
@@ -28,6 +28,14 @@
             "android_info": {
               "package_name": "net.overheard",
               "certificate_hash": "b04624939c8f08259d0302851306e29def4bb97d"
+            }
+          },
+          {
+            "client_id": "1001851391778-tfkovkban7jsccrmvck82vhjv4tgqp3c.apps.googleusercontent.com",
+            "client_type": 1,
+            "android_info": {
+              "package_name": "net.overheard",
+              "certificate_hash": "ae5f59f68acf360c87d0e913e86fd9d36a9bef80"
             }
           },
           {
@@ -48,10 +56,10 @@
                 "client_type": 3
               },
               {
-                "client_id": "1001851391778-jruu1nao9v0dai58dung8a2tt26bbb87.apps.googleusercontent.com",
+                "client_id": "1001851391778-64koo7mppvgoq1cabmlts4fr0f8oqli3.apps.googleusercontent.com",
                 "client_type": 2,
                 "ios_info": {
-                  "bundle_id": "com.overheard"
+                  "bundle_id": "net.overheard"
                 }
               }
             ]

@@ -158,7 +158,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   }
 
   void _mapSignUpToState(SignUpEvent event) async {
-    // yield const LoadingState();
     emit(const LoadingState());
     String email = event.email;
     String name = event.name;
@@ -172,13 +171,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     
     if(result!['status']){
       showToast(result['message'], gradientStart);
-      // yield const SignUpSuccessState();
       emit(const SignUpSuccessState());
       return;
     }
     else{
       showToast(result['message'], gradientStart);
-      // yield const SignUpFailedState();
       emit(const SignUpFailedState());
       return;
     }
@@ -306,18 +303,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   }
 
   void _mapTwitterSignInToState(TwitterSignInEvent twitterSignInEvent) async {
-    print("twitter signin event called");
     emit(const LoadingState());
     var result = await authRepository.signInWithTwitter();
 
     if(result == null){
       emit(const LoginFailedState());
+      return;
     }
-    else if(result == Map()){
+    else if(result.isEmpty){
       emit(const LoginCancelledState());
-    }
-    else if(result == null){
-      emit(const LoginFailedState());
+      return;
     }
     else{
       String uid = result['userid'];

@@ -202,48 +202,40 @@ class AuthRepository extends RestApiClient{
   }
 
   Future<Map<dynamic, dynamic>?> signInWithTwitter() async {
-    AuthResult result = await twitterSignIn.login();
-    String newMessage;
-    if (result.status == TwitterLoginStatus.loggedIn) {
-      User? user = await _signInWithTwitter(result.authToken as String, result.authTokenSecret as String);
-      final twitterApi = DartTwitterApi.TwitterApi(
-        client: DartTwitterApi.TwitterClient(
-          consumerKey: twitter_Api,
-          consumerSecret: twitter_Secret,
-          token: result.authToken as String,
-          secret: result.authTokenSecret as String
-        )
-      );
-      // final _twitterOauth = twitterApi(
-      //     consumerKey: twitter_Api,
-      //     consumerSecret: twitter_Secret,
-      //     token: result.authToken,
-      //     tokenSecret: result.authTokenSecret
-      // );
-      final _twitterOauth = twitterApi.userService.client;
-      return {};
+    try {
+      final result = await twitterSignIn.login();
+      print(result.user);
+      switch (result.status!) {
+        case TwitterLoginStatus.loggedIn:
+          final AuthCredential credential = TwitterAuthProvider.credential(accessToken: result.authToken!, secret: result.authTokenSecret!); 
+          return {};
 
-      // Future twitterRequest = _twitterOauth.getTwitterRequest(
-      //   // Http Method
-      //   "GET",
-      //   // Endpoint you are trying to reach
-      //   "account/verify_credentials.json",
-      // );
-      // var res = await twitterRequest;
-      // var profile = json.decode(res.body);
-      // String token = await user.getIdToken();
-      // profile['userid'] = user.uid;
-      // profile['token'] = token;
-      // profile['email'] = user.email;
-      // return profile;
-    }else if (result.status == TwitterLoginStatus.cancelledByUser) {
-      newMessage = 'Login cancelled by user.';
-      return Map();
-    }else if (result.status == TwitterLoginStatus.error) {
-      newMessage = 'Login error: ${result.errorMessage}';
+          // Future twitterRequest = _twitterOauth.getTwitterRequest(
+          //   // Http Method
+          //   "GET",
+          //   // Endpoint you are trying to reach
+          //   "account/verify_credentials.json",
+          // );
+          // var res = await twitterRequest;
+          // var profile = json.decode(res.body);
+          // String token = await user.getIdToken();
+          // profile['userid'] = user.uid;
+          // profile['token'] = token;
+          // profile['email'] = user.email;
+          // return profile;
+        
+        case TwitterLoginStatus.cancelledByUser:
+          return {};
+        
+        case TwitterLoginStatus.error:
+          return null;
+      }
+    } catch (exception) {
+      print(exception);
       return null;
     }
     return null;
+    
   }
 
   String generateNonce([int length = 32]) {

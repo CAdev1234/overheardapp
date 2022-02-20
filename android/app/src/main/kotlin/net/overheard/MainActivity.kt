@@ -1,4 +1,4 @@
-package com.example.overheard_flutter_app
+package net.overheard
 
 import io.flutter.embedding.android.FlutterActivity
 

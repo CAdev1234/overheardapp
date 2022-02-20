@@ -1,7 +1,7 @@
 /// API keys
 const String googleMapApiKey = 'AIzaSyCWeQpEV267p7Gx8PPDeJHyqHo87SkVw50';
-const String twitter_Api = 'D62hrgqhkxMBOhs6r6VxbmBVW';
-const String twitter_Secret = 'y5VfOHjTRoo0Y2M1OYPtecrbuunooHYkMbWPupa1PHlWAc1jy6';
+const String twitter_Api = 'g04iKX4NX3AbfedlWk7YkDV4b';
+const String twitter_Secret = 'a2T0hGIqUg6flwmVHaTBTWyK2ZVjtSEGmQ2toLGvCn81JUKeV7';
 const String facebook_Secret = '471dab6f72e5687a9e593f38faae8d67';
 
 /// Store keys
