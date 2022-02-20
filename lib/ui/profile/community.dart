@@ -12,9 +12,9 @@ import 'package:overheard_flutter_app/constants/stringset.dart';
 // import 'package:overheard_flutter_app/ui/components/pagination.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.event.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_event.dart';
+import 'bloc/profile_state.dart';
 
 class EditCommunityScreen extends StatefulWidget{
   const EditCommunityScreen({Key? key}) : super(key: key);
@@ -293,7 +293,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                           },
                           initialCameraPosition: profileBloc.currentPosition == null ?
                           const CameraPosition(target: LatLng(40.688841, -74.044015), zoom: 11) :
-                          CameraPosition(target: LatLng(profileBloc.currentPosition.latitude, profileBloc.currentPosition.longitude), zoom: 11),
+                          CameraPosition(target: LatLng(profileBloc.currentPosition!.latitude, profileBloc.currentPosition!.longitude), zoom: 11),
                           mapType: MapType.normal,
                           markers: markers,
                         )

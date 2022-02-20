@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-// import 'package:flutter/cupertino.dart';
 
 abstract class AuthEvent extends Equatable{
   const AuthEvent();
@@ -41,9 +40,9 @@ class EmailVerifyResendEvent extends AuthEvent {
 
 class SignUpEvent extends AuthEvent {
   final String email;
-  final String userName;
+  final String name;
   final String password;
-  const SignUpEvent({required this.email, required this.userName, required this.password}) : super();
+  const SignUpEvent({required this.email, required this.name, required this.password}) : super();
 
   @override
   List<Object> get props => [];

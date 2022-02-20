@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'dart:io';
 
 // import 'package:async/async.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 import 'response.dart';
 
@@ -18,7 +17,7 @@ class RestApiClient {
 
   RestApiClient();
 
-  Future<Response> getData<T>(String endpoint) async {
+  Future<http.Response> getData<T>(String endpoint) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('AccessToken');
     var authToken = prefs.getString('AuthorizationToken');
@@ -40,7 +39,7 @@ class RestApiClient {
     return response;
   }
 
-  Future<Response> getExternal(String endpoint) async {
+  Future<http.Response> getExternal(String endpoint) async {
     Uri uri = Uri.http('', endpoint);
     final response = await http.get(uri).timeout(
         const Duration(seconds: TIMEOUT_SECONDS),
@@ -48,7 +47,7 @@ class RestApiClient {
     return response;
   }
 
-  Future<Response> deleteData(String endpoint) async {
+  Future<http.Response> deleteData(String endpoint) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('AccessToken');
     var authToken = prefs.getString('AuthorizationToken');
@@ -69,39 +68,35 @@ class RestApiClient {
     return response;
   }
 
-  Future<Response?> postData(String endpoint, Map<String, dynamic> data,
+  Future<http.Response?> postData(String endpoint, Map<String, dynamic> data,
       [String? contentType]) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('AccessToken');
     var authToken = prefs.getString('AuthorizationToken');
-
-    late String authorization;
-
+    String authorization = '';
     if (accessToken != null) {authorization = 'Bearer $accessToken';}
     else if (authToken != null) {authorization = 'Bearer $authToken';}
     try{
-      final response = await http
-          .post(Uri.http(baseApiEndPoint, endpoint),
-          headers: {
-            HttpHeaders.authorizationHeader: authorization,
-            // HttpHeaders.contentTypeHeader: (contentType == null ? "application/json; charset=UTF-8" : contentType),
-            HttpHeaders.contentTypeHeader: (contentType ?? "application/json; charset=UTF-8"),
-            HttpHeaders.acceptHeader: "application/json"
-          },
-          body: data != null ? (contentType == null ? json.encode(data) : data) : null)
-          .timeout(const Duration(seconds: TIMEOUT_SECONDS),
-          onTimeout: _onTimeout);
-
+      final response = await http.post(
+        Uri.parse("$baseApiEndPoint$endpoint"),
+        headers: {
+          HttpHeaders.authorizationHeader: authorization,
+          HttpHeaders.contentTypeHeader: (contentType ?? "application/json; charset=UTF-8"),
+          HttpHeaders.acceptHeader: "application/json"
+        },
+          // ignore: unnecessary_null_comparison
+          body: data != null ? (contentType == null ? json.encode(data) : data) : null
+        )
+        .timeout(const Duration(seconds: TIMEOUT_SECONDS), onTimeout: _onTimeout);
       return response;
     }
     catch(exception){
-      // print(exception.toString());
       return null;
     }
 
   }
 
-  Future<StreamedResponse> postFormData(
+  Future<http.StreamedResponse> postFormData(
       String endpoint, Map<String, dynamic> data) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('AccessToken');
@@ -114,7 +109,7 @@ class RestApiClient {
 
     var formData = urlEncodeMap(data);
     var uri = Uri.parse('$baseApiEndPoint$endpoint');
-    var request = Request("POST", uri);
+    var request = http.Request("POST", uri);
     request.headers.addAll({
       HttpHeaders.authorizationHeader: authorization,
       HttpHeaders.contentTypeHeader:
@@ -151,7 +146,7 @@ class RestApiClient {
     return processResponse<T>(response);
   }
 
-  Future<StreamedResponse> uploadData(String endpoint, File file) async {
+  Future<http.StreamedResponse> uploadData(String endpoint, File file) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('AccessToken');
     var authToken = prefs.getString('AuthorizationToken');
@@ -169,7 +164,7 @@ class RestApiClient {
     var uri = Uri.parse("$baseApiEndPoint$endpoint");
     final request = http.MultipartRequest("POST", uri);
     request.files.add(
-        MultipartFile('file', stream, length, filename: basename(file.path)));
+        http.MultipartFile('file', stream, length, filename: basename(file.path)));
     request.headers.addAll({HttpHeaders.authorizationHeader: authorization});
     int byteCount = 0;
 
@@ -191,7 +186,7 @@ class RestApiClient {
     return response;
   }
 
-  Future<StreamedResponse> uploadDataWithId(String endpoint, File file, int id) async {
+  Future<http.StreamedResponse> uploadDataWithId(String endpoint, File file, int id) async {
     var prefs = await SharedPreferences.getInstance();
     var accessToken = prefs.getString('AccessToken');
     var authToken = prefs.getString('AuthorizationToken');
@@ -209,7 +204,7 @@ class RestApiClient {
     var uri = Uri.parse("$baseApiEndPoint$endpoint");
     final request = http.MultipartRequest("POST", uri);
     request.files.add(
-        MultipartFile('file', stream, length, filename: basename(file.path)));
+        http.MultipartFile('file', stream, length, filename: basename(file.path)));
     request.fields['id'] = id.toString();
     request.headers.addAll({HttpHeaders.authorizationHeader: authorization});
     int byteCount = 0;

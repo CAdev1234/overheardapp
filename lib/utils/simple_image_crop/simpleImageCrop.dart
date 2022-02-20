@@ -50,15 +50,23 @@ class ImageCrop {
     double? scale,
   }) {
     assert(file != null);
-    assert(area != null);
-    return _channel.invokeMethod('cropImage', {
-      'path': file?.path,
-      'left': area?.left,
-      'top': area?.top,
-      'right': area?.right,
-      'bottom': area?.bottom,
-      'scale': scale ?? 1.0,
-    }).then<File>((result) => File(result));
+    // assert(area != null);
+    if (area == null) {
+      return _channel.invokeMethod('cropImage', {
+        'path': file?.path,
+        'scale': scale ?? 1.0
+      }).then<File>((result) => File(result));
+    }else {
+      return _channel.invokeMethod('cropImage', {
+        'path': file?.path,
+        'left': area.left,
+        'top': area.top,
+        'right': area.right,
+        'bottom': area.bottom,
+        'scale': scale ?? 1.0,
+      }).then<File>((result) => File(result));
+    }
+    
   }
 
   static Future<File> sampleImage({

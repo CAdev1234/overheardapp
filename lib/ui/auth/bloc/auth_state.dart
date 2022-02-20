@@ -5,6 +5,16 @@ abstract class AuthState extends Equatable{
   const AuthState();
 }
 
+class InitState extends AuthState {
+  const InitState() : super();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => "Auth Init State";
+}
+
 class LoadingState extends AuthState {
   const LoadingState() : super();
 

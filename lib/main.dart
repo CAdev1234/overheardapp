@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -7,7 +8,7 @@ import 'package:overheard_flutter_app/ui/splash/splashscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(const OverheardApp());
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -64,6 +65,7 @@ class OverheardAppState extends State<OverheardApp> {
             highContrastElevatedColor: gradientStart,
             darkHighContrastElevatedColor: gradientStart
         ),
+        
         scaffoldBackgroundColor: primaryBackgroundColor,
         textTheme: CupertinoTextThemeData(
           textStyle: TextStyle(
@@ -82,6 +84,7 @@ class OverheardAppState extends State<OverheardApp> {
         )
       ),
       home: SplashScreen(),
+      // home: ChatScreen(),
     );
   }
 }

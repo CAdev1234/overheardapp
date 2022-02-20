@@ -8,9 +8,9 @@ import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/ui/auth/signin.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/auth.bloc.dart';
-import 'bloc/auth.event.dart';
-import 'bloc/auth.state.dart';
+import 'bloc/auth_bloc.dart';
+import 'bloc/auth_event.dart';
+import 'bloc/auth_state.dart';
 
 class NewPasswordScreen extends StatefulWidget {
   final String email;
@@ -152,15 +152,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         GestureDetector(
                           onTap: (){
                             if(newPasswordController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
                               return;
                             }
                             if(confirmPasswordController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
                               return;
                             }
                             if(confirmPasswordController.text != newPasswordController.text){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
                               return;
                             }
                             authBloc.add(ResetPasswordEvent(email: widget.email, token: widget.token, password: newPasswordController.text));

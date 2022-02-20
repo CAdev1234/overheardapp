@@ -8,12 +8,12 @@ import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/components/pagination.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_event.dart';
 import 'package:overheard_flutter_app/ui/profile/models/BlockedModel.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 // import 'models/FollowModel.dart';
 
 class BlockedUserScreen extends StatefulWidget{

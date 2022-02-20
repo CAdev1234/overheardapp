@@ -6,13 +6,13 @@ import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 // import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
+import 'package:overheard_flutter_app/ui/feed/bloc/feed_event.dart';
 import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/feed.bloc.dart';
-import 'bloc/feed.state.dart';
+import 'bloc/feed_bloc.dart';
+import 'bloc/feed_state.dart';
 
 class ReportScreen extends StatefulWidget{
   final FeedModel feed;

@@ -1,19 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-// import 'package:flutter_google_maps/flutter_google_maps.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed.bloc.dart';
+import 'package:overheard_flutter_app/ui/feed/bloc/feed_bloc.dart';
 // import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 
-import 'bloc/feed.state.dart';
+import 'bloc/feed_state.dart';
+import 'bloc/feed_event.dart';
 
 class LocationScreen extends StatefulWidget {
   Position position;
+  double zoomVal = 14.4746;
   LocationScreen({Key? key, required this.position}) : super(key: key);
   @override
   State<LocationScreen> createState() => LocationScreenState();
@@ -23,6 +27,9 @@ class LocationScreenState extends State<LocationScreen> {
 
   // final _key = GlobalKey<GoogleMapStateBase>();
   late FeedBloc feedBloc;
+  Completer<GoogleMapController> _mapController = Completer();
+  late Set<Marker> _currentMarker;
+  late CameraPosition _currentLocation;
 
   @override
   void initState(){
@@ -33,18 +40,22 @@ class LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     // GeoCoord currentLocation = widget.position != null ? GeoCoord(widget.position.latitude, widget.position.longitude) : GeoCoord(40.688841, -74.044015);
-
+    CameraPosition _currentLocation = CameraPosition(
+      target: widget.position != null ? LatLng(widget.position.latitude, widget.position.longitude) : const LatLng(40.688841, -74.044015),
+      zoom: widget.zoomVal,
+    );
+    _currentMarker = <Marker>{Marker(markerId: const MarkerId('current_marker'), position: _currentLocation.target)};
     return BlocListener(
       bloc: feedBloc,
       listener: (context, state){
         if(state is FeedLocationGetDoneState){
-          // double lat = currentLocation.latitude;
-          // double lng = currentLocation.longitude;
-          // Navigator.of(context).pop({
-          //   'location': 'Location($lat, $lng)',
-          //   'lat': currentLocation.latitude.toString(),
-          //   'lng': currentLocation.longitude.toString()
-          // });
+          double lat = _currentLocation.target.latitude;
+          double lng = _currentLocation.target.longitude;
+          Navigator.of(context).pop({
+            'location': 'Location($lat, $lng)',
+            'lat': lat.toString(),
+            'lng': lng.toString()
+          });
         }
       },
       child: Scaffold(
@@ -80,16 +91,39 @@ class LocationScreenState extends State<LocationScreen> {
             //     Marker(currentLocation)
             //   },
             // ),
+            GoogleMap(
+              mapType: MapType.hybrid,
+              initialCameraPosition: _currentLocation,
+              onMapCreated: (GoogleMapController controller) {
+                _mapController.complete(controller);
+              },
+              compassEnabled: true,
+              markers: _currentMarker,
+              onTap: (loc) async {
+                setState(() {
+                  widget.position = Position.fromMap({
+                    'latitude': loc.latitude,
+                    'longitude': loc.longitude
+                  });
+                  _currentLocation = CameraPosition(
+                    target: loc,
+                    zoom: widget.zoomVal,
+                  );
+                  _currentMarker = <Marker>{Marker(markerId: MarkerId(GlobalKey().toString()), position: loc)};
+                });
+              },
+
+            ),
             BlocBuilder<FeedBloc, FeedState>(
               bloc: feedBloc,
               builder: (context, state){
                 return GestureDetector(
                   onTap: (){
-                    // Navigator.of(context).pop({
-                    //   'lat': currentLocation.latitude.toString(),
-                    //   'lng': currentLocation.longitude.toString()
-                    // });
-                    //feedBloc..add(GetLocationEvent(lat: currentLocation.latitude, lng: currentLocation.longitude));
+                    Navigator.of(context).pop({
+                      'lat': _currentLocation.target.latitude.toString(),
+                      'lng': _currentLocation.target.longitude.toString()
+                    });
+                    feedBloc.add(GetLocationEvent(lat: _currentLocation.target.latitude, lng: _currentLocation.target.longitude));
                   },
                   child: Align(
                     alignment: Alignment.bottomCenter,

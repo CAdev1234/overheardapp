@@ -5,12 +5,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/community/bloc/community.event.dart';
+import 'package:overheard_flutter_app/ui/community/bloc/community_event.dart';
 import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/community.bloc.dart';
-import 'bloc/community.state.dart';
+import 'bloc/community_bloc.dart';
+import 'bloc/community_state.dart';
 
 class SubmitCommunityScreen extends StatefulWidget{
   const SubmitCommunityScreen({Key? key}) : super(key: key);
@@ -25,14 +25,12 @@ class SubmitCommunityScreen extends StatefulWidget{
 class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
   late CommunityBloc communityBloc;
   late TextEditingController communityNameController;
-  late TextEditingController zipCodeController;
 
   @override
   void initState(){
     super.initState();
     communityBloc = CommunityBloc(communityRepository: CommunityRepository());
     communityNameController = TextEditingController();
-    zipCodeController = TextEditingController();
   }
 
   @override
@@ -101,37 +99,6 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
                             ),
                           ),
                         ),
-                        /*Container(
-                          padding: EdgeInsets.only(left: 30, right: 30),
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                          ),
-                          child: Theme(
-                            data: Theme.of(context).copyWith(
-                                textSelectionHandleColor: Colors.white,
-                                primaryColor: primaryDividerColor,
-                                scaffoldBackgroundColor:Colors.white,
-                                accentColor: Colors.white
-                            ),
-                            child: TextField(
-                              controller: zipCodeController,
-                              cursorColor: primaryPlaceholderTextColor,
-                              textAlign: TextAlign.start,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  hintText: zipCodePlaceholder,
-                                  hintStyle: TextStyle(color: primaryWhiteTextColor),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.white),
-                                  )
-                              ),
-                              style: TextStyle(
-                                  color: primaryWhiteTextColor,
-                                  fontSize: primaryTextFieldFontSize
-                              ),
-                            ),
-                          ),
-                        ),*/
                         const SizedBox(height: 30),
                         GestureDetector(
                           onTap: () async {

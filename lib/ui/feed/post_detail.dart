@@ -7,14 +7,15 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
+import 'package:overheard_flutter_app/ui/components/glassmorphism.dart';
+import 'package:overheard_flutter_app/ui/feed/bloc/feed_event.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 import 'package:overheard_flutter_app/ui/feed/widgets/comment_item.dart';
 import 'package:overheard_flutter_app/ui/feed/widgets/feed_item.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 // import 'package:timeago/timeago.dart' as timeago;
-import 'bloc/feed.bloc.dart';
-import 'bloc/feed.state.dart';
+import 'bloc/feed_bloc.dart';
+import 'bloc/feed_state.dart';
 
 class PostDetailScreen extends StatefulWidget{
   final int feedId;
@@ -172,14 +173,9 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                         children: [
                           Container(
                             margin: const EdgeInsets.all(10),
-                            padding: const EdgeInsets.only(left: 10, right: 10),
                             width: MediaQuery.of(context).size.width - 10 * 2 - 50,
                             height: 40,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.2),
-                                borderRadius: BorderRadius.circular(10)
-                            ),
                             child: Theme(
                               data: Theme.of(context).copyWith(
                                   // textSelectionHandleColor: Colors.transparent,
@@ -187,36 +183,44 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                                   scaffoldBackgroundColor:Colors.transparent,
                                   bottomAppBarColor: Colors.transparent
                               ),
-                              child: TextField(
-                                controller: commentController,
-                                cursorColor: primaryPlaceholderTextColor,
-                                textAlign: TextAlign.start,
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                    color: primaryWhiteTextColor,
-                                  ),
-                                  hintText: commentPlaceholder,
-                                  contentPadding: EdgeInsets.only(
-                                    bottom: 40 / 2,  // HERE THE IMPORTANT PART
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
+                              child: Glassmorphism(
+                                blur: 20, 
+                                opacity: 0.2, 
+                                borderRadius: 10, 
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10, right: 10),
+                                  child: TextField(
+                                    controller: commentController,
+                                    cursorColor: primaryPlaceholderTextColor,
+                                    textAlign: TextAlign.start,
+                                    keyboardType: TextInputType.text,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      hintStyle: TextStyle(
+                                        color: primaryWhiteTextColor,
+                                      ),
+                                      hintText: commentPlaceholder,
+                                      contentPadding: EdgeInsets.only(
+                                        bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
+                                    style: const TextStyle(
+                                        color: primaryWhiteTextColor,
+                                        fontSize: primaryTextFieldFontSize
                                     ),
                                   ),
                                 ),
-                                style: const TextStyle(
-                                    color: primaryWhiteTextColor,
-                                    fontSize: primaryTextFieldFontSize
-                                ),
-                              ),
+                              )
                             ),
                           ),
                           IconButton(

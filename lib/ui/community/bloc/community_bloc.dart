@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,9 +9,10 @@ import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
 import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
 import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'community.event.dart';
-import 'community.state.dart';
+import 'community_event.dart';
+import 'community_state.dart';
 
 class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
   final CommunityRepository communityRepository;
@@ -18,10 +21,19 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
   int? joinedCommunity = 0;
   String searchKey = "";
   late UserModel userModel;
-  late Position currentPosition;
+  Position? currentPosition;
   List<CommunityModel> fetchedCommunities = [];
 
-   CommunityBloc({required this.communityRepository}) : super(null as CommunityState);
+   CommunityBloc({required this.communityRepository}) : super(null as CommunityState) {
+     on<CommunityEvent>(
+       (event, emit) {
+         if (event is CommunityResetEvent) {_mapResetEventToState(event);}
+         else if (event is FetchCommunityEvent) {_mapFetchEventToState(event);}
+         else if (event is CommunityConfirmEvent) {_mapConfirmEventToState(event);}
+         else if (event is CommunitySubmitEvent) {_mapCommunitySubmitToState(event);}
+       }
+     );
+   }
 
   void resetBloc(){
     currentPage = 1;
@@ -29,22 +41,6 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
     joinedCommunity = null;
   }
 
-  @override
-  Stream<CommunityState> mapEventToState(CommunityEvent event) async* {
-    if(event is CommunityResetEvent){
-      yield* _mapResetEventToState(event);
-    }
-    else if(event is FetchCommunityEvent)
-    {
-      yield* _mapFetchEventToState(event);
-    }
-    else if(event is CommunityConfirmEvent){
-      yield* _mapConfirmEventToState(event);
-    }
-    else if(event is CommunitySubmitEvent){
-      yield* _mapCommunitySubmitToState(event);
-    }
-  }
 
   Future<List<CommunityModel>> pageFetch(int offset) async {
     if(currentPosition == null){
@@ -54,8 +50,8 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
       'page': currentPage,
       'pageCount': communityPageCount,
       'searchKey': searchKey,
-      'lat': currentPosition.latitude,
-      'lng': currentPosition.longitude
+      'lat': currentPosition?.latitude,
+      'lng': currentPosition?.longitude
     };
     var result = await communityRepository.fetchCommunity(params);
     List<CommunityModel> fetchedCommunities = [];
@@ -81,18 +77,19 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
 
   }
 
-  Stream<CommunityState> _mapFetchEventToState(FetchCommunityEvent communityFetchEvent) async* {
-    yield CommunityLoadingState();
+  void _mapFetchEventToState(FetchCommunityEvent communityFetchEvent) async {
+    emit(const CommunityLoadingState());
     try {
       if(currentPosition == null){
         currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       }
+      
       var params = {
         'page': currentPage,
         'pageCount': communityPageCount,
         'searchKey': searchKey,
-        'lat': currentPosition.latitude,
-        'lng': currentPosition.longitude
+        'lat': currentPosition?.latitude,
+        'lng': currentPosition?.longitude
       };
       var result = await communityRepository.fetchCommunity(params);
       List<CommunityModel> fetchedCommunities = [];
@@ -103,78 +100,78 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
         }
         fetchedCommunities = (result['communities'] as List).map((community) => CommunityModel.fromJson(community)).toList();
         this.fetchedCommunities = fetchedCommunities;
-        yield const CommunityDoneState();
+        emit(const CommunityDoneState());
         return;
       }
       else{
         showToast(result['message'], gradientStart);
         this.fetchedCommunities = [];
-        yield const CommunityLoadFailedState();
+        emit(const CommunityLoadFailedState());
         return;
       }
     }
     catch(exception) {
-      yield const CommunityLoadFailedState();
+      emit(const CommunityLoadFailedState());
       return;
     }
   }
 
-  Stream<CommunityState> _mapResetEventToState(CommunityResetEvent communityResetEvent) async* {
-    yield const CommunityLoadingState();
+  void _mapResetEventToState(CommunityResetEvent communityResetEvent) async {
+    emit(const CommunityLoadingState());
     var params = {
       'page': currentPage,
       'pageCount': communityPageCount,
       'searchKey': searchKey,
-      'lat': currentPosition.latitude,
-      'lng': currentPosition.longitude
+      'lat': currentPosition?.latitude,
+      'lng': currentPosition?.longitude
     };
     var result = await communityRepository.fetchCommunity(params);
     if(result['status']){
       userModel = UserModel.fromJson(result['user']);
       fetchedCommunities = (result['communities'] as List).map((community) => CommunityModel.fromJson(community)).toList();
-      yield const CommunityDoneState();
+      emit(const CommunityDoneState());
     }
     else{
-      yield const CommunityLoadFailedState();
+      emit(const CommunityLoadFailedState());
     }
   }
 
-  Stream<CommunityState> _mapConfirmEventToState(CommunityConfirmEvent communityConfirmEvent) async* {
-    yield const CommunityConfirmLoadingState();
+  void _mapConfirmEventToState(CommunityConfirmEvent communityConfirmEvent) async {
+    emit(const CommunityConfirmLoadingState());
     var params = {
       'community_id': joinedCommunity
     };
     var result = await communityRepository.confirmCommunity(params);
     if(result['status']){
-      yield const CommunityConfirmedState();
+      emit(const CommunityConfirmedState());
     }
     else{
-      yield const CommunityConfirmFailedState();
+      emit(const CommunityConfirmFailedState());
     }
   }
 
-  Stream<CommunityState> _mapCommunitySubmitToState(CommunitySubmitEvent submitEvent) async* {
-    yield const CommunityLoadingState();
+  void _mapCommunitySubmitToState(CommunitySubmitEvent submitEvent) async {
+    emit(const CommunityLoadingState());
     var params = {
       'lat': submitEvent.lat,
       'lng': submitEvent.lng,
-      'community_name': submitEvent.name
+      'community_name': submitEvent.name,
     };
     try{
       var result = await communityRepository.submitCommunity(params);
       if(result['status']){
         showToast(result['message'], gradientStart, gravity: ToastGravity.CENTER);
-        yield const CommunityDoneState();
+        emit(const CommunityDoneState());
         return;
       }
       else{
-        yield const CommunityLoadFailedState();
+        emit(const CommunityLoadFailedState());
         showToast(result['message'], gradientStart, gravity: ToastGravity.CENTER);
         return;
       }
     }
     catch(exception){
-      yield const CommunityLoadFailedState();
+      emit(const CommunityLoadFailedState());
       showToast('Community Submit Failed', gradientStart, gravity: ToastGravity.CENTER);
       return;
     }

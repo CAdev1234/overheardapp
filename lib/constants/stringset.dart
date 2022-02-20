@@ -195,9 +195,17 @@ const String videoPickText = 'Video';
 
 const String profileSourceFacebook = 'Facebook';
 
+const String chatText = "Chats";
+const String createChatAppBarTitle = "Create New Chat";
+const String deleteChatAlertTitle = "Delete Chat";
+const String deleteChatAlertContent = "If you tap confirm button all messages and attachments history will be deleted";
+const String noMessageText = "No message";
+
 /// API routes
 /// Auth Related Urls
-const String BASE_ROUTE = 'https://overheard.net';
+// const String BASE_ROUTE = 'https://overheard.net';
+// const String BASE_ROUTE = 'http://10.0.2.2:8000';
+const String BASE_ROUTE = 'http://192.168.1.17:8000';
 const String SIGNIN_URL = '/api/auth/signin';
 const String FIREBASE_SIGNIN_URL = '/api/auth/firebaseSignIn';
 const String SIGNUP_URL = '/api/auth/signup';

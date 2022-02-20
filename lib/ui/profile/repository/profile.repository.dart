@@ -6,18 +6,17 @@ import 'package:overheard_flutter_app/services/restclient.dart';
 class ProfileRepository extends RestApiClient{
   ProfileRepository();
 
-  Future<bool> updateAvatar(File avatar) async {
+  Future<dynamic> updateAvatar(File avatar) async {
     try{
       final result = await uploadData(UPDATE_AVATAR_URL, avatar);
       if(result.statusCode == HttpStatus.ok){
-        return true;
+        return result;
       }
     }
     catch(exception){
       // print(exception);
-      return false;
+      return {};
     }
-    return false;
   }
   
   Future<Map<dynamic, dynamic>> completeProfile(Map<String, dynamic> profileData) async {

@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.bloc.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_bloc.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_event.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/profile.state.dart';
+import 'bloc/profile_state.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);

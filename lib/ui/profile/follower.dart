@@ -10,12 +10,12 @@ import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 // import 'package:overheard_flutter_app/ui/community/models/user.dart';
 import 'package:overheard_flutter_app/ui/components/pagination.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_event.dart';
 import 'package:overheard_flutter_app/ui/profile/models/FollowModel.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 
 class FollowerScreen extends StatefulWidget{
   const FollowerScreen({Key? key}) : super(key: key);

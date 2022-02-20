@@ -10,19 +10,19 @@ import 'package:location/location.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.bloc.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.event.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_bloc.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_event.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/ui/auth/resendverification.dart';
 import 'package:overheard_flutter_app/ui/auth/resetpassword.dart';
 import 'package:overheard_flutter_app/ui/auth/signup.dart';
-import 'package:overheard_flutter_app/ui/community/bloc/community.bloc.dart';
+import 'package:overheard_flutter_app/ui/community/bloc/community_bloc.dart';
 import 'package:overheard_flutter_app/ui/community/community.dart';
 import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
-import 'package:overheard_flutter_app/ui/home/bloc/home.bloc.dart';
+import 'package:overheard_flutter_app/ui/home/bloc/home_bloc.dart';
 import 'package:overheard_flutter_app/ui/home/home.dart';
 import 'package:overheard_flutter_app/ui/home/repository/home.repository.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.bloc.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_bloc.dart';
 import 'package:overheard_flutter_app/ui/profile/complete_profile.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
@@ -31,7 +31,7 @@ import 'package:uni_links/uni_links.dart';
 import 'dart:io' show Platform;
 
 // import '../../main.dart';
-import 'bloc/auth.state.dart';
+import 'bloc/auth_state.dart';
 import 'newpassword.dart';
 
 class SignInScreen extends StatefulWidget{
@@ -385,15 +385,15 @@ class SignInScreenState extends State<SignInScreen>{
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                               return;
                             }
                             if(passwordController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                               return;
                             }
                             authBloc.add(SignInEvent(email: emailController.text, password: passwordController.text));

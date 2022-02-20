@@ -35,10 +35,10 @@ class ImgCrop extends StatefulWidget {
       assert(handleSize != null && handleSize >= 0.0),
       super(key: key);
 
-  ImgCrop.file(File file,
+  ImgCrop.file(File file, 
       {Key? key,
       double scale = 1.0,
-      this.maximumScale: 2.0,
+      this.maximumScale = 2.0,
       this.onImageError,
       this.chipRadius = 150,
       this.chipRatio = 1.0,
@@ -53,7 +53,7 @@ class ImgCrop extends StatefulWidget {
       AssetBundle? bundle,
       String? package,
       this.chipRadius = 150,
-      this.maximumScale: 2.0,
+      this.maximumScale = 2.0,
       this.onImageError,
       this.chipRatio = 1.0,
       this.chipShape = ChipShape.circle,
@@ -146,19 +146,16 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
   }
 
   Future<File> cropCompleted(File file, {required int preferredSize}) async {
-    // final options = await ImageCrop.getImageOptions(file: file);
-    // debugPrint(
-    //     'image width: ${options.width}, height: ${options.height}  $scale');
+    final options = await ImageCrop.getImageOptions(file: file);
+    debugPrint(
+        'image width: ${options.width}, height: ${options.height}  $scale');
 
     final sampleFile = await ImageCrop.sampleImage(
       file: file,
       preferredSize: (preferredSize / scale).round(),
     );
 
-    final croppedFile = await ImageCrop.cropImage(
-      file: sampleFile,
-      area: area!,
-    );
+    File croppedFile = await ImageCrop.cropImage(file: sampleFile, area: _area);
 
     return croppedFile;
   }

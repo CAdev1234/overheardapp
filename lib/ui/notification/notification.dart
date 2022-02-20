@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 // import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/notification/bloc/notification.bloc.dart';
+import 'package:overheard_flutter_app/ui/notification/bloc/notification_bloc.dart';
 import 'package:overheard_flutter_app/ui/notification/repository/notification.repository.dart';
 
-import 'bloc/notification.state.dart';
+import 'bloc/notification_state.dart';
 
 class NotificationScreen extends StatefulWidget{
   const NotificationScreen({Key? key}) : super(key: key);

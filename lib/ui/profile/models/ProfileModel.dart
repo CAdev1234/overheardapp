@@ -1,4 +1,5 @@
 class ProfileModel {
+  int? id;
   String? name;
   String? firstname;
   String? lastname;
@@ -12,21 +13,24 @@ class ProfileModel {
   bool? isBlocked;
   bool? isFollowing;
 
-  ProfileModel(
-      {this.name,
-        this.firstname,
-        this.lastname,
-        this.avatar,
-        this.bio,
-        this.communityId,
-        this.isActive,
-        this.isVerified,
-        this.community,
-        this.totalPost,
-        this.isBlocked,
-        this.isFollowing});
+  ProfileModel({
+    this.id,
+    this.name,
+    this.firstname,
+    this.lastname,
+    this.avatar,
+    this.bio,
+    this.communityId,
+    this.isActive,
+    this.isVerified,
+    this.community,
+    this.totalPost,
+    this.isBlocked,
+    this.isFollowing
+  });
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     name = json['name'];
     firstname = json['firstname'];
     lastname = json['lastname'];
@@ -45,6 +49,7 @@ class ProfileModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
+    data['id'] = id;
     data['name'] = name;
     data['firstname'] = firstname;
     data['lastname'] = lastname;
@@ -66,7 +71,7 @@ class ProfileModel {
 class Community {
   int? id;
   String? name;
-  String? zipCode;
+  int? zipCode;
   int? participants;
   String? radius;
   String? adsPrice;

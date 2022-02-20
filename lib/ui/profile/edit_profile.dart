@@ -8,12 +8,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_event.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 import 'crop_photo.dart';
 
 class EditProfileScreen extends StatefulWidget{
@@ -35,6 +35,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController emailController;
   late TextEditingController phoneNumberController;
   late TextEditingController bioController;
+
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -59,8 +61,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
           lastNameController.text = state.userModel!.lastname!;
           userNameController.text = state.userModel!.name!;
           emailController.text = state.userModel!.email!;
-          phoneNumberController.text = state.userModel!.phonenumber!;
           bioController.text = state.userModel!.bio!;
+          phoneNumberController.text = state.userModel!.phonenumber!;
         }
         else if(state is ProfileUpdateDoneState){
           Navigator.of(context).pop(true);
@@ -72,6 +74,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       child: Container(
         decoration: primaryBoxDecoration,
         child: Scaffold(
+          key: scaffoldKey,
           appBar: CupertinoNavigationBar(
             middle: const Text(
               editProfileAppBarTitle,
@@ -84,27 +87,34 @@ class EditProfileScreenState extends State<EditProfileScreen> {
             trailing: GestureDetector(
               onTap: (){
                 if(firstNameController.text == ""){
-                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
+                  // Scaffold.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
+                  showToast(firstNameEmptyErrorText, gradientStart);
                   return;
                 }
                 if(lastNameController.text == ""){
-                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
+                  // Scaffold.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
+                  showToast(lastNameEmptyErrorText, gradientStart);
                   return;
                 }
                 if(userNameController.text == ""){
-                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
+                  // Scaffold.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
+                  showToast(usernameEmptyErrorText, gradientStart);
                   return;
                 }
                 if(emailController.text == ""){
-                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                  // Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                  // ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                  showToast(emailEmptyErrorText, gradientStart);
                   return;
                 }
                 if(bioController.text == ""){
-                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
+                  // Scaffold.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
+                  showToast(bioEmptyErrorText, gradientStart);
                   return;
                 }
                 if(!EmailValidator.validate(emailController.text)){
-                  ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                  // Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                  showToast(invalidEmailErrorText, gradientStart);
                   return;
                 }
 
@@ -199,9 +209,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                       textScaleFactor: 1.0,
                                     ),
                                     onPressed: () async {
-                                      XFile image = await ImagePicker().pickImage(
-                                          source: ImageSource.camera) as XFile;
-
+                                      XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
                                       if(image != null){
                                         final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                           create: (context) => ProfileBloc(profileRepository: ProfileRepository()),

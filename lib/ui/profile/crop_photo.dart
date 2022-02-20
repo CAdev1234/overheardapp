@@ -8,8 +8,8 @@ import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/utils/simple_image_crop/simple_image_crop.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 
 class CropPhotoScreen extends StatefulWidget{
   final image;

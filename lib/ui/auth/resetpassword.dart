@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.event.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_event.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/auth.bloc.dart';
-import 'bloc/auth.state.dart';
+import 'bloc/auth_bloc.dart';
+import 'bloc/auth_state.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({Key? key}) : super(key: key);
@@ -108,11 +108,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                               return;
                             }
                             authBloc.add(RestorePasswordEvent(email: emailController.text));

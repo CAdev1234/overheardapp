@@ -6,12 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.bloc.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.event.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_bloc.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_event.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 
-import 'bloc/auth.state.dart';
+import 'bloc/auth_state.dart';
 
 class ResendVerificationScreen extends StatefulWidget{
   const ResendVerificationScreen({Key? key}) : super(key: key);

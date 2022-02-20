@@ -5,18 +5,20 @@ import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/auth/about_us.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.bloc.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_bloc.dart';
+import 'package:overheard_flutter_app/ui/auth/faq.dart';
 // import 'package:overheard_flutter_app/ui/auth/faq.dart';
 import 'package:overheard_flutter_app/ui/auth/privacypolicy.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/ui/auth/signin.dart';
 import 'package:overheard_flutter_app/ui/auth/termsofuse.dart';
+import 'package:overheard_flutter_app/ui/components/glassmorphism.dart';
 import 'package:overheard_flutter_app/ui/profile/blocked_users.dart';
 import 'package:overheard_flutter_app/ui/profile/change_password.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 
 class SettingScreen extends StatefulWidget{
   const SettingScreen({Key? key}) : super(key: key);
@@ -70,9 +72,8 @@ class SettingScreenState extends State<SettingScreen>{
                         Container(
                           height: 40,
                           padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: primaryWhiteTextColor.withOpacity(0.2),
-                            border: const Border(
+                          decoration: const BoxDecoration(
+                            border: Border(
                               bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
                             )
                           ),
@@ -129,42 +130,46 @@ class SettingScreenState extends State<SettingScreen>{
                           ),
                         ),
                         /// Add Email
-                       /* GestureDetector(
+                        GestureDetector(
                           onTap: (){
 
                           },
-                          child: Container(
-                            height: 50,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
                                 )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    addEmailText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      addEmailText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ),*/
+                          )
+                        ),
                         /// Blocked User
                         GestureDetector(
                           onTap: (){
@@ -173,120 +178,132 @@ class SettingScreenState extends State<SettingScreen>{
                               child: const BlockedUserScreen(),
                             )));
                           },
-                          child: Container(
-                            height: 50,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: const Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    blockedUserText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      blockedUserText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
+                          )
                         ),
                         /// My Payments
-                        /*GestureDetector(
+                        GestureDetector(
                           onTap: (){
 
                           },
-                          child: Container(
-                            height: 50,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    myPaymentsText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      myPaymentsText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
+                            ), 
+                          )
                         ),
+
                         /// Notifications
                         GestureDetector(
                           onTap: (){
 
                           },
-                          child: Container(
-                            height: 50,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    notificationText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20,
+                            opacity: 0.2,
+                            borderRadius: 0,
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      notificationText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ),*/
+                          )
+                        ),
 
                         /// About App Text
                         Container(
                           height: 40,
                           padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: primaryWhiteTextColor.withOpacity(0.2),
-                              border: const Border(
+                          decoration: const BoxDecoration(
+                              border: Border(
                                   bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
                               )
                           ),
@@ -310,37 +327,41 @@ class SettingScreenState extends State<SettingScreen>{
                               child: const TermsOfUseScreen(),
                             )));
                           },
-                          child: Container(
-                            height: 50,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: const Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    termsAndConditionsText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      termsAndConditionsText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
+                            ), 
+                          )
                         ),
                         /// Privacy Policy
                         GestureDetector(
@@ -350,37 +371,41 @@ class SettingScreenState extends State<SettingScreen>{
                               child: const PrivacyPolicyScreen(),
                             )));
                           },
-                          child: Container(
-                            height: 50,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: const Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    privacyPolicyText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      privacyPolicyText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
+                          )
                         ),
                         /// About Us
                         GestureDetector(
@@ -390,115 +415,127 @@ class SettingScreenState extends State<SettingScreen>{
                               child: const AboutUsScreen(),
                             )));
                           },
-                          child: Container(
-                            height: 50,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: const Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: const [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    aboutUsText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      aboutUsText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
+                            ), 
+                          )
                         ),
                         /// Contact us
-                        /*GestureDetector(
+                        GestureDetector(
                           onTap: (){
 
                           },
-                          child: Container(
-                            height: 50,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    contactUsText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      contactUsText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        ),*/
-                        /*/// FAQ
+                          )
+                        ),
+                        /// FAQ
                         GestureDetector(
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                               create: (context) => AuthBloc(authRepository: AuthRepository()),
-                              child: FaqScreen(),
+                              child: const FaqScreen(),
                             )));
                           },
-                          child: Container(
-                            height: 50,
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                color: primaryWhiteTextColor.withOpacity(0.2),
-                                border: Border(
-                                    bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
-                                )
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    faqText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
+                          child: Glassmorphism(
+                            blur: 20, 
+                            opacity: 0.2, 
+                            borderRadius: 0, 
+                            child: Container(
+                              height: 50,
+                              padding: const EdgeInsets.all(10),
+                              decoration: const BoxDecoration(
+                                  border: Border(
+                                      bottom: BorderSide(width: 0.4, color: primaryWhiteTextColor)
+                                  )
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      faqText,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: primaryWhiteTextColor,
-                                  size: 15,
-                                )
-                              ],
-                            ),
-                          ),
-                        ),*/
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: primaryWhiteTextColor,
+                                    size: 15,
+                                  )
+                                ],
+                              ),
+                            ), 
+                          )
+                        ),
 
                         const SizedBox(height: 20),
                         /// Logout

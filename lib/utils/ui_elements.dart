@@ -30,7 +30,10 @@ SnackBar getSnackBar(BuildContext context, String message){
     action: SnackBarAction(
       label: OkbuttonText,
       onPressed: (){
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        // Scaffold.of(context).hideCurrentSnackBar();
+        ScaffoldMessenger.of(context).removeCurrentSnackBar(
+          reason: SnackBarClosedReason.timeout
+        );
       },
     ),
   );

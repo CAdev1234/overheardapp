@@ -10,22 +10,23 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// import 'package:geocoder/geocoder.dart';
+import 'package:geocode/geocode.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+// import 'package:intl/date_symbols.dart';
 // import 'package:mime_type/mime_type.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
+import 'package:overheard_flutter_app/ui/feed/bloc/feed_event.dart';
 import 'package:overheard_flutter_app/ui/feed/map_view.dart';
 import 'package:overheard_flutter_app/ui/feed/models/MediaType.dart';
 import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 import 'package:location/location.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'bloc/feed.bloc.dart';
-import 'bloc/feed.state.dart';
+import 'bloc/feed_bloc.dart';
+import 'bloc/feed_state.dart';
 
 class CreateScreen extends StatefulWidget{
   const CreateScreen({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class CreateScreenState extends State<CreateScreen>{
           appBar: CupertinoNavigationBar(
             leading: GestureDetector(
               onTap: (){
-                Navigator.of(context).pop(false);
+                Navigator.of(context).pop(context);
               },
               child: const Align(
                 alignment: Alignment.centerLeft,
@@ -169,7 +170,7 @@ class CreateScreenState extends State<CreateScreen>{
                                     hintStyle: TextStyle(
                                       color: primaryWhiteTextColor,
                                     ),
-                                    hintText: postTitlePlaceholder + ' (Optional)',
+                                    hintText: "$postTitlePlaceholder(Optional)",
                                     contentPadding: EdgeInsets.only(
                                       bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                     ),
@@ -333,11 +334,13 @@ class CreateScreenState extends State<CreateScreen>{
                                         child: LocationScreen(position: position),
                                       )));
                                       if(result != null){
-                                        // double latitude = double.parse(result['lat']);
-                                        // double longitude = double.parse(result['lng']);
-                                        // final coordinates = new Coordinates(latitude, longitude);
+                                        double latitude = double.parse(result['lat']);
+                                        double longitude = double.parse(result['lng']);
+
+                                        final coordinates = Coordinates(latitude: latitude, longitude: longitude);
                                         try{
-                                          // var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+                                          GeoCode geoCode = GeoCode();
+                                          Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
                                           // String countryCode = '';
                                           // String adminArea = '';
                                           // String locality = '';
@@ -352,9 +355,9 @@ class CreateScreenState extends State<CreateScreen>{
                                           //     locality = addresses[i].locality + ', ';
                                           //   }
                                           // }
-                                          // setState((){
-                                          //   locationController.text = locality + adminArea + countryCode;
-                                          // });
+                                          setState((){
+                                            locationController.text = "${address.city}, ${address.countryName}";
+                                          });
                                         }
                                         catch(exception){
                                           // print(exception);
@@ -397,7 +400,7 @@ class CreateScreenState extends State<CreateScreen>{
                                     color: primaryWhiteTextColor
                                     //height: 1
                                   ),
-                                  hintText: 'Add Tags',
+                                  hintText: 'Add Tags(Optional)',
                                   hintTextColor: primaryWhiteTextColor,
                                   width: MediaQuery.of(context).size.width - 40,
                                   enabled: true,
@@ -554,8 +557,7 @@ class CreateScreenState extends State<CreateScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile image = await ImagePicker().pickImage(
-                                                    source: ImageSource.camera) as XFile;
+                                                XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
                                                 // ignore: unnecessary_null_comparison
                                                 if(image == null){
                                                   return;

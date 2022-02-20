@@ -6,15 +6,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.bloc.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_bloc.dart';
 import 'package:overheard_flutter_app/ui/auth/privacypolicy.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/ui/auth/termsofuse.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
 import 'dart:io' show Platform;
 
-import 'bloc/auth.event.dart';
-import 'bloc/auth.state.dart';
+import 'bloc/auth_event.dart';
+import 'bloc/auth_state.dart';
 
 class SignUpScreen extends StatefulWidget{
   const SignUpScreen({Key? key}) : super(key: key);
@@ -60,7 +60,7 @@ class SignUpScreenState extends State<SignUpScreen>{
         child: Scaffold(
           backgroundColor: Colors.transparent,
           body: BlocBuilder<AuthBloc, AuthState>(
-            bloc: authBloc,
+            // bloc: authBloc,
             builder: (context, state){
               return SafeArea(
                 child: SingleChildScrollView(
@@ -227,30 +227,31 @@ class SignUpScreenState extends State<SignUpScreen>{
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
                               return;
                             }
                             if(usernameController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
                               return;
                             }
                             if(passwordController.text == ""){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
                               return;
                             }
                             if(passwordController.text != confirmPasswordController.text){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              ScaffoldMessenger.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
                               return;
                             }
-                            authBloc.add(SignUpEvent(
-                                email: emailController.text,
-                                userName: usernameController.text,
-                                password: passwordController.text
-                            ));
+                            // authBloc.add(SignUpEvent(
+                            //     email: emailController.text,
+                            //     userName: usernameController.text,
+                            //     password: passwordController.text
+                            // ));
+                            context.read<AuthBloc>().add(SignUpEvent(email: emailController.text, name: usernameController.text, password: passwordController.text));
                             /// Terms and Conditions Agreement Alert
                             /*showDialog(
                               context: context,
@@ -463,7 +464,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                   onTap: (){
                                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
                                       create: (context) => AuthBloc(authRepository: AuthRepository()),
-                                      child: TermsOfUseScreen(),
+                                      child: const TermsOfUseScreen(),
                                     )));
                                   },
                                   child: const Text(

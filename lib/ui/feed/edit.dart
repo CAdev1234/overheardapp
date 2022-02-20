@@ -9,15 +9,18 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocode/geocode.dart';
 // import 'package:geocoder/geocoder.dart';
-// import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:location/location.dart';
 // import 'package:mime_type/mime_type.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 // import 'package:overheard_flutter_app/ui/components/add_media_dialog.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed.event.dart';
+import 'package:overheard_flutter_app/ui/feed/bloc/feed_event.dart';
+import 'package:overheard_flutter_app/ui/feed/map_view.dart';
 import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 import 'package:overheard_flutter_app/ui/feed/models/MediaType.dart';
 import 'package:overheard_flutter_app/ui/feed/models/TagItem.dart';
@@ -27,8 +30,8 @@ import 'package:overheard_flutter_app/utils/ui_elements.dart';
 // import 'package:location/location.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
-import 'bloc/feed.bloc.dart';
-import 'bloc/feed.state.dart';
+import 'bloc/feed_bloc.dart';
+import 'bloc/feed_state.dart';
 // import 'map_view.dart';
 
 class EditScreen extends StatefulWidget{
@@ -69,7 +72,7 @@ class EditScreenState extends State<EditScreen>{
 
     tagController = TextEditingController();
     locationController = TextEditingController();
-    locationController.text = feedBloc.feedItem.location!;
+    locationController.text = feedBloc.feedItem.location ?? '';
   }
 
   @override
@@ -324,76 +327,48 @@ class EditScreenState extends State<EditScreen>{
                               ),
                               GestureDetector(
                                 onTap: () async {
-                                  // Location location = Location();
+                                  Location location = Location();
 
-                                  // bool _serviceEnabled;
-                                  // PermissionStatus _permissionGranted;
-                                  // LocationData _locationData;
+                                  bool _serviceEnabled;
+                                  PermissionStatus _permissionGranted;
+                                  LocationData _locationData;
 
-                                  // _serviceEnabled = await location.serviceEnabled();
-                                  // if (!_serviceEnabled) {
-                                  //   _serviceEnabled = await location.requestService();
-                                  //   if (!_serviceEnabled) {
-                                  //     showToast(locationPermissionDeniedErrorText, gradientStart, gravity: ToastGravity.CENTER);
-                                  //     return;
-                                  //   }
-                                  // }
+                                  _serviceEnabled = await location.serviceEnabled();
+                                  if (!_serviceEnabled) {
+                                    _serviceEnabled = await location.requestService();
+                                    if (!_serviceEnabled) {
+                                      showToast(locationPermissionDeniedErrorText, gradientStart, gravity: ToastGravity.CENTER);
+                                      return;
+                                    }
+                                  }
 
-                                  // _permissionGranted = await location.hasPermission();
-                                  // if (_permissionGranted == PermissionStatus.denied) {
-                                  //   _permissionGranted = await location.requestPermission();
-                                  //   if (_permissionGranted != PermissionStatus.granted) {
-                                  //     showToast(locationPermissionDeniedErrorText, gradientStart, gravity: ToastGravity.CENTER);
-                                  //     return;
-                                  //   }
-                                  // }
+                                  _permissionGranted = await location.hasPermission();
+                                  if (_permissionGranted == PermissionStatus.denied) {
+                                    _permissionGranted = await location.requestPermission();
+                                    if (_permissionGranted != PermissionStatus.granted) {
+                                      showToast(locationPermissionDeniedErrorText, gradientStart, gravity: ToastGravity.CENTER);
+                                      return;
+                                    }
+                                  }
 
-                                  // Position position = await getCurrentPosition();
-                                  // var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
-                                  //   create: (context) => FeedBloc(feedRepository: FeedRepository()),
-                                  //   child: LocationScreen(position: position),
-                                  // )));
-                                  // if(result != null){
-                                  //   double latitude = double.parse(result['lat']);
-                                  //   double longitude = double.parse(result['lng']);
-                                  //   final coordinates = new Coordinates(latitude, longitude);
-                                  //   var addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-                                  //   String countryCode = '';
-                                  //   String adminArea = '';
-                                  //   String locality = '';
-                                  //   for(int i = 0; i < addresses.length; i++){
-                                  //     if(addresses[i].countryCode != null){
-                                  //       countryCode = addresses[i].countryCode;
-                                  //     }
-                                  //     if(addresses[i].adminArea != null){
-                                  //       adminArea = addresses[i].adminArea + ', ';
-                                  //     }
-                                  //     if(addresses[i].locality != null){
-                                  //       locality = addresses[i].locality + ', ';
-                                  //     }
-                                  //   }
-                                  //   setState((){
-                                  //     locationController.text = locality + adminArea + countryCode;
-                                  //   });
-                                  // }
-
-                                  /*LocationResult result = await showLocationPicker(
-                                          context,
-                                          googleMapApiKey,
-                                          myLocationButtonEnabled: true,
-                                          layersButtonEnabled: true,
-                                          resultCardConfirmIcon: Icon(Entypo.location, color: primaryWhiteTextColor, size: 20,),
-                                          resultCardDecoration: BoxDecoration(
-                                            color: Colors.transparent
-                                          )
-                                      );
-
-                                      if(result != null){
-                                        setState(() {
-                                          locationController.text = result.address.toString();
-                                        });
-                                      }
-                                      */
+                                  Position position = await Geolocator.getCurrentPosition();
+                                  var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
+                                    create: (context) => FeedBloc(feedRepository: FeedRepository()),
+                                    child: LocationScreen(position: position),
+                                  )));
+                                  if(result != null){
+                                    double latitude = double.parse(result['lat']);
+                                    double longitude = double.parse(result['lng']);
+                                    final coordinates = Coordinates(latitude: latitude, longitude: longitude);
+                                    try {
+                                      GeoCode geoCode = GeoCode();
+                                      Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
+                                      setState((){
+                                        locationController.text = "${address.city}, ${address.countryName}";
+                                      });
+                                    }catch(exception) {}
+                                  }
+                                  
                                 },
                                 child: Container(
                                   height: 40,
@@ -475,6 +450,7 @@ class EditScreenState extends State<EditScreen>{
                               }
                           ),
                         ),
+                        
                         /// Media Container
                         const SizedBox(height: 10,),
                         state is FeedMediaFetchingState ?
@@ -509,7 +485,8 @@ class EditScreenState extends State<EditScreen>{
                               ),
                             ),
                           ),
-                        ):
+                        )
+                        :
                         state is FeedMediaFetchFailedState ?
                         Container(
                           width: MediaQuery.of(context).size.width - 20,

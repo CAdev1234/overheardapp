@@ -14,15 +14,15 @@ import 'package:overheard_flutter_app/ui/community/models/user.dart';
 import 'package:overheard_flutter_app/ui/components/pagination.dart';
 import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
 import 'package:overheard_flutter_app/ui/feed/widgets/feed_item.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.event.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_event.dart';
 import 'package:overheard_flutter_app/ui/profile/community.dart';
 import 'package:overheard_flutter_app/ui/profile/edit_profile.dart';
 import 'package:overheard_flutter_app/ui/profile/follower.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/ui/profile/settings.dart';
 
-import 'bloc/profile.bloc.dart';
-import 'bloc/profile.state.dart';
+import 'bloc/profile_bloc.dart';
+import 'bloc/profile_state.dart';
 
 class ProfileScreenOld extends StatefulWidget{
   final int user_id;

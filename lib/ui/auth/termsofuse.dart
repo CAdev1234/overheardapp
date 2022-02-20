@@ -6,8 +6,8 @@ import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 
-import 'bloc/auth.bloc.dart';
-import 'bloc/auth.state.dart';
+import 'bloc/auth_bloc.dart';
+import 'bloc/auth_state.dart';
 
 class TermsOfUseScreen extends StatefulWidget{
   const TermsOfUseScreen({Key? key}) : super(key: key);

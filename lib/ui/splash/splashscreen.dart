@@ -7,18 +7,18 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard_flutter_app/constants/colorset.dart';
 import 'package:overheard_flutter_app/constants/fontsizeset.dart';
 import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.bloc.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.event.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth.state.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_bloc.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_event.dart';
+import 'package:overheard_flutter_app/ui/auth/bloc/auth_state.dart';
 import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
 import 'package:overheard_flutter_app/ui/auth/signin.dart';
-import 'package:overheard_flutter_app/ui/community/bloc/community.bloc.dart';
+import 'package:overheard_flutter_app/ui/community/bloc/community_bloc.dart';
 import 'package:overheard_flutter_app/ui/community/community.dart';
 import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
-import 'package:overheard_flutter_app/ui/home/bloc/home.bloc.dart';
+import 'package:overheard_flutter_app/ui/home/bloc/home_bloc.dart';
 import 'package:overheard_flutter_app/ui/home/home.dart';
 import 'package:overheard_flutter_app/ui/home/repository/home.repository.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile.bloc.dart';
+import 'package:overheard_flutter_app/ui/profile/bloc/profile_bloc.dart';
 import 'package:overheard_flutter_app/ui/profile/complete_profile.dart';
 import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
 import 'package:overheard_flutter_app/utils/ui_elements.dart';
@@ -41,7 +41,7 @@ class SplashScreenState extends State<SplashScreen>{
   void initState(){
     super.initState();
     authBloc = AuthBloc(authRepository: AuthRepository());
-    authBloc.add(const SignInWithTokenEvent());
+    // authBloc.add(const SignInWithTokenEvent());
     startTime();
   }
 
