@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
+import 'package:overheard/ui/auth/models/user_model.dart';
 
 abstract class AuthState extends Equatable{
   const AuthState();

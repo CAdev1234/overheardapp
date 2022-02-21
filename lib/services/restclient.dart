@@ -4,7 +4,7 @@ import 'dart:io';
 
 // import 'package:async/async.dart';
 import 'package:http/http.dart' as http;
-import 'package:overheard_flutter_app/constants/stringset.dart';
+import 'package:overheard/constants/stringset.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

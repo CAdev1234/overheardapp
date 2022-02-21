@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overheard_flutter_app/ui/home/repository/home.repository.dart';
+import 'package:overheard/ui/home/repository/home.repository.dart';
 
 import 'home_event.dart';
 import 'home_state.dart';

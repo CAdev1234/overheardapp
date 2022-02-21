@@ -1,7 +1,7 @@
-import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
-import 'package:overheard_flutter_app/ui/feed/models/CommentItem.dart';
-import 'package:overheard_flutter_app/ui/feed/models/MediaItem.dart';
-import 'package:overheard_flutter_app/ui/feed/models/TagItem.dart';
+import 'package:overheard/ui/auth/models/user_model.dart';
+import 'package:overheard/ui/feed/models/CommentItem.dart';
+import 'package:overheard/ui/feed/models/MediaItem.dart';
+import 'package:overheard/ui/feed/models/TagItem.dart';
 
 class FeedModel {
   int? id;

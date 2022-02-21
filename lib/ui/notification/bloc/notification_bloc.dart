@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overheard_flutter_app/ui/notification/repository/notification.repository.dart';
+import 'package:overheard/ui/notification/repository/notification.repository.dart';
 import 'notification_event.dart';
 import 'notification_state.dart';
 

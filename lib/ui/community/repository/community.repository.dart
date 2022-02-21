@@ -1,5 +1,5 @@
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/services/restclient.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/services/restclient.dart';
 import 'dart:convert';
 import 'dart:io';
 

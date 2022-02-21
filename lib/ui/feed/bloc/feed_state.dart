@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
-import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
+import 'package:overheard/ui/auth/models/user_model.dart';
+import 'package:overheard/ui/feed/models/FeedModel.dart';
 
 abstract class FeedState extends Equatable{
   const FeedState();

@@ -1,7 +1,7 @@
 /// API keys
 const String googleMapApiKey = 'AIzaSyCWeQpEV267p7Gx8PPDeJHyqHo87SkVw50';
-const String twitter_Api = 'g04iKX4NX3AbfedlWk7YkDV4b';
-const String twitter_Secret = 'a2T0hGIqUg6flwmVHaTBTWyK2ZVjtSEGmQ2toLGvCn81JUKeV7';
+const String twitter_Api = 'Rhhf2yVyqhdHczyIrwZXHWkzS';
+const String twitter_Secret = 'niqCsJLTvE6VXCyBcnBmWXih23OtwOsUiqLUBVibgoZ8Wq29im';
 const String facebook_Secret = '471dab6f72e5687a9e593f38faae8d67';
 
 /// Store keys
@@ -46,6 +46,8 @@ const String acceptTermsAlertTitle = 'Accept Terms';
 const String acceptTermsAlertContent = 'I agree to ' + appName + ' App privacy policy and terms of service';
 const String CancelButtonText = 'Cancel';
 const String acceptTermsAgreeButtonText = 'I Agree';
+const String confirmationText = 'Confirmation';
+const String authBackAlertContent = 'Do you want really exit?';
 
 const String resendVerificationAppBarTitle = 'Resend verification';
 const String resendVerificationText = 'Resend';

@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed_bloc.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed_event.dart';
-import 'package:overheard_flutter_app/ui/feed/bloc/feed_state.dart';
-import 'package:overheard_flutter_app/ui/feed/models/CommentItem.dart';
-import 'package:overheard_flutter_app/ui/feed/repository/feed.repository.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/ui/feed/bloc/feed_bloc.dart';
+import 'package:overheard/ui/feed/bloc/feed_event.dart';
+import 'package:overheard/ui/feed/bloc/feed_state.dart';
+import 'package:overheard/ui/feed/models/CommentItem.dart';
+import 'package:overheard/ui/feed/repository/feed.repository.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentItem extends StatefulWidget{

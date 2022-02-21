@@ -1,16 +1,16 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter_facebook_login/flutter_facebook_login.dart';
-import 'package:dart_twitter_api/twitter_api.dart' as DartTwitterApi;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/services/restclient.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/services/restclient.dart';
 // import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 // import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -65,10 +65,11 @@ class AuthRepository extends RestApiClient{
   final FirebaseAuth _auth = FirebaseAuth.instance;
   // final FacebookLogin faceBookSignIn = FacebookLogin();
 
-  static final TwitterLogin twitterSignIn = TwitterLogin(
+  final TwitterLogin twitterSignIn = TwitterLogin(
       apiKey: twitter_Api,
       apiSecretKey: twitter_Secret,
-      redirectURI: Platform.isAndroid ? 'https://overheard-e21bc.firebaseapp.com/__/auth/handler' : 'twitterkit-D62hrgqhkxMBOhs6r6VxbmBVW://'
+      // redirectURI: Platform.isAndroid ? 'https://overheard-e21bc.firebaseapp.com/__/auth/handler' : 'twitterkit-D62hrgqhkxMBOhs6r6VxbmBVW://'
+      redirectURI: 'overheard-twitter-auth://'
   );
 
   Future<Map<dynamic, dynamic>?> signInWithEmail(Map<String, dynamic> credential) async {
@@ -132,7 +133,7 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
     return null;
   }
@@ -145,7 +146,7 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
     return null;
   }
@@ -158,7 +159,7 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
     return false;
   }
@@ -203,7 +204,7 @@ class AuthRepository extends RestApiClient{
 
   Future<Map<dynamic, dynamic>?> signInWithTwitter() async {
     try {
-      final result = await twitterSignIn.login();
+      final result = await twitterSignIn.login(forceLogin: true);
       print(result.user);
       switch (result.status!) {
         case TwitterLoginStatus.loggedIn:
@@ -237,6 +238,26 @@ class AuthRepository extends RestApiClient{
     return null;
     
   }
+
+
+  Future<void> signInWithTwitterWithWebView({required BuildContext context, required String accessToken, required String secret}) async {
+    try {
+      late UserCredential userCredential;
+      if (kIsWeb) {
+        TwitterAuthProvider twitterAuthProvider = TwitterAuthProvider();
+        await _auth.signInWithPopup(twitterAuthProvider);
+      }else {
+        final AuthCredential credential = TwitterAuthProvider.credential(
+          accessToken: accessToken, 
+          secret: secret
+        );
+        userCredential = await _auth.signInWithCredential(credential);
+      }
+    } catch (exception) {
+      print(exception);
+    }
+  }
+ 
 
   String generateNonce([int length = 32]) {
     const charset =
@@ -317,7 +338,7 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
     return false;
   }
@@ -330,8 +351,11 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      print(exception);
+      // print(exception);
     }
     return null;
   }
+
+
+
 }

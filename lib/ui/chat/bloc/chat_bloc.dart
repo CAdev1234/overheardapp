@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overheard_flutter_app/ui/chat/bloc/chat_event.dart';
-import 'package:overheard_flutter_app/ui/chat/bloc/chat_state.dart';
-import 'package:overheard_flutter_app/ui/chat/models/ChatMessageModel.dart';
-import 'package:overheard_flutter_app/ui/chat/repository/chat.repository.dart';
+import 'package:overheard/ui/chat/bloc/chat_event.dart';
+import 'package:overheard/ui/chat/bloc/chat_state.dart';
+import 'package:overheard/ui/chat/models/ChatMessageModel.dart';
+import 'package:overheard/ui/chat/repository/chat.repository.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState>{
   final ChatRepository chatRepository;

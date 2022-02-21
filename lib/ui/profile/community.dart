@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
-// import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
-// import 'package:overheard_flutter_app/ui/components/pagination.dart';
-import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/constants/stringset.dart';
+// import 'package:overheard/ui/community/models/community_model.dart';
+// import 'package:overheard/ui/components/pagination.dart';
+import 'package:overheard/ui/profile/repository/profile.repository.dart';
 
 import 'bloc/profile_bloc.dart';
 import 'bloc/profile_event.dart';

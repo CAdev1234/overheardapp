@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/community/bloc/community_event.dart';
-import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
-import 'package:overheard_flutter_app/utils/ui_elements.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/ui/community/bloc/community_event.dart';
+import 'package:overheard/ui/community/repository/community.repository.dart';
+import 'package:overheard/utils/ui_elements.dart';
 
 import 'bloc/community_bloc.dart';
 import 'bloc/community_state.dart';

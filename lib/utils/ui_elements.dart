@@ -1,9 +1,9 @@
 // import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/constants/stringset.dart';
 
 void showToast(String msg, Color color, {ToastGravity gravity = ToastGravity.BOTTOM}){
   Fluttertoast.showToast(

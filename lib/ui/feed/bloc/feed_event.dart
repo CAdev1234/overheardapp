@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:equatable/equatable.dart';
-// import 'package:overheard_flutter_app/ui/feed/models/CommentItem.dart';
-import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
-import 'package:overheard_flutter_app/ui/feed/models/MediaType.dart';
+// import 'package:overheard/ui/feed/models/CommentItem.dart';
+import 'package:overheard/ui/feed/models/FeedModel.dart';
+import 'package:overheard/ui/feed/models/MediaType.dart';
 
 abstract class FeedEvent extends Equatable{
   const FeedEvent();

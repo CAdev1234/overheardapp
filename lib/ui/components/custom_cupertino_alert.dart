@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
 
 class CustomCupertinoAlert extends StatelessWidget {
   final String title;

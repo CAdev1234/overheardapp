@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-// import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/notification/bloc/notification_bloc.dart';
-import 'package:overheard_flutter_app/ui/notification/repository/notification.repository.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+// import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/ui/notification/bloc/notification_bloc.dart';
+import 'package:overheard/ui/notification/repository/notification.repository.dart';
 
 import 'bloc/notification_state.dart';
 

@@ -1,4 +1,4 @@
-import 'package:overheard_flutter_app/services/restclient.dart';
+import 'package:overheard/services/restclient.dart';
 
 class NotificationRepository extends RestApiClient{
   NotificationRepository();

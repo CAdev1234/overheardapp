@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/constants/stringset.dart';
 
 WidgetBuilder mediaAddingRequestDialog(BuildContext context){
   return (context) => CupertinoActionSheet(

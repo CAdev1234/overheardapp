@@ -7,25 +7,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:location/location.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth_bloc.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth_event.dart';
-import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
-import 'package:overheard_flutter_app/ui/auth/resendverification.dart';
-import 'package:overheard_flutter_app/ui/auth/resetpassword.dart';
-import 'package:overheard_flutter_app/ui/auth/signup.dart';
-import 'package:overheard_flutter_app/ui/community/bloc/community_bloc.dart';
-import 'package:overheard_flutter_app/ui/community/community.dart';
-import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
-import 'package:overheard_flutter_app/ui/home/bloc/home_bloc.dart';
-import 'package:overheard_flutter_app/ui/home/home.dart';
-import 'package:overheard_flutter_app/ui/home/repository/home.repository.dart';
-import 'package:overheard_flutter_app/ui/profile/bloc/profile_bloc.dart';
-import 'package:overheard_flutter_app/ui/profile/complete_profile.dart';
-import 'package:overheard_flutter_app/ui/profile/repository/profile.repository.dart';
-import 'package:overheard_flutter_app/utils/ui_elements.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/ui/auth/bloc/auth_bloc.dart';
+import 'package:overheard/ui/auth/bloc/auth_event.dart';
+import 'package:overheard/ui/auth/repository/auth.repository.dart';
+import 'package:overheard/ui/auth/resendverification.dart';
+import 'package:overheard/ui/auth/resetpassword.dart';
+import 'package:overheard/ui/auth/signup.dart';
+import 'package:overheard/ui/auth/twitter_webview.dart';
+import 'package:overheard/ui/community/bloc/community_bloc.dart';
+import 'package:overheard/ui/community/community.dart';
+import 'package:overheard/ui/community/repository/community.repository.dart';
+import 'package:overheard/ui/home/bloc/home_bloc.dart';
+import 'package:overheard/ui/home/home.dart';
+import 'package:overheard/ui/home/repository/home.repository.dart';
+import 'package:overheard/ui/profile/bloc/profile_bloc.dart';
+import 'package:overheard/ui/profile/complete_profile.dart';
+import 'package:overheard/ui/profile/repository/profile.repository.dart';
+import 'package:overheard/utils/ui_elements.dart';
 // import 'package:location/location.dart';
 import 'package:uni_links/uni_links.dart';
 import 'dart:io' show Platform;
@@ -468,7 +469,11 @@ class SignInScreenState extends State<SignInScreen>{
                             ): const SizedBox.shrink(),
                             GestureDetector(
                               onTap: (){
-                                authBloc.add(const TwitterSignInEvent());
+                                // authBloc.add(const TwitterSignInEvent());
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
+                                  create: (context) => AuthBloc(authRepository: AuthRepository()),
+                                  child: TwitterWebview( consumerKey: twitter_Api, consumerSecret: twitter_Secret, oauthCallbackHandler: 'https://overheard-e21bc.firebaseapp.com/__/auth/handler'),
+                                )));
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(10),

@@ -1,13 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_icons/flutter_icons.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth_state.dart';
-import 'package:overheard_flutter_app/ui/auth/bloc/auth_event.dart';
-import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
-import 'package:overheard_flutter_app/ui/auth/repository/auth.repository.dart';
-import 'package:overheard_flutter_app/utils/ui_elements.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/ui/auth/bloc/auth_state.dart';
+import 'package:overheard/ui/auth/bloc/auth_event.dart';
+import 'package:overheard/ui/auth/models/user_model.dart';
+import 'package:overheard/ui/auth/repository/auth.repository.dart';
+import 'package:overheard/utils/ui_elements.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState>{

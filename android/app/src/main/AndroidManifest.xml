@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
    <application
-        android:label="overheard_flutter_app"
+        android:label="Overheard"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
@@ -40,27 +40,16 @@
 
 
             <!-- Deep Links -->
-            <intent-filter>
+            <!-- <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
                 <data
                     android:scheme="http"
                     android:host="overheard.net" />
-            </intent-filter>
+            </intent-filter> -->
 
-            <!-- App Links -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with https://YOUR_HOST -->
-                <data
-                    android:scheme="https"
-                    android:host="overheard-e21bc.firebaseapp.com" />
-            </intent-filter>
-
+            
             <!-- twitter setting -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -68,8 +57,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "example://gizmos” -->
                 <!-- Registered Callback URLs in TwitterApp -->
-                <data android:scheme="https"
-                    android:host="overheard-e21bc.firebaseapp.com" /> <!-- host is option -->
+                <data android:scheme="overheard-twitter-auth" /> <!-- host is option -->
             </intent-filter>
 
         </activity>

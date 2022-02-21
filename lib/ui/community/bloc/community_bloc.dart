@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/numericalset.dart';
-import 'package:overheard_flutter_app/ui/auth/models/user_model.dart';
-import 'package:overheard_flutter_app/ui/community/models/community_model.dart';
-import 'package:overheard_flutter_app/ui/community/repository/community.repository.dart';
-import 'package:overheard_flutter_app/utils/ui_elements.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/numericalset.dart';
+import 'package:overheard/ui/auth/models/user_model.dart';
+import 'package:overheard/ui/community/models/community_model.dart';
+import 'package:overheard/ui/community/repository/community.repository.dart';
+import 'package:overheard/utils/ui_elements.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'community_event.dart';

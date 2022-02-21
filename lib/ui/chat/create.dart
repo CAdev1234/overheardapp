@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/constants/fontsizeset.dart';
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/ui/chat/bloc/chat_bloc.dart';
-import 'package:overheard_flutter_app/ui/chat/repository/chat.repository.dart';
-import 'package:overheard_flutter_app/ui/components/alphabet_scroll.dart';
-import 'package:overheard_flutter_app/ui/components/glassmorphism.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/constants/fontsizeset.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/ui/chat/bloc/chat_bloc.dart';
+import 'package:overheard/ui/chat/repository/chat.repository.dart';
+import 'package:overheard/ui/components/alphabet_scroll.dart';
+import 'package:overheard/ui/components/glassmorphism.dart';
 
 class ChatCreateScreen extends StatefulWidget {
   const ChatCreateScreen({Key? key}): super();

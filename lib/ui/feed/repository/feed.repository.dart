@@ -1,9 +1,9 @@
-import 'package:overheard_flutter_app/constants/stringset.dart';
-import 'package:overheard_flutter_app/services/restclient.dart';
+import 'package:overheard/constants/stringset.dart';
+import 'package:overheard/services/restclient.dart';
 import 'dart:io';
 import 'dart:convert';
 
-// import 'package:overheard_flutter_app/ui/feed/models/FeedModel.dart';
+// import 'package:overheard/ui/feed/models/FeedModel.dart';
 
 class FeedRepository extends RestApiClient{
   FeedRepository();

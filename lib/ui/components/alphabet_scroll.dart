@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
+import 'package:overheard/constants/colorset.dart';
 
 class _AZItem extends ISuspensionBean {
   final String title;

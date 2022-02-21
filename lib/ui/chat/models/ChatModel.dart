@@ -1,4 +1,4 @@
-import 'package:overheard_flutter_app/ui/chat/models/ChatMessageModel.dart';
+import 'package:overheard/ui/chat/models/ChatMessageModel.dart';
 
 class ChatModel {
   late int interlocutorId;

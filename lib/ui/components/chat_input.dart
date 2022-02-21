@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:overheard_flutter_app/constants/colorset.dart';
-import 'package:overheard_flutter_app/ui/components/glassmorphism.dart';
+import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/ui/components/glassmorphism.dart';
 
 class ChatInput extends StatelessWidget{
 
@@ -17,7 +17,7 @@ class ChatInput extends StatelessWidget{
         height: 40,
         alignment: Alignment.center,
         padding: const EdgeInsets.only(left: 10, right: 5),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           // color: Colors.white,
           // border: Border.all(color: Colors.white),
           // borderRadius: const BorderRadius.all(Radius.circular(90))
