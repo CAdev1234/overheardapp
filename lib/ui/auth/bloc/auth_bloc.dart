@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/auth/bloc/auth_state.dart';

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -75,7 +73,7 @@ class ChatScreenState extends State<ChatScreen>{
                   child: const ChatCreateScreen(),
                 )));
               },
-              child: const Icon(FontAwesome.edit, size: 25, color: Colors.white),
+              child: const Icon(Icons.edit, size: 25, color: Colors.white),
             )
         ],
       ),

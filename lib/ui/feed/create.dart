@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -282,7 +280,7 @@ class CreateScreenState extends State<CreateScreen>{
                                           color: primaryWhiteTextColor,
                                         ),
                                         hintText: postLocationPlaceholder,
-                                        prefixIcon: Icon(MaterialIcons.location_on, color: primaryWhiteTextColor,),
+                                        prefixIcon: Icon(Icons.location_on, color: primaryWhiteTextColor,),
                                         contentPadding: EdgeInsets.only(
                                           bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                         ),
@@ -499,7 +497,7 @@ class CreateScreenState extends State<CreateScreen>{
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(50),
                                             ),
-                                            child: const Icon(AntDesign.closecircleo, color: primaryWhiteTextColor,),
+                                            child: const Icon(Icons.close, color: primaryWhiteTextColor,),
                                           ),
                                         )
                                       ],
