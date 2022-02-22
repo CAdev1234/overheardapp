@@ -32,7 +32,7 @@ class ChatCreateScreenState extends State<ChatCreateScreen> {
     return CupertinoNavigationBar(
       leading: GestureDetector(
         onTap: (){
-          Navigator.of(context).pop(context);
+          if(Navigator.of(context).canPop()) Navigator.of(context).pop();
         },
         child: const Align(
           alignment: Alignment.centerLeft,
