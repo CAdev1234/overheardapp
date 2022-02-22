@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -152,15 +153,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         GestureDetector(
                           onTap: (){
                             if(newPasswordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                              showToast(passwordEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(confirmPasswordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              showToast(passwordMismatchErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(confirmPasswordController.text != newPasswordController.text){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              showToast(passwordMismatchErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             authBloc.add(ResetPasswordEvent(email: widget.email, token: widget.token, password: newPasswordController.text));

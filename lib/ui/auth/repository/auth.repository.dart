@@ -11,6 +11,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:twitter_login/twitter_login.dart';
 // import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -273,43 +274,43 @@ class AuthRepository extends RestApiClient{
     return digest.toString();
   }
 
-  // Future<Map<dynamic, dynamic>> signInWithApple() async {
+  Future<Map<dynamic, dynamic>?> signInWithApple() async {
+    
+    final rawNonce = generateNonce();
+    final nonce = sha256ofString(rawNonce);
 
-  //   final rawNonce = generateNonce();
-  //   final nonce = sha256ofString(rawNonce);
+    final appleCredential = await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+      nonce: nonce,
+    );
 
-  //   final appleCredential = await SignInWithApple.getAppleIDCredential(
-  //     scopes: [
-  //       AppleIDAuthorizationScopes.email,
-  //       AppleIDAuthorizationScopes.fullName,
-  //     ],
-  //     nonce: nonce,
-  //   );
+    final oauthCredential = OAuthProvider("apple.com").credential(
+      idToken: appleCredential.identityToken,
+      rawNonce: rawNonce,
+    );
 
-  //   final oauthCredential = OAuthProvider("apple.com").credential(
-  //     idToken: appleCredential.identityToken,
-  //     rawNonce: rawNonce,
-  //   );
+    final UserCredential authResult = await _auth.signInWithCredential(oauthCredential);
+    final User user = authResult.user as User;
 
-  //   final UserCredential authResult = await _auth.signInWithCredential(oauthCredential);
-  //   final User user = authResult.user;
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
 
-  //   assert(!user.isAnonymous);
-  //   assert(await user.getIdToken() != null);
-
-  //   final User currentUser = _auth.currentUser;
-  //   if(user.uid == currentUser.uid){
-  //     String token = await user.getIdToken();
-  //     return {
-  //       'userid': user.uid,
-  //       'token': token,
-  //       'email': user.email,
-  //       'name': appleCredential.givenName + ' ' + appleCredential.familyName,
-  //       'profile_image_url': user.photoURL
-  //     };
-  //   }
-  //   return null;
-  // }
+    final User currentUser = _auth.currentUser as User;
+    if(user.uid == currentUser.uid){
+      String token = await user.getIdToken();
+      return {
+        'userid': user.uid,
+        'token': token,
+        'email': user.email,
+        'name': "${appleCredential.givenName} ${appleCredential.familyName}",
+        'profile_image_url': user.photoURL
+      };
+    }
+    return null;
+  }
 
   Future<User?> _signInWithTwitter(String token, String secret) async {
     final AuthCredential credential = TwitterAuthProvider.credential(

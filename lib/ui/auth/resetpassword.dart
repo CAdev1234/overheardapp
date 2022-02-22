@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -108,7 +109,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                              showToast(emailEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){

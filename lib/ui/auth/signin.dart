@@ -386,15 +386,15 @@ class SignInScreenState extends State<SignInScreen>{
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                              showToast(emailEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(passwordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                              showToast(passwordEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              showToast(invalidEmailErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             authBloc.add(SignInEvent(email: emailController.text, password: passwordController.text));

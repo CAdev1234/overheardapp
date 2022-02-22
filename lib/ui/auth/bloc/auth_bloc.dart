@@ -30,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
         else if (event is FacebookSignUpEvent) {_mapFacebookSignUpToState(event);}
         else if (event is TwitterSignInEvent) {_mapTwitterSignInToState(event);}
         else if (event is TwitterSignUpEvent) {_mapTwitterSignUpToState(event);}
+        else if (event is AppleSignInEvent) {_mapAppleSignInToState(event);}
       },
     );
   }
@@ -388,57 +389,56 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     }
   }
 
-  // Stream<AuthState> _mapAppleSignInToState(AppleSignInEvent appleSignInEvent) async* {
-  //   yield LoadingState();
-  //   var result = await authRepository.signInWithTwitter();
+  void _mapAppleSignInToState(AppleSignInEvent appleSignInEvent) async {
+    emit(const LoadingState());
+    var result = await authRepository.signInWithApple();
 
-  //   if(result == null){
-  //     yield LoginFailedState();
-  //   }
-  //   else if(result == Map()){
-  //     yield LoginCancelledState();
-  //   }
-  //   else if(result == null){
-  //     yield LoginFailedState();
-  //   }
-  //   else{
-  //     String uid = result['userid'];
-  //     String name = result['name'];
-  //     String email = result['email'];
-  //     String avatar = result['profile_image_url'];
-  //     String token = result['token'];
+    if(result == null){
+      emit(const LoginFailedState());
+    }
+    else if(result == {}){
+      emit(const LoginCancelledState());
+    }
+    else if(result == null){
+      emit(const LoginFailedState());
+    }
+    else{
+      String uid = result['userid'];
+      String name = result['name'];
+      String email = result['email'];
+      String avatar = result['profile_image_url'];
+      String token = result['token'];
 
-  //     var credential = {
-  //       'firebaseUID': uid,
-  //       'email': email,
-  //       'name': name,
-  //       'Firebasetoken': token
-  //     };
-  //     var response = await authRepository.signInWithFirebase(credential);
-  //     try{
-  //       if(response['user']['id'] != null){
-  //         SharedPreferences prefs = await SharedPreferences.getInstance();
-  //         UserModel user = UserModel.fromJson(response['user']);
-  //         prefs.setString('AccessToken', response['access_token']);
-  //         if(user.firstname == null){
-  //           yield SignInSuccessState(isFirstLogin: true, userModel: user);
-  //         }
-  //         else{
-  //           yield SignInSuccessState(isFirstLogin: false, userModel: user);
-  //         }
-  //       }
-  //       else{
-  //         yield SignInFailedState();
-  //       }
-  //     }
-  //     catch(exception){
-  //       yield SignInFailedState();
-  //     }
+      var credential = {
+        'firebaseUID': uid,
+        'email': email,
+        'name': name,
+        'Firebasetoken': token
+      };
+      var response = await authRepository.signInWithFirebase(credential);
+      try{
+        if(response['user']['id'] != null){
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          UserModel user = UserModel.fromJson(response['user']);
+          prefs.setString('AccessToken', response['access_token']);
+          if(user.firstname == null){
+            emit(SignInSuccessState(isFirstLogin: true, userModel: user));
+          }
+          else{
+            emit(SignInSuccessState(isFirstLogin: false, userModel: user));
+          }
+        }
+        else{
+          emit(const SignInFailedState());
+        }
+      }
+      catch(exception){
+        emit(const SignInFailedState());
+      }
+      emit(const SignInFailedState());
+    }
 
-  //     yield SignInFailedState();
-  //   }
-
-  // }
+  }
 
   // Stream<AuthState> _mapAppleSignUpToState(AppleSignUpEvent appleSignUpEvent) async* {
   //   yield LoadingState();
