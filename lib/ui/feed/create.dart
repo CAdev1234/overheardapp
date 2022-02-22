@@ -501,12 +501,7 @@ class CreateScreenState extends State<CreateScreen>{
                                               feedBloc.pickedThumbnails.removeAt(index);
                                             });
                                           },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(50),
-                                            ),
-                                            child: const Icon(Icons.close, color: primaryWhiteTextColor,),
-                                          ),
+                                          child: const Icon(Icons.cancel, color: primaryWhiteTextColor,),
                                         )
                                       ],
                                     );
