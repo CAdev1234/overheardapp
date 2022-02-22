@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/ui/feed/bloc/feed_bloc.dart';
@@ -160,7 +159,7 @@ class CommentItemState extends State<CommentItem> {
                                       child: Row(
                                         children: [
                                           const Icon(
-                                            Entypo.arrow_bold_down,
+                                            Icons.arrow_drop_down,
                                             color: primaryWhiteTextColor,
                                             size: 15,
                                           ),
@@ -186,7 +185,7 @@ class CommentItemState extends State<CommentItem> {
                                       child: Row(
                                         children: [
                                           const Icon(
-                                            Entypo.arrow_bold_up,
+                                            Icons.arrow_drop_up,
                                             color: primaryWhiteTextColor,
                                             size: 15,
                                           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard/constants/colorset.dart';
 // import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -131,23 +130,23 @@ class HomeScreenState extends State<HomeScreen>
               items: const <BottomNavigationBarItem> [
                 BottomNavigationBarItem(
                   label: feedBottomButtonText,
-                  icon: Icon(FontAwesome.feed),
+                  icon: Icon(Icons.rss_feed),
                 ),
                 BottomNavigationBarItem(
                   label: chatBottomButtonText,
-                  icon: Icon(MaterialIcons.chat),
+                  icon: Icon(Icons.chat),
                 ),
                 BottomNavigationBarItem(
                   label: createPostBottomButtonText,
-                  icon: Icon(MaterialCommunityIcons.post_outline),
+                  icon: Icon(Icons.post_add),
                 ),
                 BottomNavigationBarItem(
                   label: notificationsBottomButtonText,
-                  icon: Icon(Ionicons.ios_notifications),
+                  icon: Icon(Icons.notifications),
                 ),
                 BottomNavigationBarItem(
                   label: profileBottomButtonText,
-                  icon: Icon(AntDesign.profile),
+                  icon: Icon(Icons.format_list_bulleted),
                 ),
               ],
             ),

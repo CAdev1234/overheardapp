@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/numericalset.dart';
@@ -17,7 +14,6 @@ import 'dart:io';
 
 import 'package:overheard/utils/ui_elements.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 class FeedBloc extends Bloc<FeedEvent, FeedState>{

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_tags/flutter_tags.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,6 +21,7 @@ import 'package:overheard/ui/feed/bloc/feed_event.dart';
 import 'package:overheard/ui/feed/map_view.dart';
 import 'package:overheard/ui/feed/models/MediaType.dart';
 import 'package:overheard/ui/feed/repository/feed.repository.dart';
+import 'package:overheard/ui/home/home.dart';
 import 'package:overheard/utils/ui_elements.dart';
 import 'package:location/location.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
@@ -65,7 +67,10 @@ class CreateScreenState extends State<CreateScreen>{
       bloc: feedBloc,
       listener: (context, state){
         if(state is FeedPostDoneState){
-          Navigator.of(context).pop(true);
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
+            create: (context) => FeedBloc(feedRepository: FeedRepository()),
+            child: const HomeScreen(),
+          )));
         }
       },
       child: Container(
@@ -74,7 +79,10 @@ class CreateScreenState extends State<CreateScreen>{
           appBar: CupertinoNavigationBar(
             leading: GestureDetector(
               onTap: (){
-                Navigator.of(context).pop(context);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
+                  create: (context) => FeedBloc(feedRepository: FeedRepository()),
+                  child: const HomeScreen(),
+                )));
               },
               child: const Align(
                 alignment: Alignment.centerLeft,
@@ -280,7 +288,7 @@ class CreateScreenState extends State<CreateScreen>{
                                           color: primaryWhiteTextColor,
                                         ),
                                         hintText: postLocationPlaceholder,
-                                        prefixIcon: Icon(Icons.location_on, color: primaryWhiteTextColor,),
+                                        prefixIcon: Icon(Icons.add_location, color: primaryWhiteTextColor,),
                                         contentPadding: EdgeInsets.only(
                                           bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                         ),
@@ -575,7 +583,7 @@ class CreateScreenState extends State<CreateScreen>{
                                                 ),
                                                 child: Column(
                                                   children: const [
-                                                    Icon(FontAwesome.image, color: primaryWhiteTextColor, size: 17,),
+                                                    Icon(Icons.image, color: primaryWhiteTextColor, size: 17,),
                                                     SizedBox(height: 10,),
                                                     Text(
                                                       imagePickText,
@@ -645,7 +653,7 @@ class CreateScreenState extends State<CreateScreen>{
                                   )
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
-                                  child: const Icon(Ionicons.ios_close, color: gradientStart,),
+                                  child: const Icon(Icons.close, color: gradientStart,),
                                   onPressed: (){
                                     Navigator.of(context).pop();
                                   },
@@ -701,7 +709,7 @@ class CreateScreenState extends State<CreateScreen>{
                                                 ),
                                                 child: Column(
                                                   children: const [
-                                                    Icon(FontAwesome.image, color: primaryWhiteTextColor, size: 17,),
+                                                    Icon(Icons.image, color: primaryWhiteTextColor, size: 17,),
                                                     SizedBox(height: 10,),
                                                     Text(
                                                       imagePickText,
@@ -770,7 +778,7 @@ class CreateScreenState extends State<CreateScreen>{
                                   )
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
-                                  child: const Icon(Ionicons.ios_close, color: gradientStart,),
+                                  child: const Icon(Icons.close, color: gradientStart,),
                                   onPressed: (){
                                     Navigator.of(context).pop();
                                   },
@@ -838,7 +846,7 @@ class CreateScreenState extends State<CreateScreen>{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(AntDesign.plus, color: primaryWhiteTextColor,),
+                  Icon(Icons.add, color: primaryWhiteTextColor,),
                   SizedBox(width: 10,),
                   Text(
                     postMediaAddText,

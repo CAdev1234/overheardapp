@@ -5,7 +5,6 @@ import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
@@ -295,7 +294,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                     height: 50,
                     alignment: Alignment.centerRight,
                     child: const Icon(
-                      FontAwesome.ellipsis_h,
+                      Icons.more_horiz,
                       color: primaryWhiteTextColor,
                       size: 20,
                     ),

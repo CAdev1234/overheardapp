@@ -1,24 +1,19 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
-// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocode/geocode.dart';
-// import 'package:geocoder/geocoder.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-// import 'package:mime_type/mime_type.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
-// import 'package:overheard/ui/components/add_media_dialog.dart';
 import 'package:overheard/ui/feed/bloc/feed_event.dart';
 import 'package:overheard/ui/feed/map_view.dart';
 import 'package:overheard/ui/feed/models/FeedModel.dart';
@@ -26,13 +21,10 @@ import 'package:overheard/ui/feed/models/MediaType.dart';
 import 'package:overheard/ui/feed/models/TagItem.dart';
 import 'package:overheard/ui/feed/repository/feed.repository.dart';
 import 'package:overheard/utils/ui_elements.dart';
-// import 'package:path_provider/path_provider.dart';
-// import 'package:location/location.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
 import 'bloc/feed_bloc.dart';
 import 'bloc/feed_state.dart';
-// import 'map_view.dart';
 
 class EditScreen extends StatefulWidget{
   final FeedModel? feed;
@@ -304,7 +296,7 @@ class EditScreenState extends State<EditScreen>{
                                       color: primaryWhiteTextColor,
                                     ),
                                     hintText: postLocationPlaceholder,
-                                    prefixIcon: Icon(MaterialIcons.location_on, color: primaryWhiteTextColor,),
+                                    prefixIcon: Icon(Icons.edit_location, color: primaryWhiteTextColor,),
                                     contentPadding: EdgeInsets.only(
                                       bottom: 40 / 2,  // HERE THE IMPORTANT PART
                                     ),
@@ -426,7 +418,7 @@ class EditScreenState extends State<EditScreen>{
                                   child: ItemTags(
                                     key: Key(index.toString()),
                                     index: index,
-                                    title: item.tag,
+                                    title: item.tag as String,
                                     pressEnabled: false,
                                     activeColor: gradientEnd.withOpacity(0.5),
                                     combine: combine,
@@ -600,7 +592,7 @@ class EditScreenState extends State<EditScreen>{
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
                                       ),
-                                      child: const Icon(AntDesign.closecircleo, color: primaryWhiteTextColor,),
+                                      child: const Icon(Icons.close, color: primaryWhiteTextColor,),
                                     ),
                                   )
                                 ],
@@ -608,7 +600,8 @@ class EditScreenState extends State<EditScreen>{
                             }).toList():
                             [],
                           ),
-                        )
+                        ),
+                        const SizedBox(height: 20,)
                       ],
                     ),
                   ),
@@ -665,7 +658,7 @@ class EditScreenState extends State<EditScreen>{
                                                 ),
                                                 child: Column(
                                                   children: const [
-                                                    Icon(FontAwesome.image, color: primaryWhiteTextColor, size: 17,),
+                                                    Icon(Icons.image, color: primaryWhiteTextColor, size: 17,),
                                                     SizedBox(height: 10,),
                                                     Text(
                                                       imagePickText,
@@ -731,7 +724,7 @@ class EditScreenState extends State<EditScreen>{
                                   )
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
-                                  child: const Icon(Ionicons.ios_close, color: gradientStart,),
+                                  child: const Icon(Icons.close, color: gradientStart,),
                                   onPressed: (){
                                     Navigator.of(context).pop();
                                   },
@@ -784,7 +777,7 @@ class EditScreenState extends State<EditScreen>{
                                                 ),
                                                 child: Column(
                                                   children: const [
-                                                    Icon(FontAwesome.image, color: primaryWhiteTextColor, size: 17,),
+                                                    Icon(Icons.image, color: primaryWhiteTextColor, size: 17,),
                                                     SizedBox(height: 10,),
                                                     Text(
                                                       imagePickText,
@@ -850,7 +843,7 @@ class EditScreenState extends State<EditScreen>{
                                   )
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
-                                  child: const Icon(Ionicons.ios_close, color: gradientStart,),
+                                  child: const Icon(Icons.close, color: gradientStart,),
                                   onPressed: (){
                                     Navigator.of(context).pop();
                                   },
@@ -918,7 +911,7 @@ class EditScreenState extends State<EditScreen>{
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  Icon(AntDesign.plus, color: primaryWhiteTextColor,),
+                  Icon(Icons.add, color: primaryWhiteTextColor,),
                   SizedBox(width: 10,),
                   Text(
                     postMediaAddText,

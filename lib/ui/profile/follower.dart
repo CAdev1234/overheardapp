@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-// import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
-// import 'package:overheard/ui/community/models/user.dart';
 import 'package:overheard/ui/components/pagination.dart';
 import 'package:overheard/ui/profile/bloc/profile_event.dart';
 import 'package:overheard/ui/profile/models/FollowModel.dart';

@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -85,7 +84,6 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               /// Feed Content
-                              //feedDetailItem(context, state.userModel, state.feed),
                               FeedItem(feed: state.feed!, userModel: state.userModel!, isDetail: true, isProfile: true,),
                               /// Divider
                               state.feed!.comments.isNotEmpty ?
@@ -240,7 +238,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                                 }*/
                               }
                             },
-                            icon: const Icon(FontAwesome.send, color: primaryWhiteTextColor,),
+                            icon: const Icon(Icons.send, color: primaryWhiteTextColor,),
                           )
                         ],
                       ),

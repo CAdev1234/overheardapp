@@ -1,18 +1,15 @@
-// import 'package:json_annotation/json_annotation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/community/models/user.dart';
 import 'package:overheard/ui/components/dynamic_column.dart';
-// import 'package:overheard/ui/components/pagination.dart';
 import 'package:overheard/ui/feed/models/FeedModel.dart';
 import 'package:overheard/ui/feed/widgets/feed_item.dart';
 import 'package:overheard/ui/profile/bloc/profile_event.dart';
@@ -296,7 +293,7 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                     height: 50,
                     alignment: Alignment.centerRight,
                     child: const Icon(
-                      FontAwesome.ellipsis_h,
+                      Icons.more_horiz,
                       color: primaryWhiteTextColor,
                       size: 20,
                     ),

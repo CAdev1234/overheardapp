@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:overheard/constants/colorset.dart';
@@ -393,105 +392,105 @@ class FeedItemState extends State<FeedItem> {
                             },
                             child: SizedBox(
                               height: MediaQuery.of(context).size.width * 0.6,
-                              child: Swiper(
-                                itemBuilder: (BuildContext context, int index) {
-                                  media_index = index;
-                                  String mimeType = mime(feedBloc.feedItem.media[index].url) as String;
-                                  if(imageMimeTypes.contains(mimeType)){
-                                    return Stack(
-                                      children: [
-                                        CachedNetworkImage(
-                                          imageUrl: feedBloc.feedItem.media[index].url!,
-                                          imageBuilder: (context, imageProvider) => Container(
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
+                              child: CarouselSlider(
+                                options: CarouselOptions(
+                                  autoPlay: true,
+                                  viewportFraction: 1.0
+                                ),
+                                items: feedBloc.feedItem.media.asMap().entries.map((entry) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      String mimeType = mime(entry.value.url) as String;
+                                      if (imageMimeTypes.contains(mimeType)) {
+                                        return Stack(
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl: entry.value.url!,
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                    borderRadius: BorderRadius.circular(5)
                                                 ),
-                                                borderRadius: BorderRadius.circular(5)
-                                            ),
-                                          ),
-                                          placeholder: (context, url) => SizedBox(
-                                            width: MediaQuery.of(context).size.width,
-                                            height: MediaQuery.of(context).size.width * 0.6,
-                                            child: const Center(
-                                              child: CupertinoActivityIndicator(),
-                                            ),
-                                          ),
-                                          errorWidget: (context, url, error) => const Icon(Icons.error),
-                                        ),
-                                        Positioned(
-                                          child: Container(
-                                            width: 50,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(20),
-                                                gradient: const LinearGradient(
-                                                    colors: [gradientStart, gradientEnd]
-                                                )
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                (index + 1).toString() + '/' + feedBloc.feedItem.media.length.toString(),
-                                                style: const TextStyle(
-                                                    color: primaryWhiteTextColor,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold
-                                                ),
-                                                textScaleFactor: 1.0,
                                               ),
+                                              placeholder: (context, url) => const CupertinoActivityIndicator(),
+                                              errorWidget: (context, url, error) => const Icon(Icons.error),
                                             ),
-                                          ),
-                                          right: 10,
-                                          bottom: 10,
-                                        )
-                                      ],
-                                    );
-                                  }
-                                  else if(videoMimeTypes.contains(mimeType)){
-                                    return Stack(
-                                      children: [
-                                        Container(
-                                            height: 400,
-                                            color: Colors.transparent,
-                                            width: 400 * 16 / 9,
-                                            // child: FeedVideoPlayer(videoUrl: feedBloc.feedItem.media[index].url, autoPlay: true,)
-                                        ),
-                                        Positioned(
-                                          child: Container(
-                                            width: 50,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              //color: Colors.black87,
-                                                borderRadius: BorderRadius.circular(20),
-                                                gradient: const LinearGradient(
-                                                    colors: [gradientStart, gradientEnd]
-                                                )
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                (index + 1).toString() + '/' + feedBloc.feedItem.media.length.toString(),
-                                                style: const TextStyle(
-                                                    color: primaryWhiteTextColor,
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold
+                                            Positioned(
+                                              child: Container(
+                                                width: 50,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    gradient: const LinearGradient(
+                                                        colors: [gradientStart, gradientEnd]
+                                                    )
                                                 ),
-                                                textScaleFactor: 1.0,
+                                                child: Center(
+                                                  child: Text(
+                                                    (entry.key + 1).toString() + '/' + feedBloc.feedItem.media.length.toString(),
+                                                    style: const TextStyle(
+                                                        color: primaryWhiteTextColor,
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.bold
+                                                    ),
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          right: 10,
-                                          bottom: 10,
-                                        )
-                                      ],
-                                    );
-                                  }
-                                  return Container();
-                                },
-                                itemCount: feedBloc.feedItem.media.length,
-                                viewportFraction: 1.0,
-                                scale: 1.0,
-                                loop: false,
+                                              right: 10,
+                                              bottom: 10,
+                                            )
+                                          ],
+                                        );  
+                                      }
+                                      else if (videoMimeTypes.contains(mimeType)) {
+                                        return Stack(
+                                          children: [
+                                            // Container(
+                                            //     height: 400,
+                                            //     color: Colors.transparent,
+                                            //     width: 400 * 16 / 9,
+                                            //     child: FeedVideoPlayer(videoUrl: feed.media[index].url, autoPlay: true,)
+                                            // ),
+                                            Positioned(
+                                              child: Container(
+                                                width: 50,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                  //color: Colors.black87,
+                                                    borderRadius: BorderRadius.circular(20),
+                                                    gradient: const LinearGradient(
+                                                        colors: [gradientStart, gradientEnd]
+                                                    )
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    (entry.key + 1).toString() + '/' + feedBloc.feedItem.media.length.toString(),
+                                                    style: const TextStyle(
+                                                        color: primaryWhiteTextColor,
+                                                        fontSize: 12,
+                                                        fontWeight: FontWeight.bold
+                                                    ),
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                ),
+                                              ),
+                                              right: 10,
+                                              bottom: 10,
+                                            )
+                                          ],
+                                        );
+                                      }
+                                      else {
+                                        return Container();
+                                      }
+                                      
+                                    },
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ),
@@ -602,7 +601,7 @@ class FeedItemState extends State<FeedItem> {
                                   child: Row(
                                     children: [
                                       const Icon(
-                                        Entypo.arrow_bold_down,
+                                        Icons.arrow_drop_down,
                                         color: primaryWhiteTextColor,
                                         size: 15,
                                       ),
@@ -632,7 +631,7 @@ class FeedItemState extends State<FeedItem> {
                                   child: Row(
                                     children: [
                                       const Icon(
-                                        Entypo.arrow_bold_up,
+                                        Icons.arrow_drop_up,
                                         color: primaryWhiteTextColor,
                                         size: 15,
                                       ),
@@ -651,7 +650,7 @@ class FeedItemState extends State<FeedItem> {
                               const SizedBox(width: 10,),
                               /// Seen Count
                               const Icon(
-                                Entypo.eye,
+                                Icons.visibility,
                                 color: primaryWhiteTextColor,
                                 size: 15,
                               ),
@@ -667,7 +666,7 @@ class FeedItemState extends State<FeedItem> {
                               const SizedBox(width: 10,),
                               /// Comments Count
                               const Icon(
-                                Foundation.comments,
+                                Icons.question_answer,
                                 color: primaryWhiteTextColor,
                                 size: 15,
                               ),

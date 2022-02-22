@@ -1,28 +1,19 @@
 import 'dart:async';
 
-// import 'package:circular_profile_avatar/circular_profile_avatar.dart';
-// import 'package:faker/faker.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
-// import 'package:overheard/constants/numericalset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/bloc/community_event.dart';
 import 'package:overheard/ui/community/bloc/community_state.dart';
-import 'package:overheard/ui/community/models/community_model.dart';
-// import 'package:overheard/ui/community/models/community_model.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
 import 'package:overheard/ui/community/submit_community.dart';
 import 'package:overheard/ui/components/pagination.dart';
-// import 'package:overheard/ui/components/pagination.dart';
 import 'package:overheard/ui/home/bloc/home_bloc.dart';
 import 'package:overheard/ui/home/home.dart';
 import 'package:overheard/ui/home/repository/home.repository.dart';
