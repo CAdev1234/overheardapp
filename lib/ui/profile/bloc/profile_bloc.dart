@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,7 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   late UserModel userModel;
   late UserModel viewer;
   late String followText;
-  late int joinedCommunity;
+  late int? joinedCommunity;
   String searchKey = "";
 
   /// Bloc variables
@@ -51,7 +49,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   int blockedUserPage = 1;
   int blockedUserLastFetchedId = 0;
 
-  ProfileBloc({required this.profileRepository}) : super(null as ProfileState) {
+  ProfileBloc({required this.profileRepository}) : super(const ProfileLoadingState()) {
     on<ProfileEvent>(
       (event, emit) => {
         if (event is ProfileCompleteEvent) {

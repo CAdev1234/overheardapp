@@ -7,7 +7,7 @@ import 'package:overheard/ui/chat/repository/chat.repository.dart';
 class ChatBloc extends Bloc<ChatEvent, ChatState>{
   final ChatRepository chatRepository;
 
-  ChatBloc({required this.chatRepository}) : super(null as ChatState) {
+  ChatBloc({required this.chatRepository}) : super(const ChatItemFetchingState()) {
     on<ChatEvent>(
       (event, emit) {
         if (event is ChatItemFetchingEvent) {

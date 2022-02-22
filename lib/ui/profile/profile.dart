@@ -295,7 +295,7 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                     child: const Icon(
                       Icons.more_horiz,
                       color: primaryWhiteTextColor,
-                      size: 20,
+                      size: 30,
                     ),
                   ),
                 ):
@@ -742,7 +742,7 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
         faker.company.position(),
       ),
     );
-    await Future<List<User>>.delayed(
+    await Future.delayed(
       const Duration(milliseconds: 1500),
     );
     return upcomingList;

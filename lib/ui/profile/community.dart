@@ -35,7 +35,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
   Set<Marker> markers = {};
   late BitmapDescriptor pinLocationIcon;
   late BitmapDescriptor pinSelectedLocationIcon;
-  int communityId = 0;
+  int? communityId;
 
   @override
   void initState(){
@@ -478,7 +478,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
     );
   }
 
-  void updateMarkers(int communityId) {
+  void updateMarkers(int? communityId) {
     markers.clear();
     for(int i = 0; i < profileBloc.fetchedCommunities.length; i++) {
       if(profileBloc.fetchedCommunities[i].id == profileBloc.joinedCommunity) {

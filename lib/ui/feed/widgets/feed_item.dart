@@ -5,7 +5,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
@@ -33,12 +32,19 @@ import '../report.dart';
 class FeedItem extends StatefulWidget{
   final UserModel userModel;
   final FeedModel feed;
-  final FeedScreenState? parentState;
+  // final FeedScreenState parentState;
   final bool isDetail;
   final bool isProfile;
 
   // ignore: use_key_in_widget_constructors
-  const FeedItem({this.parentState, required this.userModel, required this.feed, required this.isDetail, required this.isProfile});
+  const FeedItem({
+    // required this.parentState,
+    Key? key,
+    required this.userModel, 
+    required this.feed, 
+    required this.isDetail, 
+    required this.isProfile
+  });
   @override
   FeedItemState createState() {
     return FeedItemState();
@@ -55,7 +61,7 @@ class FeedItemState extends State<FeedItem> {
   @override
   void initState(){
     super.initState();
-    parentState = widget.parentState as FeedScreenState;
+    // parentState = widget.parentState;
     feedBloc = FeedBloc(feedRepository: FeedRepository());
     feedBloc.userModel = widget.userModel;
     feedBloc.feedItem = widget.feed;
@@ -359,9 +365,9 @@ class FeedItemState extends State<FeedItem> {
                                   height: 50,
                                   alignment: Alignment.centerRight,
                                   child: const Icon(
-                                    FontAwesomeIcons.ellipsisH,
+                                    Icons.more_horiz,
                                     color: primaryWhiteTextColor,
-                                    size: 20,
+                                    size: 25,
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
@@ -394,7 +400,7 @@ class FeedItemState extends State<FeedItem> {
                               height: MediaQuery.of(context).size.width * 0.6,
                               child: CarouselSlider(
                                 options: CarouselOptions(
-                                  autoPlay: true,
+                                  autoPlay: false,
                                   viewportFraction: 1.0
                                 ),
                                 items: feedBloc.feedItem.media.asMap().entries.map((entry) {

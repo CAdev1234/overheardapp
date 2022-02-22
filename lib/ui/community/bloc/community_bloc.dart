@@ -9,7 +9,6 @@ import 'package:overheard/ui/auth/models/user_model.dart';
 import 'package:overheard/ui/community/models/community_model.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
 import 'package:overheard/utils/ui_elements.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'community_event.dart';
 import 'community_state.dart';
@@ -24,7 +23,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
   Position? currentPosition;
   List<CommunityModel> fetchedCommunities = [];
 
-   CommunityBloc({required this.communityRepository}) : super(null as CommunityState) {
+   CommunityBloc({required this.communityRepository}) : super(const CommunityLoadingState()) {
      on<CommunityEvent>(
        (event, emit) {
          if (event is CommunityResetEvent) {_mapResetEventToState(event);}

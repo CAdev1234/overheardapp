@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_tags/flutter_tags.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -67,10 +66,14 @@ class CreateScreenState extends State<CreateScreen>{
       bloc: feedBloc,
       listener: (context, state){
         if(state is FeedPostDoneState){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
-            create: (context) => FeedBloc(feedRepository: FeedRepository()),
-            child: const HomeScreen(),
-          )));
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+          }else {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
+              create: (context) => FeedBloc(feedRepository: FeedRepository()),
+              child: const HomeScreen(),
+            )));
+          }          
         }
       },
       child: Container(

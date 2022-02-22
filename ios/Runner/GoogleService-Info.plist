@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1001851391778-64koo7mppvgoq1cabmlts4fr0f8oqli3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1001851391778-64koo7mppvgoq1cabmlts4fr0f8oqli3</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1001851391778-1ru6daaf78ev3fsl21hufuqktmvpksb2.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDQ1clwaeWyZ00wyl1zzPnRiFd_Xk0V0vE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1001851391778</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>net.overheard</string>
+	<key>PROJECT_ID</key>
+	<string>overheard-e21bc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>overheard-e21bc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1001851391778:ios:d3439bf5b0781ba9211f7b</string>
+	<key>DATABASE_URL</key>
+	<string>https://overheard-e21bc.firebaseio.com</string>
+</dict>
+</plist>

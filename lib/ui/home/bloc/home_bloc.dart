@@ -8,7 +8,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState>{
   final HomeRepository homeRepository;
   int currentTabIndex = 0;
 
-  HomeBloc({required this.homeRepository}) : super(null as HomeState) {
+  HomeBloc({required this.homeRepository}) : super(const TabIndexState(tabIndex: 0)) {
     on<HomeEvent>(
       (event, emit) {
         if (event is ChangeTabIndexEvent) {_mapChangeTabIndex(event);}

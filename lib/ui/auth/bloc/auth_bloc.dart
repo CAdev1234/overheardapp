@@ -16,7 +16,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   String email = "";
   String source = "";
 
-  AuthBloc({required this.authRepository}) : super(null as AuthState) {
+  AuthBloc({required this.authRepository}) : super(const InitState()) {
     on<AuthEvent>(
       (event, emit) {
         if (event is SignUpEvent) {_mapSignUpToState(event);}

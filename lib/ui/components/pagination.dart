@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
 
 typedef PaginationBuilder<T> = Future<List<T>> Function(int currentListSize);
 
@@ -213,7 +212,7 @@ class _PaginationListState<T> extends State<PaginationList<T>>
         }
 
         _itemList.addAll(list);
-        _itemList.add(null as T);
+        // _itemList.add(null as T);
         _streamController.add(PageState.pageLoad);
       },
       onError: (dynamic _error) {

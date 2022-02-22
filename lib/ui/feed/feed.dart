@@ -382,7 +382,7 @@ class FeedScreenState extends State<FeedScreen>{
                               right: 5,
                             ),
                             itemBuilder: (BuildContext context, FeedModel feed) {
-                              return FeedItem(parentState: this, feed: feed, userModel: feedBloc.userModel, isDetail: false, isProfile: false,);
+                              return FeedItem(feed: feed, userModel: feedBloc.userModel, isDetail: false, isProfile: false,);
                             },
                             onPageLoading: const CupertinoActivityIndicator(),
                             onLoading: const CupertinoActivityIndicator(),
