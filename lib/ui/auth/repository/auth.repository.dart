@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/services/restclient.dart';
-// import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -18,6 +17,7 @@ import 'package:twitter_login/twitter_login.dart';
 // import 'package:twitter_api/twitter_api.dart';
 // import 'package:twitter_login/entity/auth_result.dart';
 // import 'package:twitter_login/twitter_login.dart';
+import 'package:http/http.dart' as http;
 
 class FacebookUserModel {
   String? email;
@@ -204,37 +204,52 @@ class AuthRepository extends RestApiClient{
   }
 
   Future<Map<dynamic, dynamic>?> signInWithTwitter() async {
-    try {
-      final result = await twitterSignIn.login(forceLogin: true);
-      print(result.user);
-      switch (result.status!) {
-        case TwitterLoginStatus.loggedIn:
-          final AuthCredential credential = TwitterAuthProvider.credential(accessToken: result.authToken!, secret: result.authTokenSecret!); 
-          return {};
+    // String username = twitter_Api;
+    // String password = twitter_Secret;
+    // String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
+    // var formData = <String, String>{};
+    // formData['grant_type'] = "client_credentials";
+    // var dd = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    // try {
+    //   final requestTokenResult = await http.post(
+    //     Uri.parse('https://api.twitter.com/oauth2/token'),
+    //     headers: <String, String>{
+    //       'Authorization': basicAuth
+    //     },
+    //     body: formData,
+    //   );
+    //   String bearToken = json.decode(requestTokenResult.body)['access_token'];
+    // } catch (exception) {
+    //   print("exception=");
+    //   print(exception);
+    // }
 
-          // Future twitterRequest = _twitterOauth.getTwitterRequest(
-          //   // Http Method
-          //   "GET",
-          //   // Endpoint you are trying to reach
-          //   "account/verify_credentials.json",
-          // );
-          // var res = await twitterRequest;
-          // var profile = json.decode(res.body);
-          // String token = await user.getIdToken();
-          // profile['userid'] = user.uid;
-          // profile['token'] = token;
-          // profile['email'] = user.email;
-          // return profile;
-        
-        case TwitterLoginStatus.cancelledByUser:
-          return {};
-        
-        case TwitterLoginStatus.error:
-          return null;
-      }
-    } catch (exception) {
-      print(exception);
-      return null;
+    final result = await twitterSignIn.login(forceLogin: true);
+    print(result.user);
+    switch (result.status!) {
+      case TwitterLoginStatus.loggedIn:
+        final AuthCredential credential = TwitterAuthProvider.credential(accessToken: result.authToken!, secret: result.authTokenSecret!); 
+
+        // Future twitterRequest = _twitterOauth.getTwitterRequest(
+        //   // Http Method
+        //   "GET",
+        //   // Endpoint you are trying to reach
+        //   "account/verify_credentials.json",
+        // );
+        // var res = await twitterRequest;
+        // var profile = json.decode(res.body);
+        // String token = await user.getIdToken();
+        // profile['userid'] = user.uid;
+        // profile['token'] = token;
+        // profile['email'] = user.email;
+        // return profile;
+        return null;
+      
+      case TwitterLoginStatus.cancelledByUser:
+        return {};
+      
+      case TwitterLoginStatus.error:
+        return null;
     }
     return null;
     

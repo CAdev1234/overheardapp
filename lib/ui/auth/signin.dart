@@ -469,11 +469,11 @@ class SignInScreenState extends State<SignInScreen>{
                             ): const SizedBox.shrink(),
                             GestureDetector(
                               onTap: (){
-                                // authBloc.add(const TwitterSignInEvent());
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
-                                  create: (context) => AuthBloc(authRepository: AuthRepository()),
-                                  child: TwitterWebview( consumerKey: twitter_Api, consumerSecret: twitter_Secret, oauthCallbackHandler: 'https://overheard-e21bc.firebaseapp.com/__/auth/handler'),
-                                )));
+                                authBloc.add(const TwitterSignInEvent());
+                                // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
+                                //   create: (context) => AuthBloc(authRepository: AuthRepository()),
+                                //   child: TwitterWebview( consumerKey: twitter_Api, consumerSecret: twitter_Secret, oauthCallbackHandler: 'https://overheard-e21bc.firebaseapp.com/__/auth/handler'),
+                                // )));
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(10),

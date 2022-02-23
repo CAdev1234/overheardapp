@@ -1,7 +1,7 @@
 /// API keys
 const String googleMapApiKey = 'AIzaSyCWeQpEV267p7Gx8PPDeJHyqHo87SkVw50';
-const String twitter_Api = 'Rhhf2yVyqhdHczyIrwZXHWkzS';
-const String twitter_Secret = 'niqCsJLTvE6VXCyBcnBmWXih23OtwOsUiqLUBVibgoZ8Wq29im';
+const String twitter_Api = 'aXRMWWl07PbjSBbgdIfT8K3o8';
+const String twitter_Secret = 'wOWE9AZzqxtZb8TBrNjiMNAfAUxyUfsRxc7SqA3v2sPF9YIhIu';
 const String facebook_Secret = '471dab6f72e5687a9e593f38faae8d67';
 
 /// Store keys
@@ -207,7 +207,7 @@ const String noMessageText = "No message";
 /// Auth Related Urls
 // const String BASE_ROUTE = 'https://overheard.net';
 // const String BASE_ROUTE = 'http://10.0.2.2:8000';
-const String BASE_ROUTE = 'http://192.168.1.17:8000';
+const String BASE_ROUTE = 'http://192.168.1.15:8000';
 const String SIGNIN_URL = '/api/auth/signin';
 const String FIREBASE_SIGNIN_URL = '/api/auth/firebaseSignIn';
 const String SIGNUP_URL = '/api/auth/signup';

@@ -135,6 +135,10 @@ class _TwitterWebviewState extends State<TwitterWebview> {
             javascriptChannels: <JavascriptChannel>{
               _toasterJavascriptChannel(context)
             },
+            navigationDelegate: (NavigationRequest req) {
+              print("request= ${req.url}");
+              return NavigationDecision.navigate;
+            },
             onPageFinished: (String url) {
               print(url);
               if (url.startsWith(widget.oauthCallbackHandler)) {
