@@ -49,7 +49,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   int blockedUserPage = 1;
   int blockedUserLastFetchedId = 0;
 
-  ProfileBloc({required this.profileRepository}) : super(const ProfileLoadingState()) {
+  ProfileBloc({required this.profileRepository}) : super(const ProfileInitState()) {
     on<ProfileEvent>(
       (event, emit) => {
         if (event is ProfileCompleteEvent) {
@@ -95,6 +95,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
     currentPage = 1;
     lastFetchedId = 0;
     joinedCommunity = null as int;
+    
   }
 
   void resetFollowr(){

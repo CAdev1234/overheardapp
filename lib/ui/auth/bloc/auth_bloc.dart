@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/auth/bloc/auth_state.dart';
@@ -226,14 +227,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     }
     else{
       String name = result['name'];
-      List nameList = name.split(' ');
+      // List nameList = name.split(' ');
       String uid = result['id'];
-      String firstName = nameList[0];
-      String lastName = nameList[1];
+      // String firstName = nameList[0];
+      // String lastName = nameList[1];
       String email = result['email'];
-      String avatar = result['picture']['data']['url'];
+      // String avatar = result['profile_image_url'];
       String token = result['token'];
-      String authSource = profileSourceFacebook;
+      // String authSource = profileSourceFacebook;
       var credential = {
         'firebaseUID': uid,
         'email': email,
@@ -276,13 +277,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       return;
     }
     else{
-      String uid = result['id'];
+      String uid = result['userid'];
       String name = result['name'];
-      List nameList = name.split(' ');
-      String firstName = nameList[0];
-      String lastName = nameList[1];
+      // List nameList = name.split(' ');
+      // String firstName = nameList[0];
+      // String lastName = nameList[1];
       String email = result['email'];
-      String avatar = result['picture']['data']['url'];
+      String avatar = result['profile_image_url'];
       String token = result['token'];
       String authSource = profileSourceFacebook;
 
@@ -290,7 +291,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
         'firebaseUID': uid,
         'email': email,
         'name': name,
-        'avatar': avatar
+        // 'firstName': firstName,
+        // 'lastName': lastName,
+        'avatar': avatar,
+        'authSource': authSource,
+        'Firebasetoken': token,
       };
       bool _result = await authRepository.signUpWithFirebase(credential);
       if(_result){
@@ -318,7 +323,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       String uid = result['userid'];
       String name = result['name'];
       String email = result['email'];
-      String avatar = result['profile_image_url'];
+      // String avatar = result['profile_image_url'];
       String token = result['token'];
 
       var credential = {

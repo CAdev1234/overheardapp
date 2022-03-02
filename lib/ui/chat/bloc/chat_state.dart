@@ -5,6 +5,13 @@ abstract class ChatState extends Equatable{
   const ChatState();
 }
 
+class ChatInitState extends ChatState {
+  const ChatInitState({Key? key}): super();
+  @override
+  List<Object> get props => [];
+  @override
+  String toString() => 'Chat state for null safety';
+}
 
 // chat page
 class ChatItemFetchingState extends ChatState {

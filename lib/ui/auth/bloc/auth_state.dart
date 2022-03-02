@@ -12,7 +12,7 @@ class InitState extends AuthState {
   List<Object> get props => [];
 
   @override
-  String toString() => "Auth Init State";
+  String toString() => "Auth State for null safety";
 }
 
 class LoadingState extends AuthState {

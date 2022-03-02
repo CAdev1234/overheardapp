@@ -1,5 +1,3 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/services/restclient.dart';
@@ -10,11 +8,6 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:twitter_login/twitter_login.dart';
-// import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-
-// import 'package:twitter_api/twitter_api.dart';
-// import 'package:twitter_login/entity/auth_result.dart';
-// import 'package:twitter_login/twitter_login.dart';
 
 class FacebookUserModel {
   String? email;
@@ -162,42 +155,29 @@ class AuthRepository extends RestApiClient{
     return false;
   }
 
-  Future<Map<String, dynamic>?> signInWithFaceBook() async {
+  Future<Map<dynamic, dynamic>?> signInWithFaceBook() async {
     final LoginResult result = await FacebookAuth.i.login();
     if (result.status == LoginStatus.success) {
       AccessToken? token = result.accessToken;
-      final userData = await FacebookAuth.instance.getUserData();
-      FacebookUserModel user = FacebookUserModel.fromJson(userData);
-      user.token = token;
-      return user.toJson();
+      // final userData = await FacebookAuth.instance.getUserData();
+      // FacebookUserModel fbuser = FacebookUserModel.fromJson(userData);
+      User? user = await _signInWithFacebook(token!.token);
+      Map profile = {};
+      if (user == null) {
+        return null;
+      }
+      profile['userid'] = user.uid;
+      profile['token'] = await user.getIdToken();
+      profile['email'] = user.email;
+      profile['name'] = user.displayName;
+      profile['profile_image_url'] = user.photoURL;
+      return profile;
     }else if (result.status == LoginStatus.cancelled) {
       return {};
     }else if (result.status == LoginStatus.failed) {
       return null;
     }
     return null;
-    // var facebookLoginResult = await faceBookSignIn.logIn(['email']);
-
-    // switch (facebookLoginResult.status) {
-    //   case FacebookLoginStatus.error:
-    //     return null;
-    //     break;
-    //   case FacebookLoginStatus.cancelledByUser:
-    //     return Map();
-    //     break;
-    //   case FacebookLoginStatus.loggedIn:
-    //     var graphResponse = await http.get(
-    //         'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture.height(200)&access_token=${facebookLoginResult.accessToken.token}');
-    //     final AuthCredential credential = FacebookAuthProvider.credential(facebookLoginResult.accessToken.token);
-    //     final User user = (await _auth.signInWithCredential(credential)).user;
-    //     String token = await user.getIdToken();
-    //     var profile = await json.decode(graphResponse.body);
-    //     profile['userid'] = user.uid;
-    //     profile['token'] = token;
-    //     return profile;
-    //     break;
-    // }
-    // return null;
   }
 
   Future<Map<dynamic, dynamic>?> signInWithTwitter() async {
@@ -206,15 +186,6 @@ class AuthRepository extends RestApiClient{
     switch (result.status!) {
       case TwitterLoginStatus.loggedIn:
         User? user = await _signInWithTwitter(result.authToken!, result.authTokenSecret!);
-        // Future twitterRequest = _twitterOauth.getTwitterRequest(
-        //   // Http Method
-        //   "GET",
-        //   // Endpoint you are trying to reach
-        //   "account/verify_credentials.json",
-        // );
-        // var res = await twitterRequest;
-        // var profile = json.decode(res.body);
-        // String token = await user.getIdToken();
         Map profile = {};
         profile['userid'] = user!.uid;
         profile['token'] = await user.getIdToken();
@@ -222,13 +193,37 @@ class AuthRepository extends RestApiClient{
         profile['name'] = user.displayName;
         profile['profile_image_url'] = user.photoURL;
         return profile;
-        // return null;
       
       case TwitterLoginStatus.cancelledByUser:
         return {};
       
       case TwitterLoginStatus.error:
         return null;
+    }
+  }
+
+  Future<User?> _signInWithFacebook(String token) async {
+    final AuthCredential credential = FacebookAuthProvider.credential(token);
+    final User user;
+    try {
+      user = (await _auth.signInWithCredential(credential)).user as User;
+      if (user == null) {
+        return null;
+      }else {
+        assert(user.email != null);
+        assert(user.displayName != null);
+        assert(!user.isAnonymous);
+        assert(await user.getIdToken() != null);
+        final User currentUser = _auth.currentUser as User;
+        assert(user.uid == currentUser.uid);
+        return user;
+      }
+      
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+
+      }
+      return null;
     }
   }
 

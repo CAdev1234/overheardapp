@@ -5,6 +5,15 @@ abstract class ProfileState extends Equatable{
   const ProfileState();
 }
 
+class ProfileInitState extends ProfileState {
+  const ProfileInitState() : super();
+
+  @override
+  List<Object> get props => [];
+  @override
+  String toString() => 'Profile State for safe null';
+}
+
 class ProfileLoadingState extends ProfileState {
   const ProfileLoadingState() : super();
 
