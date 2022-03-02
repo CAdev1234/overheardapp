@@ -227,23 +227,23 @@ class SignUpScreenState extends State<SignUpScreen>{
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, emailEmptyErrorText));
+                              showToast(emailEmptyErrorText, gradientEnd);
                               return;
                             }
                             if(usernameController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, usernameEmptyErrorText));
+                              showToast(usernameEmptyErrorText, gradientEnd);
                               return;
                             }
                             if(passwordController.text == ""){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordEmptyErrorText));
+                              showToast(passwordEmptyErrorText, gradientEnd);
                               return;
                             }
                             if(passwordController.text != confirmPasswordController.text){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, passwordMismatchErrorText));
+                              showToast(passwordMismatchErrorText, gradientEnd);
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              showToast(invalidEmailErrorText, gradientEnd);
                               return;
                             }
                             // authBloc.add(SignUpEvent(
@@ -282,7 +282,7 @@ class SignUpScreenState extends State<SignUpScreen>{
                                         Navigator.pop(context);
                                       },
                                       child: new Text(
-                                          CancelButtonText,
+                                          cancelButtonText,
                                           style: TextStyle(
                                             color: primaryBlueTextColor,
                                             fontSize: primaryButtonMiddleFontSize

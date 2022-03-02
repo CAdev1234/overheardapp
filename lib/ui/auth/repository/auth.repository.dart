@@ -1,8 +1,6 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/services/restclient.dart';
 import 'dart:convert';
@@ -17,7 +15,6 @@ import 'package:twitter_login/twitter_login.dart';
 // import 'package:twitter_api/twitter_api.dart';
 // import 'package:twitter_login/entity/auth_result.dart';
 // import 'package:twitter_login/twitter_login.dart';
-import 'package:http/http.dart' as http;
 
 class FacebookUserModel {
   String? email;
@@ -70,7 +67,7 @@ class AuthRepository extends RestApiClient{
       apiKey: twitter_Api,
       apiSecretKey: twitter_Secret,
       // redirectURI: Platform.isAndroid ? 'https://overheard-e21bc.firebaseapp.com/__/auth/handler' : 'twitterkit-D62hrgqhkxMBOhs6r6VxbmBVW://'
-      redirectURI: 'overheard-twitter-auth://'
+      redirectURI: 'overheardnet://'
   );
 
   Future<Map<dynamic, dynamic>?> signInWithEmail(Map<String, dynamic> credential) async {
@@ -108,7 +105,7 @@ class AuthRepository extends RestApiClient{
       }
     }
     catch(exception){
-      // print(exception);
+      print(exception);
     }
     return {};
   }
@@ -204,32 +201,11 @@ class AuthRepository extends RestApiClient{
   }
 
   Future<Map<dynamic, dynamic>?> signInWithTwitter() async {
-    // String username = twitter_Api;
-    // String password = twitter_Secret;
-    // String basicAuth = 'Basic ' + base64Encode(utf8.encode('$username:$password'));
-    // var formData = <String, String>{};
-    // formData['grant_type'] = "client_credentials";
-    // var dd = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-    // try {
-    //   final requestTokenResult = await http.post(
-    //     Uri.parse('https://api.twitter.com/oauth2/token'),
-    //     headers: <String, String>{
-    //       'Authorization': basicAuth
-    //     },
-    //     body: formData,
-    //   );
-    //   String bearToken = json.decode(requestTokenResult.body)['access_token'];
-    // } catch (exception) {
-    //   print("exception=");
-    //   print(exception);
-    // }
+    final result = await twitterSignIn.loginV2(forceLogin: true);
 
-    final result = await twitterSignIn.login(forceLogin: true);
-    print(result.user);
     switch (result.status!) {
       case TwitterLoginStatus.loggedIn:
-        final AuthCredential credential = TwitterAuthProvider.credential(accessToken: result.authToken!, secret: result.authTokenSecret!); 
-
+        User? user = await _signInWithTwitter(result.authToken!, result.authTokenSecret!);
         // Future twitterRequest = _twitterOauth.getTwitterRequest(
         //   // Http Method
         //   "GET",
@@ -239,11 +215,14 @@ class AuthRepository extends RestApiClient{
         // var res = await twitterRequest;
         // var profile = json.decode(res.body);
         // String token = await user.getIdToken();
-        // profile['userid'] = user.uid;
-        // profile['token'] = token;
-        // profile['email'] = user.email;
-        // return profile;
-        return null;
+        Map profile = {};
+        profile['userid'] = user!.uid;
+        profile['token'] = await user.getIdToken();
+        profile['email'] = user.email;
+        profile['name'] = user.displayName;
+        profile['profile_image_url'] = user.photoURL;
+        return profile;
+        // return null;
       
       case TwitterLoginStatus.cancelledByUser:
         return {};
@@ -251,28 +230,26 @@ class AuthRepository extends RestApiClient{
       case TwitterLoginStatus.error:
         return null;
     }
-    return null;
-    
   }
 
+  Future<User?> _signInWithTwitter(String token, String secret) async {
+    final AuthCredential credential = TwitterAuthProvider.credential(accessToken: token, secret: secret);
+    final User user = (await _auth.signInWithCredential(credential)).user as User;
+    assert(user.email != null);
+    assert(user.displayName != null);
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
 
-  Future<void> signInWithTwitterWithWebView({required BuildContext context, required String accessToken, required String secret}) async {
-    try {
-      late UserCredential userCredential;
-      if (kIsWeb) {
-        TwitterAuthProvider twitterAuthProvider = TwitterAuthProvider();
-        await _auth.signInWithPopup(twitterAuthProvider);
-      }else {
-        final AuthCredential credential = TwitterAuthProvider.credential(
-          accessToken: accessToken, 
-          secret: secret
-        );
-        userCredential = await _auth.signInWithCredential(credential);
-      }
-    } catch (exception) {
-      print(exception);
+    final User currentUser = _auth.currentUser as User;
+    assert(user.uid == currentUser.uid);
+
+    if (user != null) {
+      return user;
+    } else {
+      return null;
     }
   }
+
  
 
   String generateNonce([int length = 32]) {
@@ -327,24 +304,7 @@ class AuthRepository extends RestApiClient{
     return null;
   }
 
-  Future<User?> _signInWithTwitter(String token, String secret) async {
-    final AuthCredential credential = TwitterAuthProvider.credential(
-        accessToken: token, secret: secret);
-    final User user = (await _auth.signInWithCredential(credential)).user as User;
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
-
-    final User currentUser = _auth.currentUser as User;
-    assert(user.uid == currentUser.uid);
-
-    if (user != null) {
-      return user;
-    } else {
-      return null;
-    }
-  }
+  
 
   Future<bool> restorePasswordRequest(Map<dynamic, dynamic> params) async {
     try{

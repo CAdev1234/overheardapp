@@ -17,6 +17,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState>{
         }
         // else if (event is ChatItemFetchDoneEvent) {_mapChatItemFetchDoneEventToState(event);}
         else if (event is ChatContactFetchingEvent) {emit(const ChatContactFetchDoneState());}
+        else if (event is ChatMessageFetchingEvent) {
+          emit(const ChatMessageFetchingState());
+          Future.delayed(const Duration(microseconds: 2000));
+          emit(const ChatMessageFetchDoneState());
+        }
       }
     );
     // on<ChatLoadingEvent>();
@@ -37,6 +42,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState>{
   // }
 
   Future<List<ChatMessageModel>> pageFetch(int offset) async {
-    return [];
+    return demoChatMessage;
   }
 }

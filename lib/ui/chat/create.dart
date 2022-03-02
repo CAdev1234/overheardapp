@@ -37,7 +37,7 @@ class ChatCreateScreenState extends State<ChatCreateScreen> {
         child: const Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            CancelButtonText,
+            cancelButtonText,
             style: TextStyle(
                 color: primaryWhiteTextColor,
                 fontSize: primaryButtonMiddleFontSize
@@ -57,7 +57,7 @@ class ChatCreateScreenState extends State<ChatCreateScreen> {
       trailing: GestureDetector(
         onTap: (){},
         child: const Text(
-          CancelButtonText,
+          cancelButtonText,
           style: TextStyle(
               color: Colors.transparent,
               fontSize: primaryButtonMiddleFontSize

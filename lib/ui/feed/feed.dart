@@ -213,9 +213,9 @@ class FeedScreenState extends State<FeedScreen>{
                     
                     /// Feed List
                     Expanded(
-                        child: state is FeedLoadingState ?
-                        const CupertinoActivityIndicator() :
-                        RefreshIndicator(
+                      child: state is FeedLoadingState ?
+                      const CupertinoActivityIndicator() :
+                      RefreshIndicator(
                           child: PaginationList<FeedModel>(
                             shrinkWrap: true,
                             physics: const BouncingScrollPhysics(),

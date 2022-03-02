@@ -87,7 +87,7 @@ class EditScreenState extends State<EditScreen>{
               child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  CancelButtonText,
+                  cancelButtonText,
                   style: TextStyle(
                       color: primaryWhiteTextColor,
                       fontSize: primaryButtonMiddleFontSize
@@ -133,7 +133,7 @@ class EditScreenState extends State<EditScreen>{
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    SaveButtonText,
+                    saveButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize
@@ -878,7 +878,7 @@ class EditScreenState extends State<EditScreen>{
                     ],
                     cancelButton: CupertinoActionSheetAction(
                       child: const Text(
-                        CancelButtonText,
+                        cancelButtonText,
                         style: TextStyle(
                             color: primaryColor,
                             fontSize: primaryButtonFontSize

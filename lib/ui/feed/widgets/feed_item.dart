@@ -246,7 +246,7 @@ class FeedItemState extends State<FeedItem> {
                                               textScaleFactor: 1.0,
                                             ),
                                             onPressed: () async {
-                                              FlutterClipboard.copy(feedBloc.feedItem.media[media_index].url!).then(( value ) => showToast('Copied to Clipboard', gradientStart));
+                                              FlutterClipboard.copy(feedBloc.feedItem.media[media_index].url!).then(( value ) => showToast(copyClipboard, gradientStart));
                                               Navigator.of(context).pop();
                                             },
                                           ),
@@ -315,7 +315,7 @@ class FeedItemState extends State<FeedItem> {
                                                           Navigator.pop(context);
                                                         },
                                                         child: const Text(
-                                                          CancelButtonText,
+                                                          cancelButtonText,
                                                           style: TextStyle(
                                                               color: primaryBlueTextColor,
                                                               fontSize: primaryButtonMiddleFontSize
@@ -346,7 +346,7 @@ class FeedItemState extends State<FeedItem> {
                                         ],
                                         cancelButton: CupertinoActionSheetAction(
                                           child: const Text(
-                                            DoneButtonText,
+                                            doneButtonText,
                                             style: TextStyle(
                                                 color: primaryColor,
                                                 fontSize: primaryButtonFontSize

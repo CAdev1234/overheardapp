@@ -359,7 +359,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     if(result == null){
       emit(const LoginFailedState());
     }
-    else if(result == Map()){
+    else if(result.isEmpty){
       emit(const LoginCancelledState());
     }
     else if(result == null){
@@ -371,13 +371,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       String email = result['email'];
       String avatar = result['profile_image_url'];
       String token = result['token'];
-      String authSource = profileSourceFacebook;
+      String authSource = profileSourceTwitter;
 
       var credential = {
         'firebaseUID': uid,
         'email': email,
         'name': name,
-        'avatar': avatar
+        'avatar': avatar,
+        'Firebasetoken': token,
+        'authSource': authSource
       };
       bool _result = await authRepository.signUpWithFirebase(credential);
       if(_result){
@@ -440,35 +442,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
 
   }
 
-  // Stream<AuthState> _mapAppleSignUpToState(AppleSignUpEvent appleSignUpEvent) async* {
-  //   yield LoadingState();
-  //   var result = await authRepository.signInWithApple();
-  //   if(result == null){
-  //     yield LoginFailedState();
-  //   }
-  //   else{
-  //     String uid = result['userid'];
-  //     String name = result['name'];
-  //     String email = result['email'];
-  //     String avatar = result['profile_image_url'];
-  //     String token = result['token'];
-  //     String authSource = profileSourceFacebook;
+  void _mapAppleSignUpToState(AppleSignUpEvent appleSignUpEvent) async {
+    emit(const LoadingState());
+    var result = await authRepository.signInWithApple();
+    if(result == null){
+      emit(const LoginFailedState());
+    }
+    else{
+      String uid = result['userid'];
+      String name = result['name'];
+      String email = result['email'];
+      String avatar = result['profile_image_url'];
+      String token = result['token'];
+      String authSource = profileSourceFacebook;
 
-  //     var credential = {
-  //       'firebaseUID': uid,
-  //       'email': email,
-  //       'name': name,
-  //       'avatar': avatar
-  //     };
-  //     bool _result = await authRepository.signUPWithFirebase(credential);
-  //     if(_result){
-  //       yield SignUpSuccessState();
-  //     }
-  //     else{
-  //       yield SignUpFailedState();
-  //     }
-  //   }
-  // }
+      var credential = {
+        'firebaseUID': uid,
+        'email': email,
+        'name': name,
+        'avatar': avatar
+      };
+      bool _result = await authRepository.signUpWithFirebase(credential);
+      if(_result){
+        emit(const SignUpSuccessState());
+      }
+      else{
+        emit(const SignUpFailedState());
+      }
+    }
+  }
 
   void _mapRestorePasswordToState(RestorePasswordEvent restorePasswordEvent) async {
     emit(const LoadingState());

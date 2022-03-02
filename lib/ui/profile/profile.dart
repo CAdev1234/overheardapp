@@ -151,7 +151,7 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                               ),
                               CupertinoActionSheetAction(
                                 child: const Text(
-                                  SettingsText,
+                                  settingsText,
                                   style: TextStyle(
                                       color: primaryColor,
                                       fontSize: primaryButtonFontSize
@@ -191,7 +191,7 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                             ],
                             cancelButton: CupertinoActionSheetAction(
                               child: const Text(
-                                CancelButtonText,
+                                cancelButtonText,
                                 style: TextStyle(
                                     color: primaryColor,
                                     fontSize: primaryButtonFontSize
@@ -272,7 +272,7 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                             ],
                             cancelButton: CupertinoActionSheetAction(
                               child: const Text(
-                                CancelButtonText,
+                                cancelButtonText,
                                 style: TextStyle(
                                     color: primaryColor,
                                     fontSize: primaryButtonFontSize

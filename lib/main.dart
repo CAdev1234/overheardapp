@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:overheard/constants/colorset.dart';
+import 'package:overheard/ui/chat/chat.dart';
 import 'package:overheard/ui/splash/splashscreen.dart';
 
 void main() async {
@@ -17,7 +18,6 @@ void main() async {
 }
 
 
-
 class OverheardApp extends StatefulWidget{
   const OverheardApp({Key? key}) : super(key: key); 
 
@@ -28,7 +28,7 @@ class OverheardApp extends StatefulWidget{
 class OverheardAppState extends State<OverheardApp> {
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
@@ -84,6 +84,7 @@ class OverheardAppState extends State<OverheardApp> {
         )
       ),
       home: SplashScreen(),
+      // home: ChatScreen(),
     );
   }
 }

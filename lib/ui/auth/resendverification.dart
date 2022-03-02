@@ -129,7 +129,7 @@ class ResendVerificationScreenState extends State<ResendVerificationScreen>{
                               )
                           ),
                           child: const Text(
-                            resendVerificationText,
+                            resendText,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: gradientEnd,

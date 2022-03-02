@@ -61,7 +61,7 @@ class PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>{
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(
-                            privacyPolicy_Content,
+                            privacyPolicyContent,
                             style: TextStyle(
                                 color: primaryBlueTextColor,
                                 fontSize: primaryTextFieldFontSize

@@ -65,7 +65,7 @@ class _FaqScreenState extends State<FaqScreen> {
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(
-                            faq_Content,
+                            faqContent,
                             style: TextStyle(
                                 color: primaryBlueTextColor,
                                 fontSize: primaryTextFieldFontSize

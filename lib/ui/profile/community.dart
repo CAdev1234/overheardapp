@@ -149,7 +149,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                             Navigator.pop(context);
                           },
                           child: const Text(
-                            CancelButtonText,
+                            cancelButtonText,
                             style: TextStyle(
                                 color: primaryBlueTextColor,
                                 fontSize: primaryButtonMiddleFontSize
@@ -182,7 +182,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    DoneButtonText,
+                    doneButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize
@@ -394,7 +394,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                                                       Navigator.pop(context);
                                                     },
                                                     child: new Text(
-                                                      CancelButtonText,
+                                                      cancelButtonText,
                                                       style: TextStyle(
                                                           color: primaryBlueTextColor,
                                                           fontSize: primaryButtonMiddleFontSize

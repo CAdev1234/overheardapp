@@ -68,7 +68,7 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(
-                            aboutUs_Content,
+                            aboutUsContent,
                             style: TextStyle(
                                 color: primaryBlueTextColor,
                                 fontSize: primaryTextFieldFontSize

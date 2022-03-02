@@ -141,7 +141,7 @@ class LocationScreenState extends State<LocationScreen> {
                       ),
                       child: const Center(
                         child: Text(
-                          SaveButtonText,
+                          saveButtonText,
                           textScaleFactor: 1.0,
                           style: TextStyle(
                               color: primaryWhiteTextColor,

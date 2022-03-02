@@ -90,7 +90,7 @@ class CreateScreenState extends State<CreateScreen>{
               child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  CancelButtonText,
+                  cancelButtonText,
                   style: TextStyle(
                       color: primaryWhiteTextColor,
                       fontSize: primaryButtonMiddleFontSize
@@ -127,7 +127,7 @@ class CreateScreenState extends State<CreateScreen>{
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    FinishButtonText,
+                    finishButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize
@@ -816,7 +816,7 @@ class CreateScreenState extends State<CreateScreen>{
                     ],
                     cancelButton: CupertinoActionSheetAction(
                       child: const Text(
-                        CancelButtonText,
+                        cancelButtonText,
                         style: TextStyle(
                             color: primaryColor,
                             fontSize: primaryButtonFontSize

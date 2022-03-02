@@ -54,7 +54,7 @@ class CropPhotoScreenState extends State<CropPhotoScreen>{
               child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  CancelButtonText,
+                  cancelButtonText,
                   style: TextStyle(
                     color: primaryWhiteTextColor,
                     fontSize: primaryButtonMiddleFontSize
@@ -82,7 +82,7 @@ class CropPhotoScreenState extends State<CropPhotoScreen>{
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    DoneButtonText,
+                    doneButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize

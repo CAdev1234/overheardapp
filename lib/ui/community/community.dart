@@ -203,7 +203,7 @@ class CommunityScreenState extends State<CommunityScreen>{
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    SkipButtonText,
+                    skipButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize

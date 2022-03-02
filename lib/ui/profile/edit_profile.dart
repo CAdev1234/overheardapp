@@ -133,7 +133,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    DoneButtonText,
+                    doneButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize
@@ -257,7 +257,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
                                   child: const Text(
-                                    CancelButtonText,
+                                    cancelButtonText,
                                     style: TextStyle(
                                         color: primaryColor,
                                         fontSize: primaryButtonFontSize

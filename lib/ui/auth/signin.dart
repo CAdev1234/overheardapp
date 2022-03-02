@@ -16,7 +16,6 @@ import 'package:overheard/ui/auth/repository/auth.repository.dart';
 import 'package:overheard/ui/auth/resendverification.dart';
 import 'package:overheard/ui/auth/resetpassword.dart';
 import 'package:overheard/ui/auth/signup.dart';
-import 'package:overheard/ui/auth/twitter_webview.dart';
 import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/community.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
@@ -247,6 +246,9 @@ class SignInScreenState extends State<SignInScreen>{
             }
           }
         }
+        else if (state is SignInFailedState) {
+          showToast(signInFailedText, gradientEnd);
+        }
         else if(state is VerifySuccessState){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
             create: (context) => AuthBloc(authRepository: AuthRepository()),
@@ -386,7 +388,7 @@ class SignInScreenState extends State<SignInScreen>{
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              showToast(emailEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                              showToast(emailEmptyErrorText, gradientEnd.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(passwordController.text == ""){

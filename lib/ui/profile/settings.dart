@@ -50,7 +50,7 @@ class SettingScreenState extends State<SettingScreen>{
         child: Scaffold(
           appBar: const CupertinoNavigationBar(
             middle: Text(
-              SettingsText,
+              settingsText,
               style: TextStyle(
                   fontSize: appBarTitleFontSize,
                   color: primaryWhiteTextColor

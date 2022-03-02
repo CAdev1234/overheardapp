@@ -35,7 +35,7 @@ WidgetBuilder mediaAddingRequestDialog(BuildContext context){
     ],
     cancelButton: CupertinoActionSheetAction(
       child: const Text(
-        CancelButtonText,
+        cancelButtonText,
         style: TextStyle(
             color: primaryColor,
             fontSize: primaryButtonFontSize

@@ -64,7 +64,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      CancelButtonText,
+                      cancelButtonText,
                       style: TextStyle(
                           color: primaryWhiteTextColor,
                           fontSize: primaryButtonMiddleFontSize
@@ -105,7 +105,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        SaveButtonText,
+                        saveButtonText,
                         style: TextStyle(
                             color: primaryWhiteTextColor,
                             fontSize: primaryButtonMiddleFontSize

@@ -19,3 +19,6 @@ const double postTagFontSize = 13;
 
 const double createPostPopupFontSize = 13;
 const double createPostButtonWidth = 80;
+
+
+const double chatMessageStatusIconFontSize = 17;

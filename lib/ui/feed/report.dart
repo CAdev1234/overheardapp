@@ -56,7 +56,7 @@ class ReportScreenState extends State<ReportScreen>{
               child: const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  CancelButtonText,
+                  cancelButtonText,
                   style: TextStyle(
                       color: primaryWhiteTextColor,
                       fontSize: primaryButtonMiddleFontSize
@@ -94,7 +94,7 @@ class ReportScreenState extends State<ReportScreen>{
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(
-                    SendButtonText,
+                    sendButtonText,
                     style: TextStyle(
                         color: primaryWhiteTextColor,
                         fontSize: primaryButtonMiddleFontSize

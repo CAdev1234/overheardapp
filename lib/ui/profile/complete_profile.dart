@@ -212,7 +212,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                   ],
                                   cancelButton: CupertinoActionSheetAction(
                                     child: const Text(
-                                        CancelButtonText,
+                                        cancelButtonText,
                                         style: TextStyle(
                                             color: primaryColor,
                                             fontSize: primaryButtonFontSize
@@ -380,15 +380,15 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
               return GestureDetector(
                 onTap: (){
                   if(firstNameController.text == ""){
-                    Scaffold.of(context).showSnackBar(getSnackBar(context, firstNameEmptyErrorText));
+                    showToast(firstNameEmptyErrorText, gradientEnd);
                     return;
                   }
                   if(lastNameController.text == ""){
-                    Scaffold.of(context).showSnackBar(getSnackBar(context, lastNameEmptyErrorText));
+                    showToast(lastNameEmptyErrorText, gradientEnd);
                     return;
                   }
                   if(bioController.text == ""){
-                    Scaffold.of(context).showSnackBar(getSnackBar(context, bioEmptyErrorText));
+                    showToast(bioEmptyErrorText, gradientEnd);
                     return;
                   }
 

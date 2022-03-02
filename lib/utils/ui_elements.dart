@@ -28,7 +28,7 @@ SnackBar getSnackBar(BuildContext context, String message){
       ),
     ),
     action: SnackBarAction(
-      label: OkbuttonText,
+      label: okButtonText,
       onPressed: (){
         // Scaffold.of(context).hideCurrentSnackBar();
         ScaffoldMessenger.of(context).removeCurrentSnackBar(

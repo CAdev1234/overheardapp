@@ -61,7 +61,7 @@ class TermsOfUseScreenState extends State<TermsOfUseScreen>{
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: Text(
-                            termsOfUse_Content,
+                            termsOfUseContent,
                             style: TextStyle(
                               color: primaryBlueTextColor,
                               fontSize: primaryTextFieldFontSize

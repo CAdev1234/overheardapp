@@ -41,13 +41,19 @@ class ChatScreenState extends State<ChatScreen>{
     chatBloc.add(const ChatItemFetchingEvent());
   }
 
+  void blockChatItemHandler(int idx) {
+    setState(() {
+      chatList[idx].isBlocked = !chatList[idx].isBlocked;
+    });
+  }
+
   Future<void> showChatItemDelModalHandler() {
     return showCupertinoDialog<void>(
       context: context,
       builder: (BuildContext context) => CustomCupertinoAlert(
         title: deleteChatAlertTitle, 
         content: deleteChatAlertContent, 
-        noBtnText: CancelButtonText, 
+        noBtnText: cancelButtonText, 
         yesBtnText: confirmButtonText,
         onNoAction: (){Navigator.pop(context);},
         onYesAction: (){},
@@ -149,11 +155,11 @@ class ChatScreenState extends State<ChatScreen>{
         children: [
           SlidableAction(
             // An action can be bigger than the others.
-            onPressed: (context) => {},
+            onPressed: (context) => {blockChatItemHandler(idx)},
             backgroundColor: gradientStart,
             foregroundColor: Colors.white,
             // icon: Icons.archive,
-            label: blockButtonText,
+            label: chatList[idx].isBlocked ? unblockButtonText : blockButtonText,
           ),
           SlidableAction(
             onPressed: (context) => {showChatItemDelModalHandler()},
@@ -266,6 +272,16 @@ class ChatScreenState extends State<ChatScreen>{
                       Expanded(
                         child: state is ChatItemFetchingState ?
                         const CupertinoActivityIndicator()
+                        :
+                        chatList.isEmpty ? Column(
+                          children: const [
+                            SizedBox(height: 30),
+                            Text(
+                              noChatText,
+                              style: TextStyle(color: primaryWhiteTextColor),
+                            )
+                          ],
+                        )
                         :
                         SizedBox(
                           width: MediaQuery.of(context).size.width,

@@ -123,7 +123,7 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
                             child: state is CommunityLoadingState ?
                             const CupertinoActivityIndicator() :
                             const Text(
-                              SubmitButtonText,
+                              submitButtonText,
                               textScaleFactor: 1.0,
                               textAlign: TextAlign.center,
                               style: TextStyle(

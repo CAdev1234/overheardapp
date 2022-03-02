@@ -129,8 +129,7 @@ class _PaginationListState<T> extends State<PaginationList<T>>
                   physics: widget.physics,
                   padding: widget.padding,
                   itemCount: _itemList.length,
-                  separatorBuilder: (BuildContext context, int index) =>
-                  widget.separatorWidget,
+                  separatorBuilder: (BuildContext context, int index) => widget.separatorWidget,
                 );
               },
             )
