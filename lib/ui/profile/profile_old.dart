@@ -570,7 +570,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                         initialData: const <FeedModel>[],
                                         onEmpty: const Center(
                                           child: Text(
-                                            noFeedFountText,
+                                            noFeedFoundText,
                                             style: TextStyle(
                                                 color: primaryWhiteTextColor,
                                                 fontSize: primaryButtonFontSize
@@ -619,7 +619,7 @@ class ProfileScreenState extends State<ProfileScreenOld>  with TickerProviderSta
                                   ],
                                   onEmpty: const Center(
                                     child: Text(
-                                      noCommunityFountText,
+                                      noCommunityFoundText,
                                       style: TextStyle(
                                           color: primaryWhiteTextColor,
                                           fontSize: primaryButtonFontSize

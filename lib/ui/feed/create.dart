@@ -9,6 +9,7 @@ import 'package:flutter_tags/flutter_tags.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocode/geocode.dart';
+import 'package:location/location.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:intl/date_symbols.dart';
@@ -22,7 +23,6 @@ import 'package:overheard/ui/feed/models/MediaType.dart';
 import 'package:overheard/ui/feed/repository/feed.repository.dart';
 import 'package:overheard/ui/home/home.dart';
 import 'package:overheard/utils/ui_elements.dart';
-import 'package:location/location.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'bloc/feed_bloc.dart';
 import 'bloc/feed_state.dart';
@@ -44,6 +44,7 @@ class CreateScreenState extends State<CreateScreen>{
   var contentNode = FocusNode();
   late TextEditingController tagController;
   late TextEditingController locationController;
+  int maxImg = 10;
 
   // Position for popup menu
   late Offset _tapPosition;
@@ -110,7 +111,7 @@ class CreateScreenState extends State<CreateScreen>{
             trailing: GestureDetector(
               onTap: (){
                 if(contentController.text == ""){
-                  showToast(postContentEmptyErrorText, gradientStart);
+                  showToast(postContentEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                   return;
                 }
                 feedBloc.add(FeedPostEvent(
@@ -323,7 +324,7 @@ class CreateScreenState extends State<CreateScreen>{
                                       if (!_serviceEnabled) {
                                         _serviceEnabled = await location.requestService();
                                         if (!_serviceEnabled) {
-                                          showToast(locationPermissionDeniedErrorText, gradientStart, gravity: ToastGravity.CENTER);
+                                          showToast(locationPermissionDeniedErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                                           return;
                                         }
                                       }
@@ -332,7 +333,7 @@ class CreateScreenState extends State<CreateScreen>{
                                       if (_permissionGranted == PermissionStatus.denied) {
                                         _permissionGranted = await location.requestPermission();
                                         if (_permissionGranted != PermissionStatus.granted) {
-                                          showToast(locationPermissionDeniedErrorText, gradientStart, gravity: ToastGravity.CENTER);
+                                          showToast(locationPermissionDeniedErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                                           return;
                                         }
                                       }
@@ -346,30 +347,17 @@ class CreateScreenState extends State<CreateScreen>{
                                         double latitude = double.parse(result['lat']);
                                         double longitude = double.parse(result['lng']);
 
-                                        final coordinates = Coordinates(latitude: latitude, longitude: longitude);
+                                        // final coordinates = Coordinates(latitude: latitude, longitude: longitude);
                                         try{
                                           GeoCode geoCode = GeoCode();
                                           Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
-                                          // String countryCode = '';
-                                          // String adminArea = '';
-                                          // String locality = '';
-                                          // for(int i = 0; i < addresses.length; i++){
-                                          //   if(addresses[i].countryCode != null){
-                                          //     countryCode = addresses[i].countryCode;
-                                          //   }
-                                          //   if(addresses[i].adminArea != null){
-                                          //     adminArea = addresses[i].adminArea + ', ';
-                                          //   }
-                                          //   if(addresses[i].locality != null){
-                                          //     locality = addresses[i].locality + ', ';
-                                          //   }
-                                          // }
+                                          String dd = "${address.city}, ${address.countryCode}";
                                           setState((){
-                                            locationController.text = "${address.city}, ${address.countryName}";
+                                            locationController.text = "${address.city}, ${address.countryCode}";
                                           });
                                         }
                                         catch(exception){
-                                          // print(exception);
+                                          showToast(locationPickErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                                         }
                                       }
                                     },
@@ -382,6 +370,8 @@ class CreateScreenState extends State<CreateScreen>{
                                 ],
                               ),
                             ),
+                            
+                            
                             /// Tags
                             const SizedBox(height: 10,),
                             Container(
@@ -453,6 +443,8 @@ class CreateScreenState extends State<CreateScreen>{
                                 }
                               ),
                             ),
+                            
+                            
                             /// Media Container
                             const SizedBox(height: 10,),
                             Container(
@@ -511,7 +503,8 @@ class CreateScreenState extends State<CreateScreen>{
                                   }).toList() :
                                   [],
                               ),
-                            )
+                            ),
+                            const SizedBox(height: 10)
                           ],
                         ),
                         state is FeedPostingState?
@@ -567,6 +560,10 @@ class CreateScreenState extends State<CreateScreen>{
                                                   return;
                                                 }
                                                 setState(() {
+                                                  if (feedBloc.pickedFiles.length >= maxImg) {
+                                                    showToast(maxImgErrorText, gradientEnd, gravity: ToastGravity.CENTER);
+                                                    return;
+                                                  }
                                                   feedBloc.pickedFiles.add(File(image.path));
                                                   feedBloc.thumbnails.add(File(image.path));
                                                   feedBloc.pickedThumbnails.add(MediaType(type: 0, file: File(image.path)));
@@ -600,10 +597,8 @@ class CreateScreenState extends State<CreateScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile video = await ImagePicker().pickImage(
+                                                XFile video = await ImagePicker().pickVideo(
                                                     source: ImageSource.camera) as XFile;
-
-                                                // ignore: unnecessary_null_comparison
                                                 if(video == null){
                                                   return;
                                                 }
@@ -685,6 +680,10 @@ class CreateScreenState extends State<CreateScreen>{
                                             /// Pick Image
                                             GestureDetector(
                                               onTap: () async {
+                                                if (feedBloc.pickedFiles.length >= maxImg) {
+                                                  showToast(maxImgErrorText, gradientEnd, gravity: ToastGravity.CENTER);
+                                                  return;
+                                                }
                                                 Navigator.of(context).pop();
                                                 XFile image = await ImagePicker().pickImage(
                                                     source: ImageSource.gallery) as XFile;
@@ -726,7 +725,7 @@ class CreateScreenState extends State<CreateScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile video = await ImagePicker().pickImage(
+                                                XFile video = await ImagePicker().pickVideo(
                                                     source: ImageSource.gallery) as XFile;
                                                 // ignore: unnecessary_null_comparison
                                                 if(video == null){

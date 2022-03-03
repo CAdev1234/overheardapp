@@ -269,7 +269,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
       'email': profileCompleteEvent.email,
       'phonenumber': profileCompleteEvent.phonenumber,
       'bio': profileCompleteEvent.bio,
-      'reporter_request': profileCompleteEvent.reporter_request,
+      'reporter_request': profileCompleteEvent.reporter_request == true ? 1 : 0,
     };
 
     var response = await profileRepository.completeProfile(profile);

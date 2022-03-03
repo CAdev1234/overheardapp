@@ -156,7 +156,7 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
     );
 
     File croppedFile = await ImageCrop.cropImage(file: sampleFile, area: _area);
-
+    debugPrint("top: ${_area!.top}, left: ${_area!.left}, right: ${_area!.right}, bottom: ${_area!.bottom}");
     return croppedFile;
   }
 

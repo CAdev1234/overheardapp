@@ -458,7 +458,7 @@ class EditCommunityScreenState extends State<EditCommunityScreen>{
                             onPageLoading: CupertinoActivityIndicator(),
                             onEmpty: Center(
                               child: Text(
-                                noCommunityFountText,
+                                noCommunityFoundText,
                                 style: TextStyle(
                                     color: primaryWhiteTextColor,
                                     fontSize: primaryButtonFontSize

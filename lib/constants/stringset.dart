@@ -84,7 +84,7 @@ const String confirmButtonText = 'Confirm';
 const String submitCommunityButtonText = 'Submit Coummunity';
 const String searchPlaceholder = 'Search';
 const String skipButtonText = 'Skip';
-const String noCommunityFountText = 'No Community Found';
+const String noCommunityFoundText = 'No Community Found';
 const String confirmCommunityDialogTitle = 'Allow <<%s>> to access your Location?';
 const String confirmCommunityDialogContent = 'A short, complete sentence that takes up the first and the second line.';
 
@@ -106,6 +106,7 @@ const String shareText = 'Share';
 const String copyLinkText = 'Copy Link';
 const String editText = 'Edit';
 const String deleteText = 'Delete';
+const String voteErrorText = "You can't vote again";
 
 const String commentPlaceholder = 'Leave Comment ...';
 const String reportAppBarTitle = 'Report';
@@ -126,6 +127,8 @@ const String liveStreamPostText = 'Live Stream';
 
 const String createPostAppBarTitle = 'Create Post';
 const String finishButtonText = 'Finish';
+const String maxImgErrorText = "You can't add photo anymore";
+const String locationPickErrorText = "You can't choose this postion";
 
 const String locationPickerAppBarTitle = 'Location';
 
@@ -193,7 +196,7 @@ const String newPasswordHintText = 'New Password';
 const String passwordChangeFaileText = 'Failed to change password';
 const String passwordChangedText = 'You have changed password';
 
-const String noFeedFountText = 'No Feed Found';
+const String noFeedFoundText = 'No Feed Found';
 const String noLiveStreamFoundText = 'No Live Stream';
 const String imagePickText = 'Image';
 const String videoPickText = 'Video';
@@ -216,8 +219,9 @@ const String photoVideoText = "Photo/Video";
 /// API routes
 /// Auth Related Urls
 // const String BASE_ROUTE = 'https://overheard.net';
-const String BASE_ROUTE = 'http://10.0.2.2:8000';
+// const String BASE_ROUTE = 'http://10.0.2.2:8000';
 // const String BASE_ROUTE = 'http://192.168.1.15:8000';
+const String BASE_ROUTE = 'http://192.168.1.17:8000';
 const String SOCKET_URL = 'ws://192.168.1.15:6001';
 const String SIGNIN_URL = '/api/auth/signin';
 const String FIREBASE_SIGNIN_URL = '/api/auth/firebaseSignIn';

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:overheard/constants/colorset.dart';
@@ -11,6 +12,7 @@ import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/feed/bloc/feed_bloc.dart';
 // import 'package:overheard/ui/feed/bloc/feed.event.dart';
 import 'package:overheard/ui/feed/repository/feed.repository.dart';
+import 'package:overheard/utils/ui_elements.dart';
 
 import 'bloc/feed_state.dart';
 import 'bloc/feed_event.dart';
@@ -56,6 +58,9 @@ class LocationScreenState extends State<LocationScreen> {
             'lat': lat.toString(),
             'lng': lng.toString()
           });
+        }else if (state is FeedLocationGetFailState) {
+          showToast(locationPickErrorText, gradientEnd, gravity: ToastGravity.CENTER);
+          return;
         }
       },
       child: Scaffold(
@@ -71,26 +76,6 @@ class LocationScreenState extends State<LocationScreen> {
         ),
         body: Stack(
           children: [
-            // GoogleMap(
-            //   key: _key,
-            //   onTap: (location) async {
-            //     GoogleMap.of(_key).clearMarkers();
-            //     setState(() {
-            //       widget.position = Position.fromMap({
-            //         'latitude': location.latitude,
-            //         'longitude': location.longitude
-            //       });
-            //       currentLocation = location;
-            //       GoogleMap.of(_key).addMarker(Marker(currentLocation));
-            //     });
-            //   },
-            //   initialZoom: 12,
-            //   initialPosition: currentLocation,
-            //   mapType: MapType.terrain,
-            //   markers: {
-            //     Marker(currentLocation)
-            //   },
-            // ),
             GoogleMap(
               mapType: MapType.hybrid,
               initialCameraPosition: _currentLocation,

@@ -340,7 +340,7 @@ class CommunityScreenState extends State<CommunityScreen>{
                       //     initialData: <CommunityModel>[],
                       //     onEmpty: Center(
                       //       child: Text(
-                      //         noCommunityFountText,
+                      //         noCommunityFoundText,
                       //         style: TextStyle(
                       //             color: primaryWhiteTextColor,
                       //             fontSize: primaryButtonFontSize

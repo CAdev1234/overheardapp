@@ -397,7 +397,7 @@ class FeedScreenState extends State<FeedScreen>{
                               child: Column(
                                 children: [
                                   const Text(
-                                    noCommunityFountText,
+                                    noCommunityFoundText,
                                     textScaleFactor: 1.0,
                                     style: TextStyle(
                                         color: primaryWhiteTextColor,
@@ -451,7 +451,7 @@ class FeedScreenState extends State<FeedScreen>{
                             Container(
                               padding: state is NoCommunityState ? EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35) : EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
                               child: const Text(
-                                noFeedFountText,
+                                noFeedFoundText,
                                 style: TextStyle(
                                     color: primaryWhiteTextColor,
                                     fontSize: primaryButtonFontSize

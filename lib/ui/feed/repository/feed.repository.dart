@@ -33,6 +33,7 @@ class FeedRepository extends RestApiClient{
     }
     catch(exception){
       // print(exception);
+      return {};
     }
     return {};
   }

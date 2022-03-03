@@ -161,519 +161,156 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                     ):
                     state is ProfileLoadDoneState?
                     Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 20),
-                      /// Avatar
-                      CircularProfileAvatar(
-                        '',
-                        child: profileBloc.userModel.avatar == null && profileBloc.avatarImageFile == null ?
-                        Image.asset(
-                          'assets/images/user_avatar.png',
-                        ) :
-                        profileBloc.avatarImageFile != null?
-                        Image.file(profileBloc.avatarImageFile!):
-                        CachedNetworkImage(
-                          imageUrl: profileBloc.userModel.avatar!,
-                          imageBuilder: (context, imageProvider) => Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(5)
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 20),
+                        /// Avatar
+                        CircularProfileAvatar(
+                          '',
+                          child: profileBloc.userModel.avatar == null && profileBloc.avatarImageFile == null ?
+                          Image.asset(
+                            'assets/images/user_avatar.png',
+                          ) :
+                          profileBloc.avatarImageFile != null?
+                          Image.file(profileBloc.avatarImageFile!):
+                          CachedNetworkImage(
+                            imageUrl: profileBloc.userModel.avatar!,
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5)
+                              ),
                             ),
+                            placeholder: (context, url) => const CupertinoActivityIndicator(),
+                            errorWidget: (context, url, error) => const Icon(Icons.error),
                           ),
-                          placeholder: (context, url) => const CupertinoActivityIndicator(),
-                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                          backgroundColor: Colors.transparent,
+                          borderColor: Colors.transparent,
+                          elevation: 2,
+                          radius: 50,
                         ),
-                        backgroundColor: Colors.transparent,
-                        borderColor: Colors.transparent,
-                        elevation: 2,
-                        radius: 50,
-                      ),
-                      const SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () {
-                          showCupertinoModalPopup(
-                              context: context,
-                              builder: (context) => CupertinoActionSheet(
-                                actions: [
-                                  CupertinoActionSheetAction(
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () {
+                            showCupertinoModalPopup(
+                                context: context,
+                                builder: (context) => CupertinoActionSheet(
+                                  actions: [
+                                    CupertinoActionSheetAction(
+                                      child: const Text(
+                                        takePhotoText,
+                                        style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: primaryButtonFontSize
+                                        ),
+                                        textScaleFactor: 1.0,
+                                      ),
+                                      onPressed: () async {
+                                        XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
+                                        if(image != null){
+                                          final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
+                                            create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
+                                            child: CropPhotoScreen(image: image.path),
+                                          )));
+                                          setState(() {
+                                            if(croppedImage == null){
+                                              profileBloc.avatarImageFile = null;
+                                            }
+                                            else{
+                                              profileBloc.avatarImageFile = croppedImage;
+                                            }
+                                          });
+                                        }
+                                      },
+                                    ),
+                                    CupertinoActionSheetAction(
+                                      child: const Text(
+                                        chooseFromLibraryText,
+                                        style: TextStyle(
+                                            color: primaryColor,
+                                            fontSize: primaryButtonFontSize
+                                        ),
+                                        textScaleFactor: 1.0,
+                                      ),
+                                      onPressed: () async {
+                                        XFile image = await ImagePicker().pickImage(
+                                            source: ImageSource.gallery) as XFile;
+                                        if(image != null){
+                                          final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
+                                            create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
+                                            child: CropPhotoScreen(image: image.path),
+                                          )));
+                                          setState(() {
+                                            if(croppedImage == null){
+                                              profileBloc.avatarImageFile = null;
+                                            }
+                                            else{
+                                              profileBloc.avatarImageFile = croppedImage;
+                                            }
+                                          });
+                                        }
+                                      },
+                                    )
+                                  ],
+                                  cancelButton: CupertinoActionSheetAction(
                                     child: const Text(
-                                      takePhotoText,
+                                      cancelButtonText,
                                       style: TextStyle(
                                           color: primaryColor,
                                           fontSize: primaryButtonFontSize
                                       ),
                                       textScaleFactor: 1.0,
                                     ),
-                                    onPressed: () async {
-                                      XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
-                                      if(image != null){
-                                        final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
-                                          create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                          child: CropPhotoScreen(image: image.path),
-                                        )));
-                                        setState(() {
-                                          if(croppedImage == null){
-                                            profileBloc.avatarImageFile = null;
-                                          }
-                                          else{
-                                            profileBloc.avatarImageFile = croppedImage;
-                                          }
-                                        });
-                                      }
+                                    onPressed: (){
+                                      Navigator.of(context).pop();
                                     },
                                   ),
-                                  CupertinoActionSheetAction(
-                                    child: const Text(
-                                      chooseFromLibraryText,
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: primaryButtonFontSize
-                                      ),
-                                      textScaleFactor: 1.0,
-                                    ),
-                                    onPressed: () async {
-                                      XFile image = await ImagePicker().pickImage(
-                                          source: ImageSource.gallery) as XFile;
-                                      if(image != null){
-                                        final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
-                                          create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                          child: CropPhotoScreen(image: image.path),
-                                        )));
-                                        setState(() {
-                                          if(croppedImage == null){
-                                            profileBloc.avatarImageFile = null;
-                                          }
-                                          else{
-                                            profileBloc.avatarImageFile = croppedImage;
-                                          }
-                                        });
-                                      }
-                                    },
-                                  )
-                                ],
-                                cancelButton: CupertinoActionSheetAction(
-                                  child: const Text(
-                                    cancelButtonText,
-                                    style: TextStyle(
-                                        color: primaryColor,
-                                        fontSize: primaryButtonFontSize
-                                    ),
-                                    textScaleFactor: 1.0,
-                                  ),
-                                  onPressed: (){
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              )
-                          );
-                        },
-                        child: const Text(
-                          changeProfilePhotoText,
-                          style: TextStyle(
-                              color: primaryWhiteTextColor,
-                              fontSize: primaryTextFieldFontSize
+                                )
+                            );
+                          },
+                          child: const Text(
+                            changeProfilePhotoText,
+                            style: TextStyle(
+                                color: primaryWhiteTextColor,
+                                fontSize: primaryTextFieldFontSize
+                            ),
+                            textScaleFactor: 1.0,
                           ),
-                          textScaleFactor: 1.0,
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      /// First Name Input Field
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20 * 2,
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const SizedBox(
-                              width: 120,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    firstNamePlaceholder,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                    // textSelectionHandleColor: Colors.transparent,
-                                    primaryColor: Colors.transparent,
-                                    scaffoldBackgroundColor:Colors.transparent,
-                                    bottomAppBarColor: Colors.transparent
-                                ),
+                        const SizedBox(height: 20),
+                        /// First Name Input Field
+                        Container(
+                          width: MediaQuery.of(context).size.width - 20 * 2,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const SizedBox(
+                                width: 120,
                                 child: Align(
                                   alignment: Alignment.centerLeft,
-                                  child: TextField(
-                                    controller: firstNameController,
-                                    cursorColor: primaryPlaceholderTextColor,
-                                    textAlign: TextAlign.left,
-                                    keyboardType: TextInputType.text,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                        bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      firstNamePlaceholder,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
                                       ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10,),
-                      /// Last Name Input Field
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20 * 2,
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const SizedBox(
-                              width: 120,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    lastNamePlaceholder,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                    // textSelectionHandleColor: Colors.transparent,
-                                    primaryColor: Colors.transparent,
-                                    scaffoldBackgroundColor:Colors.transparent,
-                                    bottomAppBarColor: Colors.transparent
-                                ),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: TextField(
-                                    controller: lastNameController,
-                                    cursorColor: primaryPlaceholderTextColor,
-                                    textAlign: TextAlign.left,
-                                    keyboardType: TextInputType.text,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                        bottom: 40 / 2,  // HERE THE IMPORTANT PART
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10,),
-                      /// User Name Input Field
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20 * 2,
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const SizedBox(
-                              width: 120,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    usernamePlaceholder,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                    // textSelectionHandleColor: Colors.transparent,
-                                    primaryColor: Colors.transparent,
-                                    scaffoldBackgroundColor:Colors.transparent,
-                                    bottomAppBarColor: Colors.transparent
-                                ),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: TextField(
-                                    controller: userNameController,
-                                    cursorColor: primaryPlaceholderTextColor,
-                                    textAlign: TextAlign.left,
-                                    keyboardType: TextInputType.text,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                        bottom: 40 / 2,  // HERE THE IMPORTANT PART
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10,),
-                      /// Email Input Field
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20 * 2,
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const SizedBox(
-                              width: 120,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    emailPlaceholder,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                    // textSelectionHandleColor: Colors.transparent,
-                                    primaryColor: Colors.transparent,
-                                    scaffoldBackgroundColor:Colors.transparent,
-                                    bottomAppBarColor: Colors.transparent
-                                ),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: TextField(
-                                    controller: emailController,
-                                    cursorColor: primaryPlaceholderTextColor,
-                                    textAlign: TextAlign.left,
-                                    keyboardType: TextInputType.text,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                        bottom: 40 / 2,  // HERE THE IMPORTANT PART
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10,),
-                      /// Phone Input Field
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20 * 2,
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            const SizedBox(
-                              width: 120,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    phonePlaceholder,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: Theme(
-                                data: Theme.of(context).copyWith(
-                                    // textSelectionHandleColor: Colors.transparent,
-                                    primaryColor: Colors.transparent,
-                                    scaffoldBackgroundColor:Colors.transparent,
-                                    bottomAppBarColor: Colors.transparent
-                                ),
-                                child: Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: TextField(
-                                    controller: phoneNumberController,
-                                    cursorColor: primaryPlaceholderTextColor,
-                                    textAlign: TextAlign.left,
-                                    keyboardType: TextInputType.text,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      contentPadding: EdgeInsets.only(
-                                        bottom: 40 / 2,  // HERE THE IMPORTANT PART
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                        ),
-                                      ),
-                                    ),
-                                    style: const TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      /// Bio Input Field
-                      Container(
-                        width: MediaQuery.of(context).size.width - 20 * 2,
-                        height: 200,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              width: 120,
-                              padding: const EdgeInsets.only(top: 10),
-                              child: const Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    bioPlaceholder,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryTextFieldFontSize
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: SizedBox(
-                                height: 200,
+                              Expanded(
                                 child: Theme(
                                   data: Theme.of(context).copyWith(
                                       // textSelectionHandleColor: Colors.transparent,
@@ -682,10 +319,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                       bottomAppBarColor: Colors.transparent
                                   ),
                                   child: Align(
-                                    alignment: Alignment.topLeft,
+                                    alignment: Alignment.centerLeft,
                                     child: TextField(
-                                      controller: bioController,
-                                      maxLines: null,
+                                      controller: firstNameController,
                                       cursorColor: primaryPlaceholderTextColor,
                                       textAlign: TextAlign.left,
                                       keyboardType: TextInputType.text,
@@ -713,12 +349,377 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ): const SizedBox.shrink(),
+                        const SizedBox(height: 10,),
+                        /// Last Name Input Field
+                        Container(
+                          width: MediaQuery.of(context).size.width - 20 * 2,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const SizedBox(
+                                width: 120,
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      lastNamePlaceholder,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      // textSelectionHandleColor: Colors.transparent,
+                                      primaryColor: Colors.transparent,
+                                      scaffoldBackgroundColor:Colors.transparent,
+                                      bottomAppBarColor: Colors.transparent
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: TextField(
+                                      controller: lastNameController,
+                                      cursorColor: primaryPlaceholderTextColor,
+                                      textAlign: TextAlign.left,
+                                      keyboardType: TextInputType.text,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                          bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        /// User Name Input Field
+                        Container(
+                          width: MediaQuery.of(context).size.width - 20 * 2,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const SizedBox(
+                                width: 120,
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      usernamePlaceholder,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      // textSelectionHandleColor: Colors.transparent,
+                                      primaryColor: Colors.transparent,
+                                      scaffoldBackgroundColor:Colors.transparent,
+                                      bottomAppBarColor: Colors.transparent
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: TextField(
+                                      controller: userNameController,
+                                      cursorColor: primaryPlaceholderTextColor,
+                                      textAlign: TextAlign.left,
+                                      keyboardType: TextInputType.text,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                          bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        /// Email Input Field
+                        Container(
+                          width: MediaQuery.of(context).size.width - 20 * 2,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const SizedBox(
+                                width: 120,
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      emailPlaceholder,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      // textSelectionHandleColor: Colors.transparent,
+                                      primaryColor: Colors.transparent,
+                                      scaffoldBackgroundColor:Colors.transparent,
+                                      bottomAppBarColor: Colors.transparent
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: TextField(
+                                      controller: emailController,
+                                      cursorColor: primaryPlaceholderTextColor,
+                                      textAlign: TextAlign.left,
+                                      keyboardType: TextInputType.text,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                          bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        /// Phone Input Field
+                        Container(
+                          width: MediaQuery.of(context).size.width - 20 * 2,
+                          height: 40,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              const SizedBox(
+                                width: 120,
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      phonePlaceholder,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                      // textSelectionHandleColor: Colors.transparent,
+                                      primaryColor: Colors.transparent,
+                                      scaffoldBackgroundColor:Colors.transparent,
+                                      bottomAppBarColor: Colors.transparent
+                                  ),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: TextField(
+                                      controller: phoneNumberController,
+                                      cursorColor: primaryPlaceholderTextColor,
+                                      textAlign: TextAlign.left,
+                                      keyboardType: TextInputType.text,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        contentPadding: EdgeInsets.only(
+                                          bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                          ),
+                                        ),
+                                      ),
+                                      style: const TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        /// Bio Input Field
+                        Container(
+                          width: MediaQuery.of(context).size.width - 20 * 2,
+                          height: 200,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: 120,
+                                padding: const EdgeInsets.only(top: 10),
+                                child: const Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      bioPlaceholder,
+                                      textScaleFactor: 1.0,
+                                      style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryTextFieldFontSize
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: SizedBox(
+                                  height: 200,
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                        // textSelectionHandleColor: Colors.transparent,
+                                        primaryColor: Colors.transparent,
+                                        scaffoldBackgroundColor:Colors.transparent,
+                                        bottomAppBarColor: Colors.transparent
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.topLeft,
+                                      child: TextField(
+                                        controller: bioController,
+                                        maxLines: null,
+                                        cursorColor: primaryPlaceholderTextColor,
+                                        textAlign: TextAlign.left,
+                                        keyboardType: TextInputType.text,
+                                        decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          contentPadding: EdgeInsets.only(
+                                            bottom: 40 / 2,  // HERE THE IMPORTANT PART
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                            ),
+                                          ),
+                                        ),
+                                        style: const TextStyle(
+                                            color: primaryWhiteTextColor,
+                                            fontSize: primaryTextFieldFontSize
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20)
+                      ],
+                    ): const SizedBox.shrink(),
                   ),
                 ),
               );

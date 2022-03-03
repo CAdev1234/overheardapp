@@ -556,27 +556,33 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                                         itemBuilder: (BuildContext context, FeedModel feed) {
                                           return FeedItem(feed: feed, userModel: profileBloc.viewer, isDetail: false, isProfile: true);
                                         },
-                                        onLoading: const Center(child: CupertinoActivityIndicator()),
+                                        onLoading: const Center(child: Padding(padding: EdgeInsets.only(top: 20), child: CupertinoActivityIndicator())),
                                         onPageLoading: const Center(child: CupertinoActivityIndicator()),
                                         pageFetch: profileBloc.pageFetch,
                                         onError: (dynamic error) => const Center(
                                           child: Text('Something Went Wrong'),
                                         ),
                                         initialData: const <FeedModel>[],
-                                        onEmpty: const Center(
-                                          child: Text(
-                                            noFeedFountText,
-                                            style: TextStyle(
-                                                color: primaryWhiteTextColor,
-                                                fontSize: primaryButtonFontSize
-                                            ),
+                                        onEmpty: Center(
+                                          child: Column(
+                                            children: const [
+                                              SizedBox(height: 20),
+                                              Text(
+                                                noFeedFoundText,
+                                                style: TextStyle(
+                                                    color: primaryWhiteTextColor,
+                                                    fontSize: primaryButtonFontSize
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
                                     )
                                   ],
                                 ),
-                              ) :
+                              ) 
+                              :
                               SizedBox(
                                 child: DynamicColumn<User>(
                                   shrinkWrap: true,
@@ -586,7 +592,9 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                                     left: 5,
                                     right: 5,
                                   ),
-                                  onLoading: const Center(child: CupertinoActivityIndicator()),
+                                  onLoading: const Center(
+                                    child: Padding(padding: EdgeInsets.only(top: 20), child: CupertinoActivityIndicator(),) 
+                                  ),
                                   onPageLoading: const Center(child: CupertinoActivityIndicator()),
                                   itemBuilder: (BuildContext context, User user) {
                                     return ListTile(
@@ -611,14 +619,19 @@ class ProfileScreenState extends State<ProfileScreen>  with TickerProviderStateM
                                   initialData: const <User>[
 
                                   ],
-                                  onEmpty: const Center(
-                                    child: Text(
-                                      noCommunityFountText,
-                                      style: TextStyle(
-                                          color: primaryWhiteTextColor,
-                                          fontSize: primaryButtonFontSize
-                                      ),
-                                    ),
+                                  onEmpty: Center(
+                                    child: Column(
+                                      children: const [
+                                        SizedBox(height: 20),
+                                        Text(
+                                          noCommunityFoundText,
+                                          style: TextStyle(
+                                              color: primaryWhiteTextColor,
+                                              fontSize: primaryButtonFontSize
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ),
                                 ),
                               )

@@ -109,11 +109,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                         GestureDetector(
                           onTap: (){
                             if(emailController.text == ""){
-                              showToast(emailEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                              showToast(emailEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              Scaffold.of(context).showSnackBar(getSnackBar(context, invalidEmailErrorText));
+                              showToast(invalidEmailErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                               return;
                             }
                             authBloc.add(RestorePasswordEvent(email: emailController.text));

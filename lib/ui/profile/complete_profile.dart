@@ -165,18 +165,18 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                       onPressed: () async {
                                         XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
                                         if(image != null){
-                                          // final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
-                                          //   create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
-                                          //   child: CropPhotoScreen(image: image.path),
-                                          // )));
+                                          final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
+                                            create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
+                                            child: CropPhotoScreen(image: image.path),
+                                          )));
                                           setState(() {
-                                            profileBloc.avatarImageFile ?? File('assets/images/user_avatar.png');
-                                            // if(croppedImage == null){
-                                            //   profileBloc.avatarImageFile = null;
-                                            // }
-                                            // else{
-                                            //   profileBloc.avatarImageFile = croppedImage;
-                                            // }
+                                            // profileBloc.avatarImageFile ?? File('assets/images/user_avatar.png');
+                                            if(croppedImage == null){
+                                              profileBloc.avatarImageFile = null;
+                                            }
+                                            else{
+                                              profileBloc.avatarImageFile = croppedImage;
+                                            }
                                           });
                                         }
                                       },
@@ -380,15 +380,15 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
               return GestureDetector(
                 onTap: (){
                   if(firstNameController.text == ""){
-                    showToast(firstNameEmptyErrorText, gradientEnd);
+                    showToast(firstNameEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                     return;
                   }
                   if(lastNameController.text == ""){
-                    showToast(lastNameEmptyErrorText, gradientEnd);
+                    showToast(lastNameEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                     return;
                   }
                   if(bioController.text == ""){
-                    showToast(bioEmptyErrorText, gradientEnd);
+                    showToast(bioEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                     return;
                   }
 

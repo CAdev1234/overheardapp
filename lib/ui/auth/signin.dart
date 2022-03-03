@@ -19,6 +19,7 @@ import 'package:overheard/ui/auth/signup.dart';
 import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/community.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
+import 'package:overheard/ui/components/video_player.dart';
 import 'package:overheard/ui/home/bloc/home_bloc.dart';
 import 'package:overheard/ui/home/home.dart';
 import 'package:overheard/ui/home/repository/home.repository.dart';
@@ -211,7 +212,7 @@ class SignInScreenState extends State<SignInScreen>{
           if (!_serviceEnabled) {
             _serviceEnabled = await location.requestService();
             if (!_serviceEnabled) {
-              showToast(locationPermissionDeniedErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+              showToast(locationPermissionDeniedErrorText, gradientEnd, gravity: ToastGravity.CENTER);
               return;
             }
           }
@@ -220,7 +221,7 @@ class SignInScreenState extends State<SignInScreen>{
           if (_permissionGranted == PermissionStatus.denied) {
             _permissionGranted = await location.requestPermission();
             if (_permissionGranted != PermissionStatus.granted) {
-              showToast(locationPermissionDeniedErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+              showToast(locationPermissionDeniedErrorText, gradientEnd, gravity: ToastGravity.CENTER);
               return;
             }
           }
@@ -392,11 +393,11 @@ class SignInScreenState extends State<SignInScreen>{
                               return;
                             }
                             if(passwordController.text == ""){
-                              showToast(passwordEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                              showToast(passwordEmptyErrorText, gradientEnd.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(!EmailValidator.validate(emailController.text)){
-                              showToast(invalidEmailErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                              showToast(invalidEmailErrorText, gradientEnd.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             authBloc.add(SignInEvent(email: emailController.text, password: passwordController.text));
@@ -495,6 +496,12 @@ class SignInScreenState extends State<SignInScreen>{
                             const SizedBox(width: 20),
                           ],
                         ),
+                        // CustomVideoPlayer(videoLink: "http://192.168.1.15:8000/assets/uploads/post_media/2/image_picker490105486.mp4")
+                        // Container(
+                        //   width: 300,
+                        //   color: Colors.green,
+
+                        // )
                       ],
                     ),
                   ),

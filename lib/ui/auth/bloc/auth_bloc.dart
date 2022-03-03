@@ -485,7 +485,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     var result = await authRepository.restorePasswordRequest(params);
     if(result){
       showToast('Password Reset Email has been sent', gradientStart);
-      // emit(SignInSuccessState(isFirstLogin: false, userModel: user));
+      emit(const InitState());
     }
     else{
       emit(const LoginFailedState());
@@ -503,7 +503,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     var result = await authRepository.resetPasswordRequest(params);
     if(result != null && result['status']){
       showToast(result['message'], gradientStart);
-      // emit(SignInSuccessState(isFirstLogin: false, userModel: user));
+      emit(const InitState());
       return;
     }
     else if(result == null){

@@ -5,12 +5,14 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mime_type/mime_type.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/auth/models/user_model.dart';
 import 'package:overheard/ui/components/glassmorphism.dart';
+import 'package:overheard/ui/components/video_player.dart';
 // import 'package:overheard/ui/components/video_player.dart';
 import 'package:overheard/ui/feed/bloc/feed_bloc.dart';
 import 'package:overheard/ui/feed/bloc/feed_event.dart';
@@ -455,12 +457,13 @@ class FeedItemState extends State<FeedItem> {
                                       else if (videoMimeTypes.contains(mimeType)) {
                                         return Stack(
                                           children: [
-                                            // Container(
-                                            //     height: 400,
-                                            //     color: Colors.transparent,
-                                            //     width: 400 * 16 / 9,
-                                            //     child: FeedVideoPlayer(videoUrl: feed.media[index].url, autoPlay: true,)
-                                            // ),
+                                            Container(
+                                                height: 400,
+                                                color: Colors.transparent,
+                                                width: 400 * 16 / 9,
+                                                child: CustomCachedVideoPlayer(videoUrl: entry.value.url!, autoPlay: true,)
+                                                // child: CustomVideoPlayer(videoLink: entry.value.url!),
+                                            ),
                                             Positioned(
                                               child: Container(
                                                 width: 50,
@@ -561,6 +564,7 @@ class FeedItemState extends State<FeedItem> {
                       const SizedBox.shrink(),
                       const SizedBox(height: 10),
                       /// Post Tags
+                      feedBloc.feedItem.tags.isNotEmpty ?
                       SizedBox(
                         width: MediaQuery.of(context).size.width,
                         height: postTagFontSize + 5,
@@ -579,7 +583,9 @@ class FeedItemState extends State<FeedItem> {
                           }).toList() :
                           [],
                         ),
-                      ),
+                      )
+                      :
+                      const SizedBox.shrink(),
                       const SizedBox(height: 10),
                       /// Divider
                       Container(
@@ -597,10 +603,10 @@ class FeedItemState extends State<FeedItem> {
                               /// Down Count
                               GestureDetector(
                                 onTap: (){
-                                  /*if(feedBloc.feedItem.publisher.id == widget.userModel.id){
-                                    showToast("You can't vote your post", gradientStart);
+                                  if(feedBloc.feedItem.publisher!.id == widget.userModel.id){
+                                    showToast(voteErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                                     return;
-                                  }*/
+                                  }
                                   feedBloc.add(FeedVoteEvent(feedId: feedBloc.feedItem.id!, isUp: false));
                                 },
                                 child: SizedBox(
@@ -619,7 +625,7 @@ class FeedItemState extends State<FeedItem> {
                                             fontSize: postTagFontSize
                                         ),
                                       )
-                                    ],
+                                    ],                                                                                                                                                                              
                                   ),
                                 ),
                               ),
@@ -627,10 +633,10 @@ class FeedItemState extends State<FeedItem> {
                               /// Up Count
                               GestureDetector(
                                 onTap: (){
-                                  /*if(feedBloc.feedItem.publisher.id == widget.userModel.id){
-                                    showToast("You can't vote your post", gradientStart);
+                                  if(feedBloc.feedItem.publisher!.id == widget.userModel.id){
+                                    showToast(voteErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                                     return;
-                                  }*/
+                                  }
                                   feedBloc.add(FeedVoteEvent(feedId: feedBloc.feedItem.id!, isUp: true));
                                 },
                                 child: SizedBox(
@@ -660,7 +666,7 @@ class FeedItemState extends State<FeedItem> {
                                 color: primaryWhiteTextColor,
                                 size: 15,
                               ),
-                              const SizedBox(width: 5,),
+                              const SizedBox(width: 5),
                               Text(
                                 feedBloc.feedItem.seenCount != null ? feedBloc.feedItem.seenCount.toString() : '0',
                                 textScaleFactor: 1.0,

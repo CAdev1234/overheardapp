@@ -68,6 +68,13 @@ class FeedLocationGetDoneState extends FeedState {
   String toString() => 'Feed Location Getting Done State';
 }
 
+class FeedLocationGetFailState extends FeedState {
+  const FeedLocationGetFailState(): super();
+  @override
+  List<Object> get props => [];
+  @override
+  String toString() => 'Feed Location Getting Failed State';
+}
 class FeedPostingState extends FeedState {
   const FeedPostingState() : super();
 
