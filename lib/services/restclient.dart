@@ -84,13 +84,13 @@ class RestApiClient {
           HttpHeaders.contentTypeHeader: (contentType ?? "application/json; charset=UTF-8"),
           HttpHeaders.acceptHeader: "application/json"
         },
-          // ignore: unnecessary_null_comparison
           body: data != null ? (contentType == null ? json.encode(data) : data) : null
         )
         .timeout(const Duration(seconds: TIMEOUT_SECONDS), onTimeout: _onTimeout);
       return response;
     }
     catch(exception){
+      print(exception.toString());
       return null;
     }
 

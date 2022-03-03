@@ -2,7 +2,6 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pusher_client/pusher_client.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -62,50 +61,50 @@ class ChatBoardScreenState extends State<ChatBoardScreen> {
     socket.on('fromServer', (_) => print(_));
   }
 
-  Future<void> initPusher() async {
-    final PusherOptions options = PusherOptions(
-      host: BASE_ROUTE,
-      wsPort: 6001,
-      // wssPort: 6001,
-      encrypted: false
-    );
-    PusherClient pusher;
-    pusher = PusherClient(
-      '12345', 
-      options, 
-      enableLogging: true,
-      autoConnect: false
-    );
-    pusher.connect();
+  // Future<void> initPusher() async {
+  //   final PusherOptions options = PusherOptions(
+  //     host: BASE_ROUTE,
+  //     wsPort: 6001,
+  //     // wssPort: 6001,
+  //     encrypted: false
+  //   );
+  //   PusherClient pusher;
+  //   pusher = PusherClient(
+  //     '12345', 
+  //     options, 
+  //     enableLogging: true,
+  //     autoConnect: false
+  //   );
+  //   pusher.connect();
 
-    pusher.onConnectionStateChange((state) {
-      print("previousState: ${state!.previousState}, currentState: ${state.currentState}");
-    });
+  //   pusher.onConnectionStateChange((state) {
+  //     print("previousState: ${state!.previousState}, currentState: ${state.currentState}");
+  //   });
 
-    pusher.onConnectionError((error) {
-        print("error: ${error!.message}");
-    });
-    Echo echo = Echo(
-      broadcaster: EchoBroadcasterType.Pusher,
-      client: pusher
-    );
-    echo.channel('chat')
-        .listen('chat_started', (Map<String, dynamic> message) {
-          print(message);
-        })
-        .listenForWhisper('typing', (Map<String, dynamic> user) {
+  //   pusher.onConnectionError((error) {
+  //       print("error: ${error!.message}");
+  //   });
+  //   Echo echo = Echo(
+  //     broadcaster: EchoBroadcasterType.Pusher,
+  //     client: pusher
+  //   );
+  //   echo.channel('chat')
+  //       .listen('chat_started', (Map<String, dynamic> message) {
+  //         print(message);
+  //       })
+  //       .listenForWhisper('typing', (Map<String, dynamic> user) {
 
-        });
-    // Channel channel = pusher.subscribe("private-orders");
-    // channel.bind("order-status-updated", (PusherEvent? event) {
-    //   print(event!.data);
-    // });
+  //       });
+  //   // Channel channel = pusher.subscribe("private-orders");
+  //   // channel.bind("order-status-updated", (PusherEvent? event) {
+  //   //   print(event!.data);
+  //   // });
 
-    // pusher.unsubscribe("private-orders");
-    // pusher.disconnect();
+  //   // pusher.unsubscribe("private-orders");
+  //   // pusher.disconnect();
 
        
-  }
+  // }
 
   void showShowcaseHandler(BuildContext context, int idx) {
     setState(() {

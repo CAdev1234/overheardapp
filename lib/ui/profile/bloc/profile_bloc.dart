@@ -94,7 +94,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
   void initState(){
     currentPage = 1;
     lastFetchedId = 0;
-    joinedCommunity = null as int;
+    joinedCommunity = null;
     
   }
 

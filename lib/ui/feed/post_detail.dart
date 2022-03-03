@@ -228,14 +228,14 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                                   showToast("Comment has not be empty", gradientStart);
                                   return;
                                 }
-                                feedBloc.add(LeaveCommentEvent(feed: state.feed!, comment: commentController.text));
-                                /*else if(state.feed.publisher.id != state.userModel.id){
+                                // feedBloc.add(LeaveCommentEvent(feed: state.feed!, comment: commentController.text));
+                                else if(state.feed!.publisher!.id != state.userModel!.id){
                                   commentController.text = '';
-                                  feedBloc.add(LeaveCommentEvent(feed: state.feed, comment: commentController.text));
+                                  feedBloc.add(LeaveCommentEvent(feed: state.feed!, comment: commentController.text));
                                 }
-                                else if(state.feed.publisher.id == state.userModel.id){
+                                else if(state.feed!.publisher!.id == state.userModel!.id){
                                   showToast('You can not commit your posting', gradientStart);
-                                }*/
+                                }
                               }
                             },
                             icon: const Icon(Icons.send, color: primaryWhiteTextColor,),

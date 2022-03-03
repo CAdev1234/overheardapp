@@ -109,8 +109,8 @@ class SignInScreenState extends State<SignInScreen>{
       }
       else if(link.contains('password/reset')){
         Uri uri = Uri.parse(link);
-        String token = uri.queryParameters['token'] as String;
-        String email = uri.queryParameters['email'] as String;
+        String token = uri.queryParameters['token']!;
+        String email = uri.queryParameters['email']!;
         Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
           create: (context) => AuthBloc(authRepository: AuthRepository()),
           child: NewPasswordScreen(token: token, email: email,),
@@ -125,7 +125,7 @@ class SignInScreenState extends State<SignInScreen>{
     try {
       _initialLink = await getInitialLink();
       // print('initial link: $_initialLink');
-      if (_initialLink != null) _initialUri = Uri.parse(_initialLink as String);
+      if (_initialLink != null) _initialUri = Uri.parse(_initialLink!);
     } on PlatformException {
       _initialLink = 'Failed to get initial link.';
       _initialUri = null;

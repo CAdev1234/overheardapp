@@ -20,7 +20,7 @@ class FacebookUserModel {
 
   FacebookUserModel.fromJson(Map<String, dynamic> json) {
     email = json['email'];
-    id = json['id'] as String;
+    id = json['id'];
     name = json['name'];
     token = json['token'];
     picture = FacebookPictureModel.fromJson(json['picture']['data']);
@@ -59,7 +59,7 @@ class AuthRepository extends RestApiClient{
   final TwitterLogin twitterSignIn = TwitterLogin(
       apiKey: twitter_Api,
       apiSecretKey: twitter_Secret,
-      // redirectURI: Platform.isAndroid ? 'https://overheard-e21bc.firebaseapp.com/__/auth/handler' : 'twitterkit-D62hrgqhkxMBOhs6r6VxbmBVW://'
+      // redirectURI: Platform.isAndroid ? 'overheardnet://' : 'twitterkit-D62hrgqhkxMBOhs6r6VxbmBVW://'
       redirectURI: 'overheardnet://'
   );
 
@@ -182,12 +182,14 @@ class AuthRepository extends RestApiClient{
 
   Future<Map<dynamic, dynamic>?> signInWithTwitter() async {
     final result = await twitterSignIn.loginV2(forceLogin: true);
-
     switch (result.status!) {
       case TwitterLoginStatus.loggedIn:
         User? user = await _signInWithTwitter(result.authToken!, result.authTokenSecret!);
+        if (user == null) {
+          return null;
+        }
         Map profile = {};
-        profile['userid'] = user!.uid;
+        profile['userid'] = user.uid;
         profile['token'] = await user.getIdToken();
         profile['email'] = user.email;
         profile['name'] = user.displayName;
@@ -204,9 +206,9 @@ class AuthRepository extends RestApiClient{
 
   Future<User?> _signInWithFacebook(String token) async {
     final AuthCredential credential = FacebookAuthProvider.credential(token);
-    final User user;
+    final User? user;
     try {
-      user = (await _auth.signInWithCredential(credential)).user as User;
+      user = (await _auth.signInWithCredential(credential)).user;
       if (user == null) {
         return null;
       }else {
@@ -214,7 +216,7 @@ class AuthRepository extends RestApiClient{
         assert(user.displayName != null);
         assert(!user.isAnonymous);
         assert(await user.getIdToken() != null);
-        final User currentUser = _auth.currentUser as User;
+        final User currentUser = _auth.currentUser!;
         assert(user.uid == currentUser.uid);
         return user;
       }
@@ -229,20 +231,15 @@ class AuthRepository extends RestApiClient{
 
   Future<User?> _signInWithTwitter(String token, String secret) async {
     final AuthCredential credential = TwitterAuthProvider.credential(accessToken: token, secret: secret);
-    final User user = (await _auth.signInWithCredential(credential)).user as User;
+    final User? user = (await _auth.signInWithCredential(credential)).user;
+    if (user == null) return null;
     assert(user.email != null);
     assert(user.displayName != null);
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final User currentUser = _auth.currentUser as User;
-    assert(user.uid == currentUser.uid);
-
-    if (user != null) {
-      return user;
-    } else {
-      return null;
-    }
+    // final User? currentUser = _auth.currentUser;
+    return user;
   }
 
  
@@ -280,12 +277,12 @@ class AuthRepository extends RestApiClient{
     );
 
     final UserCredential authResult = await _auth.signInWithCredential(oauthCredential);
-    final User user = authResult.user as User;
-
+    final User? user = authResult.user;
+    if (user == null) return null;
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final User currentUser = _auth.currentUser as User;
+    final User currentUser = _auth.currentUser!;
     if(user.uid == currentUser.uid){
       String token = await user.getIdToken();
       return {
@@ -301,9 +298,9 @@ class AuthRepository extends RestApiClient{
 
   
 
-  Future<bool> restorePasswordRequest(Map<dynamic, dynamic> params) async {
+  Future<bool> restorePasswordRequest(Map<String, dynamic> params) async {
     try{
-      final result = await postData(RESTORE_PASSWORD_URL, params as dynamic);
+      final result = await postData(RESTORE_PASSWORD_URL, params);
       if(result!.statusCode == HttpStatus.ok){
         return json.decode(result.body)['status'];
       }
@@ -314,9 +311,9 @@ class AuthRepository extends RestApiClient{
     return false;
   }
 
-  Future<Map<dynamic, dynamic>?> resetPasswordRequest(Map<dynamic, dynamic> params) async {
+  Future<Map<dynamic, dynamic>?> resetPasswordRequest(Map<String, dynamic> params) async {
     try{
-      final result = await postData(RESET_PASSWORD_URL, params as dynamic);
+      final result = await postData(RESET_PASSWORD_URL, params);
       if(result!.statusCode == HttpStatus.ok){
         return json.decode(result.body);
       }

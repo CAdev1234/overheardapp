@@ -150,8 +150,8 @@ class CommunityScreenState extends State<CommunityScreen>{
           for (var community in communityBloc.fetchedCommunities) {
             markers.add(
                 Marker(
-                  markerId: MarkerId(community.name as String),
-                  position: LatLng(community.lat as double, community.lng as double),
+                  markerId: MarkerId(community.name ?? ''),
+                  position: LatLng(community.lat!, community.lng!),
                   infoWindow: InfoWindow(
                     title: community.name,
                     snippet: "Lat: ${community.lat}, Lng: ${community.lng}"
