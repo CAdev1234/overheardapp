@@ -248,7 +248,7 @@ class SignInScreenState extends State<SignInScreen>{
           }
         }
         else if (state is SignInFailedState) {
-          showToast(signInFailedText, gradientEnd);
+          showToast(signInFailedText, gradientEnd, gravity: ToastGravity.CENTER);
         }
         else if(state is VerifySuccessState){
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(

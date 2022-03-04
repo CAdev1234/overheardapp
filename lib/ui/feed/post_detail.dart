@@ -80,71 +80,78 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                       state is FeedLoadDoneState ?
                       SingleChildScrollView(
                         child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              /// Feed Content
-                              FeedItem(feed: state.feed!, userModel: state.userModel!, isDetail: true, isProfile: true,),
-                              /// Divider
-                              state.feed!.comments.isNotEmpty ?
-                              Container(
-                                height: 1,
-                                decoration: BoxDecoration(
-                                    color: primaryWhiteTextColor.withOpacity(0.7)
-                                ),
-                              ):
-                              const SizedBox.shrink(),
-                              /// Comments
-                              state.feed!.comments.isNotEmpty ?
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: primaryWhiteTextColor.withOpacity(0.2)
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                            child: Column(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(Icons.arrow_drop_down, color: primaryWhiteTextColor,),
-                                    DropdownButton(
-                                        dropdownColor: gradientEnd,
-                                        underline: Container(height: 1, color: Colors.transparent,),
-                                        value: feedBloc.filterOption,
-                                        icon: const Icon(Icons.arrow_drop_down, color: Colors.transparent,),
-                                        items: const [
-                                          DropdownMenuItem(
-                                            child: Text(
-                                              "Recent",
-                                              style: TextStyle(
-                                                  color: primaryWhiteTextColor,
-                                                  fontSize: primaryButtonMiddleFontSize
-                                              ),
-                                            ),
-                                            value: 1,
-                                          ),
-                                          DropdownMenuItem(
-                                            child: Text(
-                                              "Old",
-                                              style: TextStyle(
-                                                  color: primaryWhiteTextColor,
-                                                  fontSize: primaryButtonMiddleFontSize
-                                              ),
-                                            ),
-                                            value: 2,
-                                          )
+                                    /// Feed Content
+                                    FeedItem(feed: state.feed!, userModel: state.userModel!, isDetail: true, isProfile: true,),
+                                    /// Divider
+                                    state.feed!.comments.isNotEmpty ?
+                                    Container(
+                                      height: 1,
+                                      decoration: BoxDecoration(
+                                          color: primaryWhiteTextColor.withOpacity(0.7)
+                                      ),
+                                    ):
+                                    const SizedBox.shrink(),
+                                    /// Comments
+                                    state.feed!.comments.isNotEmpty ?
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: primaryWhiteTextColor.withOpacity(0.2)
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          const Icon(Icons.arrow_drop_down, color: primaryWhiteTextColor,),
+                                          DropdownButton(
+                                              dropdownColor: gradientEnd,
+                                              underline: Container(height: 1, color: Colors.transparent,),
+                                              value: feedBloc.filterOption,
+                                              icon: const Icon(Icons.arrow_drop_down, color: Colors.transparent,),
+                                              items: const [
+                                                DropdownMenuItem(
+                                                  child: Text(
+                                                    "Recent",
+                                                    style: TextStyle(
+                                                        color: primaryWhiteTextColor,
+                                                        fontSize: primaryButtonMiddleFontSize
+                                                    ),
+                                                  ),
+                                                  value: 1,
+                                                ),
+                                                DropdownMenuItem(
+                                                  child: Text(
+                                                    "Old",
+                                                    style: TextStyle(
+                                                        color: primaryWhiteTextColor,
+                                                        fontSize: primaryButtonMiddleFontSize
+                                                    ),
+                                                  ),
+                                                  value: 2,
+                                                )
+                                              ],
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  feedBloc.filterOption = value as int;
+                                                  feedBloc.add(GetFeedEvent(feedId: widget.feedId));
+                                                });
+                                              }),
                                         ],
-                                        onChanged: (value) {
-                                          setState(() {
-                                            feedBloc.filterOption = value as int;
-                                            feedBloc.add(GetFeedEvent(feedId: widget.feedId));
-                                          });
-                                        }),
+                                      ),
+                                    ):
+                                    const SizedBox.shrink(),
+                                    Column(
+                                      children: state.feed!.comments.map((comment) => CommentItem(comment: comment,)).toList(),
+                                    )
                                   ],
                                 ),
-                              ):
-                              const SizedBox.shrink(),
-                              Column(
-                                children: state.feed!.comments.map((comment) => CommentItem(comment: comment,)).toList(),
-                              )
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ) :

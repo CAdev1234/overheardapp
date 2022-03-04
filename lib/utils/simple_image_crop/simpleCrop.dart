@@ -84,7 +84,7 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
   _CropAction? _action;
   double? _startScale;
   Rect? _startView;
-  Tween<Rect>? _viewTween;
+  RectTween? _viewTween;
   Tween<double>? _scaleTween;
   ImageStreamListener? _imageListener;
 
@@ -326,7 +326,7 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
     _viewTween = RectTween(
       begin: _view,
       end: _getViewInBoundaries(targetScale),
-    ) as Tween<ui.Rect>?;
+    );
 
     _settleController!.value = 0.0;
     _settleController!.animateTo(

@@ -262,14 +262,20 @@ class AuthRepository extends RestApiClient{
     
     final rawNonce = generateNonce();
     final nonce = sha256ofString(rawNonce);
-
-    final appleCredential = await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-      nonce: nonce,
-    );
+    final appleCredential;
+    try {
+      appleCredential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: nonce,
+      );
+    } catch (e) {
+      print(e.toString());
+      return {};
+    }
+    
 
     final oauthCredential = OAuthProvider("apple.com").credential(
       idToken: appleCredential.identityToken,

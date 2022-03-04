@@ -350,6 +350,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
         }
       }
       catch(exception){
+        print(exception.toString());
         emit(const SignInFailedState());
       }
 
@@ -406,15 +407,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     else if(result == {}){
       emit(const LoginCancelledState());
     }
-    else if(result == null){
-      emit(const LoginFailedState());
-    }
-    else{
-      String uid = result['userid'];
-      String name = result['name'];
-      String email = result['email'];
-      String avatar = result['profile_image_url'];
-      String token = result['token'];
+    else {
+      String uid = result['userid']!;
+      String name = result['name']!;
+      String email = result['email']!;
+      String avatar = result['profile_image_url']!;
+      String token = result['token']!;
 
       var credential = {
         'firebaseUID': uid,

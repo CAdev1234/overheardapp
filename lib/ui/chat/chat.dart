@@ -172,7 +172,7 @@ class ChatScreenState extends State<ChatScreen>{
       child: Glassmorphism(
         blur: 20, 
         opacity: 0.2, 
-        borderRadius: 0, 
+        borderRadius: 10, 
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: Row(
@@ -284,7 +284,7 @@ class ChatScreenState extends State<ChatScreen>{
                         )
                         :
                         SizedBox(
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width - 10,
                           height: 200,
                           child: ListView.builder(
                             physics: const BouncingScrollPhysics(),

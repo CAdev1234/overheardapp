@@ -58,7 +58,13 @@ class NotificationScreenState extends State<NotificationScreen>{
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
-                        Text('notifications')
+                        SizedBox(height: 20,),
+                        Text(
+                          'There are no notifications.',
+                          style: TextStyle(
+                            color: primaryWhiteTextColor
+                          ),
+                        )
                       ],
                     ),
                   ),
