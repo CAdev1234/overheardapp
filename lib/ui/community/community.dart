@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/bloc/community_event.dart';
 import 'package:overheard/ui/community/bloc/community_state.dart';
+import 'package:overheard/ui/community/models/community_model.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
 import 'package:overheard/ui/community/submit_community.dart';
 import 'package:overheard/ui/components/pagination.dart';
@@ -233,130 +235,130 @@ class CommunityScreenState extends State<CommunityScreen>{
                     Expanded(
                       child: state is CommunityLoadingState ?
                       const Center(child: CupertinoActivityIndicator()) :
-                      GoogleMap(
-                        onTap: (location) async {
-                          setState(() {
+                      // GoogleMap(
+                      //   onTap: (location) async {
+                      //     setState(() {
 
-                          });
-                        },
-                        initialCameraPosition: communityBloc.currentPosition == null ?
-                          const CameraPosition(target: LatLng(40.688841, -74.044015), zoom: 11) :
-                          CameraPosition(target: LatLng(communityBloc.currentPosition!.latitude, communityBloc.currentPosition!.longitude), zoom: 11),
-                        mapType: MapType.normal,
-                        markers: markers,
-                      )
-                      // RefreshIndicator(
-                      //   child: PaginationList<CommunityModel>(
-                      //     shrinkWrap: true,
-                      //     physics: const BouncingScrollPhysics(),
-                      //     prefix: const [],
-                      //     padding: const EdgeInsets.only(
-                      //       left: 5,
-                      //       right: 5,
-                      //     ),
-                      //     itemBuilder: (BuildContext context, CommunityModel community) {
-                      //       return GestureDetector(
-                      //         onTap: (){
-                      //           setState(() {
-                      //             communityBloc.joinedCommunity = community.id;
-                      //           });
-                      //         },
-                      //         child: Container(
-                      //           width: MediaQuery.of(context).size.width,
-                      //           padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
-                      //           margin: EdgeInsets.only(top: 3, bottom: 3),
-                      //           decoration: BoxDecoration(
-                      //               color: primaryWhiteTextColor.withOpacity(0.2),
-                      //               borderRadius: BorderRadius.circular(10)
-                      //           ),
-                      //           child: Row(
-                      //             mainAxisSize: MainAxisSize.max,
-                      //             children: [
-                      //               /// Avatar
-                      //               Container(
-                      //                 width: 50,
-                      //                 height: 50,
-                      //                 child: CircularProfileAvatar(
-                      //                   '',
-                      //                   child: Image.asset(
-                      //                     'assets/images/community_icon.png',
-                      //                   ),
-                      //                   backgroundColor: Colors.transparent,
-                      //                   borderColor: Colors.transparent,
-                      //                   elevation: 2,
-                      //                   radius: 50,
-                      //                 ),
-                      //               ),
-                      //               const SizedBox(width: 20),
-                      //               /// Author name part
-                      //               Expanded(
-                      //                 child: Column(
-                      //                   children: [
-                      //                     Container(
-                      //                       width: MediaQuery.of(context).size.width - 150,
-                      //                       child: Row(
-                      //                         mainAxisAlignment: MainAxisAlignment.start,
-                      //                         children: [
-                      //                           Flexible(
-                      //                             child: Text(
-                      //                               community.name as String,
-                      //                               overflow: TextOverflow.ellipsis,
-                      //                               style: TextStyle(
-                      //                                   color: primaryWhiteTextColor,
-                      //                                   fontSize: primaryFeedAuthorFontSize
-                      //                               ),
-                      //                               textScaleFactor: 1.0,
-                      //                             ),
-                      //                           ),
-                      //                         ],
-                      //                       ),
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ),
-                      //               /// Function Button
-                      //               Align(
-                      //                 alignment: Alignment.centerRight,
-                      //                 child: Container(
-                      //                   width: 40,
-                      //                   height: 30,
-                      //                   alignment: Alignment.center,
-                      //                   child: communityBloc.joinedCommunity == community.id ?
-                      //                   Icon(FontAwesomeIcons.check, color: primaryWhiteTextColor, size: 15,):
-                      //                   Text(''),
-                      //                 ),
-                      //               )
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       );
-                      //     },
-                      //     onPageLoading: CupertinoActivityIndicator(),
-                      //     onLoading: CupertinoActivityIndicator(),
-                      //     pageFetch: communityBloc.pageFetch,
-                      //     onError: (dynamic error) => Center(
-                      //       child: Text('Getting Communities Failed'),
-                      //     ),
-                      //     initialData: <CommunityModel>[],
-                      //     onEmpty: Center(
-                      //       child: Text(
-                      //         noCommunityFoundText,
-                      //         style: TextStyle(
-                      //             color: primaryWhiteTextColor,
-                      //             fontSize: primaryButtonFontSize
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      //   onRefresh: () async {
-                      //     await Future.delayed(
-                      //       const Duration(milliseconds: 1000),
-                      //     );
-                      //     communityBloc.resetBloc();
-                      //     communityBloc.add(const FetchCommunityEvent());
-                      //     return;
+                      //     });
                       //   },
+                      //   initialCameraPosition: communityBloc.currentPosition == null ?
+                      //     const CameraPosition(target: LatLng(40.688841, -74.044015), zoom: 11) :
+                      //     CameraPosition(target: LatLng(communityBloc.currentPosition!.latitude, communityBloc.currentPosition!.longitude), zoom: 11),
+                      //   mapType: MapType.normal,
+                      //   markers: markers,
                       // ),
+                      RefreshIndicator(
+                        child: PaginationList<CommunityModel>(
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          prefix: const [],
+                          padding: const EdgeInsets.only(
+                            left: 5,
+                            right: 5,
+                          ),
+                          itemBuilder: (BuildContext context, CommunityModel community) {
+                            return GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  communityBloc.joinedCommunity = community.id;
+                                });
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 10),
+                                margin: EdgeInsets.only(top: 3, bottom: 3),
+                                decoration: BoxDecoration(
+                                    color: primaryWhiteTextColor.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    /// Avatar
+                                    Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProfileAvatar(
+                                        '',
+                                        child: Image.asset(
+                                          'assets/images/community_icon.png',
+                                        ),
+                                        backgroundColor: Colors.transparent,
+                                        borderColor: Colors.transparent,
+                                        elevation: 2,
+                                        radius: 50,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 20),
+                                    /// Author name part
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context).size.width - 150,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Flexible(
+                                                  child: Text(
+                                                    community.name as String,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                        color: primaryWhiteTextColor,
+                                                        fontSize: primaryFeedAuthorFontSize
+                                                    ),
+                                                    textScaleFactor: 1.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    /// Function Button
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Container(
+                                        width: 40,
+                                        height: 30,
+                                        alignment: Alignment.center,
+                                        child: communityBloc.joinedCommunity == community.id ?
+                                        Icon(Icons.check, color: primaryWhiteTextColor, size: 15,):
+                                        Text(''),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          onPageLoading: CupertinoActivityIndicator(),
+                          onLoading: CupertinoActivityIndicator(),
+                          pageFetch: communityBloc.pageFetch,
+                          onError: (dynamic error) => Center(
+                            child: Text('Getting Communities Failed'),
+                          ),
+                          initialData: <CommunityModel>[],
+                          onEmpty: Center(
+                            child: Text(
+                              noCommunityFoundText,
+                              style: TextStyle(
+                                  color: primaryWhiteTextColor,
+                                  fontSize: primaryButtonFontSize
+                              ),
+                            ),
+                          ),
+                        ),
+                        onRefresh: () async {
+                          await Future.delayed(
+                            const Duration(milliseconds: 1000),
+                          );
+                          communityBloc.resetBloc();
+                          communityBloc.add(const FetchCommunityEvent());
+                          return;
+                        },
+                      ),
                     )
                   ],
                 ),
