@@ -226,14 +226,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       return;
     }
     else{
-      String name = result['name'];
+      String? name = result['name'];
       // List nameList = name.split(' ');
-      String uid = result['id'];
+      String? uid = result['id'];
       // String firstName = nameList[0];
       // String lastName = nameList[1];
-      String email = result['email'];
+      String? email = result['email'];
       // String avatar = result['profile_image_url'];
-      String token = result['token'];
+      String? token = result['token'];
       // String authSource = profileSourceFacebook;
       var credential = {
         'firebaseUID': uid,
@@ -340,21 +340,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
           prefs.setString('AccessToken', response['access_token']);
           if(user.firstname == null){
             emit(SignInSuccessState(isFirstLogin: true, userModel: user));
+            return;
           }
           else{
             emit(SignInSuccessState(isFirstLogin: false, userModel: user));
+            return;
           }
         }
         else{
           emit(const SignInFailedState());
+          return;
         }
       }
       catch(exception){
         print(exception.toString());
         emit(const SignInFailedState());
+        return;
       }
-
-      emit(const SignInFailedState());
     }
 
   }
