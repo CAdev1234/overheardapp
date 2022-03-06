@@ -15,7 +15,7 @@ class ChatInput extends StatelessWidget{
     return Glassmorphism(
       blur: 20, 
       opacity: 0.2, 
-      borderRadius: 90, 
+      borderRadius: const BorderRadius.all(Radius.circular(90)), 
       child: Container(
         height: 40,
         alignment: Alignment.center,

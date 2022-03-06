@@ -137,7 +137,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -181,7 +181,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -222,7 +222,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -264,7 +264,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20,
                             opacity: 0.2,
-                            borderRadius: 0,
+                            borderRadius: const BorderRadius.all(Radius.circular(0)),
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -330,7 +330,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -374,7 +374,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -418,7 +418,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -459,7 +459,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),
@@ -503,7 +503,7 @@ class SettingScreenState extends State<SettingScreen>{
                           child: Glassmorphism(
                             blur: 20, 
                             opacity: 0.2, 
-                            borderRadius: 0, 
+                            borderRadius: const BorderRadius.all(Radius.circular(0)), 
                             child: Container(
                               height: 50,
                               padding: const EdgeInsets.all(10),

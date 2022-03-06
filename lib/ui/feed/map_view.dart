@@ -144,4 +144,9 @@ class LocationScreenState extends State<LocationScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }

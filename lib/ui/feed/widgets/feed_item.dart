@@ -86,7 +86,7 @@ class FeedItemState extends State<FeedItem> {
               Glassmorphism(
                 blur: 20, 
                 opacity: 0.2, 
-                borderRadius: 10, 
+                borderRadius: const BorderRadius.all(Radius.circular(10)), 
                 child: Container(
                   padding: const EdgeInsets.only(top: 20, bottom: 10, left: 10, right: 10),
                   child: Column(

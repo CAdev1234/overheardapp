@@ -333,14 +333,14 @@ class CommunityScreenState extends State<CommunityScreen>{
                               ),
                             );
                           },
-                          onPageLoading: CupertinoActivityIndicator(),
-                          onLoading: CupertinoActivityIndicator(),
+                          onPageLoading: const CupertinoActivityIndicator(),
+                          onLoading: const CupertinoActivityIndicator(),
                           pageFetch: communityBloc.pageFetch,
-                          onError: (dynamic error) => Center(
+                          onError: (dynamic error) => const Center(
                             child: Text('Getting Communities Failed'),
                           ),
-                          initialData: <CommunityModel>[],
-                          onEmpty: Center(
+                          initialData: const <CommunityModel>[],
+                          onEmpty: const Center(
                             child: Text(
                               noCommunityFoundText,
                               style: TextStyle(

@@ -91,7 +91,7 @@ class ChatScreenState extends State<ChatScreen>{
       child: Glassmorphism(
         blur: 20, 
         opacity: 0.2, 
-        borderRadius: 10, 
+        borderRadius: const BorderRadius.all(Radius.circular(10)), 
         child: Container(
           width: MediaQuery.of(context).size.width - 5 * 2,
           height: 40,
@@ -172,7 +172,7 @@ class ChatScreenState extends State<ChatScreen>{
       child: Glassmorphism(
         blur: 20, 
         opacity: 0.2, 
-        borderRadius: 10, 
+        borderRadius: const BorderRadius.all(Radius.circular(5)), 
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: Row(

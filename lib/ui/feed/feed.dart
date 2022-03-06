@@ -1,6 +1,5 @@
 import 'dart:async';
 
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +12,7 @@ import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/community.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
 import 'package:overheard/ui/components/glassmorphism.dart';
+import 'package:overheard/ui/components/live_badge.dart';
 import 'package:overheard/ui/components/pagination.dart';
 import 'package:overheard/ui/feed/bloc/feed_bloc.dart';
 import 'package:overheard/ui/feed/bloc/feed_event.dart';
@@ -47,6 +47,161 @@ class FeedScreenState extends State<FeedScreen>{
     feedBloc.currentPage = 1;
     feedBloc.add(FeedFetchEvent(filterOption: selectedOption));
     searchController = TextEditingController();
+  }
+
+  Widget liveStreamBlock() {
+    return Glassmorphism(
+      blur: 20,
+      opacity: 0.2,
+      borderRadius: const BorderRadius.all(Radius.circular(5)),
+      child: Container(
+        height: 150,
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        width: MediaQuery.of(context).size.width - 10,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Stack(
+                alignment: AlignmentDirectional.topEnd,
+                children: [
+                  Container(
+                    height: 130,
+                    width: 130,
+                    child: CachedNetworkImage(
+                      imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(5)
+                        ),
+                      ),
+                      placeholder: (context, url) => const CupertinoActivityIndicator(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                    ),
+                  ),
+                  Container(
+                    height: 30,
+                    width: 30,
+                    child: Glassmorphism(
+                      blur: 30,
+                      opacity: 0.2,
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
+                      child: Column(
+                        children: [
+                          LiveBadge(bgColor: Colors.white, width: 10,),
+                        ],
+                      )
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(width: 10),
+              SizedBox(
+                height: 130,
+                width: 130,
+                child: CachedNetworkImage(
+                  imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                  ),
+                  placeholder: (context, url) => const CupertinoActivityIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              const SizedBox(width: 10,),
+              SizedBox(
+                height: 130,
+                width: 130,
+                child: CachedNetworkImage(
+                  imageUrl: "https://images.unsplash.com/photo-1590005354167-6da97870c757?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                  ),
+                  placeholder: (context, url) => const CupertinoActivityIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              const SizedBox(width: 10,),
+              SizedBox(
+                height: 130,
+                width: 130,
+                child: CachedNetworkImage(
+                  imageUrl: "https://images.unsplash.com/photo-1584306670957-acf935f5033c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                  ),
+                  placeholder: (context, url) => const CupertinoActivityIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              const SizedBox(width: 10,),
+              SizedBox(
+                height: 130,
+                width: 130,
+                child: CachedNetworkImage(
+                  imageUrl: "https://images.unsplash.com/photo-1576179635662-9d1983e97e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                  ),
+                  placeholder: (context, url) => const CupertinoActivityIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              const SizedBox(width: 10,),
+              SizedBox(
+                height: 130,
+                width: 130,
+                child: CachedNetworkImage(
+                  imageUrl: "https://images.unsplash.com/photo-1512578659172-63a4634c05ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                  ),
+                  placeholder: (context, url) => const CupertinoActivityIndicator(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+              ),
+              
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -137,7 +292,7 @@ class FeedScreenState extends State<FeedScreen>{
                     Glassmorphism(
                       blur: 20, 
                       opacity: 0.2, 
-                      borderRadius: 10, 
+                      borderRadius: const BorderRadius.all(Radius.circular(10)), 
                       child: Container(
                         width: MediaQuery.of(context).size.width - 5 * 2,
                         height: 40,
@@ -210,7 +365,8 @@ class FeedScreenState extends State<FeedScreen>{
                     ),
                     
                     const SizedBox(height: 10),
-                    
+                    liveStreamBlock(),
+
                     /// Feed List
                     Expanded(
                       child: state is FeedLoadingState ?
@@ -224,148 +380,8 @@ class FeedScreenState extends State<FeedScreen>{
                               Column(
                                 children: [
                                   /// Slider
-                                  // Container(
-                                  //   height: 150,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   color: primaryWhiteTextColor.withOpacity(0.3),
-                                  //   child: SingleChildScrollView(
-                                  //     scrollDirection: Axis.horizontal,
-                                  //     child: Row(
-                                  //       mainAxisAlignment: MainAxisAlignment.start,
-                                  //       mainAxisSize: MainAxisSize.max,
-                                  //       children: [
-                                  //         const SizedBox(width: 10,),
-                                  //         Stack(
-                                  //           alignment: AlignmentDirectional.topEnd,
-                                  //           children: [
-                                  //             SizedBox(
-                                  //               height: 130,
-                                  //               width: 130,
-                                  //               child: CachedNetworkImage(
-                                  //                 imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                                  //                 imageBuilder: (context, imageProvider) => Container(
-                                  //                   decoration: BoxDecoration(
-                                  //                       image: DecorationImage(
-                                  //                         image: imageProvider,
-                                  //                         fit: BoxFit.cover,
-                                  //                       ),
-                                  //                       borderRadius: BorderRadius.circular(5)
-                                  //                   ),
-                                  //                 ),
-                                  //                 placeholder: (context, url) => const CupertinoActivityIndicator(),
-                                  //                 errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  //               ),
-                                  //             ),
-                                  //             Container(
-                                  //               height: 10,
-                                  //               width: 10,
-                                  //               decoration: BoxDecoration(
-                                  //                   borderRadius: BorderRadius.circular(10),
-                                  //                   color: Colors.lightBlueAccent
-                                  //               ),
-                                  //             )
-                                  //           ],
-                                  //         ),
-                                  //         const SizedBox(width: 10),
-                                  //         SizedBox(
-                                  //           height: 130,
-                                  //           width: 130,
-                                  //           child: CachedNetworkImage(
-                                  //             imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                                  //             imageBuilder: (context, imageProvider) => Container(
-                                  //               decoration: BoxDecoration(
-                                  //                   image: DecorationImage(
-                                  //                     image: imageProvider,
-                                  //                     fit: BoxFit.cover,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(5)
-                                  //               ),
-                                  //             ),
-                                  //             placeholder: (context, url) => const CupertinoActivityIndicator(),
-                                  //             errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  //           ),
-                                  //         ),
-                                  //         const SizedBox(width: 10,),
-                                  //         SizedBox(
-                                  //           height: 130,
-                                  //           width: 130,
-                                  //           child: CachedNetworkImage(
-                                  //             imageUrl: "https://images.unsplash.com/photo-1590005354167-6da97870c757?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                                  //             imageBuilder: (context, imageProvider) => Container(
-                                  //               decoration: BoxDecoration(
-                                  //                   image: DecorationImage(
-                                  //                     image: imageProvider,
-                                  //                     fit: BoxFit.cover,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(5)
-                                  //               ),
-                                  //             ),
-                                  //             placeholder: (context, url) => const CupertinoActivityIndicator(),
-                                  //             errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  //           ),
-                                  //         ),
-                                  //         const SizedBox(width: 10,),
-                                  //         SizedBox(
-                                  //           height: 130,
-                                  //           width: 130,
-                                  //           child: CachedNetworkImage(
-                                  //             imageUrl: "https://images.unsplash.com/photo-1584306670957-acf935f5033c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                                  //             imageBuilder: (context, imageProvider) => Container(
-                                  //               decoration: BoxDecoration(
-                                  //                   image: DecorationImage(
-                                  //                     image: imageProvider,
-                                  //                     fit: BoxFit.cover,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(5)
-                                  //               ),
-                                  //             ),
-                                  //             placeholder: (context, url) => const CupertinoActivityIndicator(),
-                                  //             errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  //           ),
-                                  //         ),
-                                  //         const SizedBox(width: 10,),
-                                  //         SizedBox(
-                                  //           height: 130,
-                                  //           width: 130,
-                                  //           child: CachedNetworkImage(
-                                  //             imageUrl: "https://images.unsplash.com/photo-1576179635662-9d1983e97e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                                  //             imageBuilder: (context, imageProvider) => Container(
-                                  //               decoration: BoxDecoration(
-                                  //                   image: DecorationImage(
-                                  //                     image: imageProvider,
-                                  //                     fit: BoxFit.cover,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(5)
-                                  //               ),
-                                  //             ),
-                                  //             placeholder: (context, url) => const CupertinoActivityIndicator(),
-                                  //             errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  //           ),
-                                  //         ),
-                                  //         const SizedBox(width: 10,),
-                                  //         SizedBox(
-                                  //           height: 130,
-                                  //           width: 130,
-                                  //           child: CachedNetworkImage(
-                                  //             imageUrl: "https://images.unsplash.com/photo-1512578659172-63a4634c05ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                                  //             imageBuilder: (context, imageProvider) => Container(
-                                  //               decoration: BoxDecoration(
-                                  //                   image: DecorationImage(
-                                  //                     image: imageProvider,
-                                  //                     fit: BoxFit.cover,
-                                  //                   ),
-                                  //                   borderRadius: BorderRadius.circular(5)
-                                  //               ),
-                                  //             ),
-                                  //             placeholder: (context, url) => const CupertinoActivityIndicator(),
-                                  //             errorWidget: (context, url, error) => const Icon(Icons.error),
-                                  //           ),
-                                  //         ),
-                                  //         const SizedBox(width: 10,),
-                                  //       ],
-                                  //     ),
-                                  //   ),
-                                  // ),
+                                  
+                                  
                                   const SizedBox(height: 10,)
                                 ],
                               ):
@@ -476,5 +492,10 @@ class FeedScreenState extends State<FeedScreen>{
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

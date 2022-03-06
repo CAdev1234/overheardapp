@@ -6,6 +6,7 @@ import 'package:overheard/constants/numericalset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/auth/models/user_model.dart';
 import 'package:overheard/ui/community/models/community_model.dart';
+import 'package:overheard/ui/community/repository/community.repository.dart';
 import 'package:overheard/ui/feed/models/FeedModel.dart';
 import 'package:overheard/ui/profile/bloc/profile_event.dart';
 import 'package:overheard/ui/profile/bloc/profile_state.dart';
@@ -133,8 +134,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
     return [];
   }
 
-  Stream<ProfileState> communityFetch(FetchCommunityEvent communityFetchEvent) async* {
-    yield const CommunityLoadingState();
+  
+
+  void communityFetch(FetchCommunityEvent communityFetchEvent) async {
+    emit(const CommunityLoadingState());
     currentPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     var params = {
       'page': currentPage,
@@ -155,7 +158,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
         currentPage++;
         lastFetchedId = fetchedCommunities.last.id!;
         this.fetchedCommunities = fetchedCommunities;
-        yield const CommunityDoneState();
+        emit(const CommunityDoneState());
         return;
       }
       else{
@@ -163,14 +166,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
           showToast(result['message'], gradientStart);
         }
         this.fetchedCommunities = [];
-        yield const CommunityLoadFailedState();
+        emit(const CommunityLoadFailedState());
         return;
       }
     }
     else{
       showToast(result['message'], gradientStart);
       this.fetchedCommunities = [];
-      yield const CommunityLoadFailedState();
+      emit(const CommunityLoadFailedState());
       return;
     }
   }

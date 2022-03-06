@@ -2,6 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:showcaseview/showcaseview.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -191,12 +192,12 @@ class ChatBoardScreenState extends State<ChatBoardScreen> {
                               chatMsg.messageStatus == MessageStatus.notSent ? GestureDetector(
                                 onTap: () {msgShowcaseHandler(resendText, chatMsg);},
                                 child: Row(
-                                  children: const[
+                                  children: const [
                                     Expanded(
                                       child: Glassmorphism(
                                         blur: 20,
                                         opacity: 0.2,
-                                        borderRadius: 5,
+                                        borderRadius: BorderRadius.all(Radius.circular(5)),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                           child: Text(
@@ -222,7 +223,7 @@ class ChatBoardScreenState extends State<ChatBoardScreen> {
                                       child: Glassmorphism(
                                         blur: 20,
                                         opacity: 0.2,
-                                        borderRadius: 5,
+                                        borderRadius: BorderRadius.all(Radius.circular(5)),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                           child: Text(
@@ -247,7 +248,7 @@ class ChatBoardScreenState extends State<ChatBoardScreen> {
                                       child: Glassmorphism(
                                         blur: 20,
                                         opacity: 0.2,
-                                        borderRadius: 5,
+                                        borderRadius: BorderRadius.all(Radius.circular(5)),
                                         child: Padding(
                                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                           child: Text(

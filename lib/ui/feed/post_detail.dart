@@ -191,7 +191,7 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                               child: Glassmorphism(
                                 blur: 20, 
                                 opacity: 0.2, 
-                                borderRadius: 10, 
+                                borderRadius: const BorderRadius.all(Radius.circular(10)), 
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10, right: 10),
                                   child: TextField(
