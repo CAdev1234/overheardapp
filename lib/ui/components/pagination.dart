@@ -70,8 +70,7 @@ class _PaginationListState<T> extends State<PaginationList<T>>
     with AutomaticKeepAliveClientMixin<PaginationList<T>> {
   final List<T> _itemList = <T>[];
   dynamic _error;
-  final StreamController<PageState> _streamController =
-  StreamController<PageState>();
+  final StreamController<PageState> _streamController = StreamController<PageState>();
 
   @override
   void initState() {
@@ -87,6 +86,7 @@ class _PaginationListState<T> extends State<PaginationList<T>>
     ListView(
       physics: widget.physics == null ? const AlwaysScrollableScrollPhysics() : widget.physics,
       primary: false,
+      controller: ScrollController(),
       children: widget.prefix..addAll([
         Column(
           children: [

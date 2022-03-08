@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 class LiveBadge extends StatefulWidget {
   final Color bgColor;
   final double width;
+  final int milliSecond;
   const LiveBadge({
     Key? key,
     required this.width,
-    required this.bgColor
+    required this.bgColor,
+    required this.milliSecond
   }) : super(key: key);
 
   @override
   createState() => _LiveBadgeState();
 }
 
-class _LiveBadgeState extends State<LiveBadge> with TickerProviderStateMixin  {
+class _LiveBadgeState extends State<LiveBadge> with SingleTickerProviderStateMixin  {
   late AnimationController _controller;
   late Animation<double> _animation;
   late Tween<double> _tween;
@@ -22,15 +24,19 @@ class _LiveBadgeState extends State<LiveBadge> with TickerProviderStateMixin  {
   void initState() {
     super.initState();
     _tween = Tween(
-      begin: 0.5,
-      end: 0.5
+      begin: 0,
+      end: 1
     );
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700)
-    );
-    _controller.repeat(reverse: true);
-    _animation = _tween.animate(CurvedAnimation(parent: _controller, curve: Curves.elasticInOut));
+      duration: Duration(milliseconds: widget.milliSecond)
+    )..addListener(() {
+      if (_controller.isCompleted) {
+        _controller.repeat(reverse: true);
+      }
+    });
+    _animation = _tween.animate(_controller);
+    _controller.forward();
   }
 
   @override
@@ -41,9 +47,9 @@ class _LiveBadgeState extends State<LiveBadge> with TickerProviderStateMixin  {
 
   @override
   Widget build(BuildContext context) {
-    _controller.forward();
-    return ScaleTransition(
-      scale: _animation,
+    
+    return FadeTransition(
+      opacity: _animation,
       child: Container(
         width: widget.width,
         height: widget.width,

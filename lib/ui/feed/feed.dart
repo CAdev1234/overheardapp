@@ -38,6 +38,16 @@ class FeedScreenState extends State<FeedScreen>{
   late TextEditingController searchController;
   int selectedOption = 1;
   late Timer timer;
+  bool enableLiveStreamBlock = true;
+  List<String> liveStreamData = [
+    "https://images.cointelegraph.com/images/480_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvMzBhY2VjM2QtZmNkYy00YTdlLTk5ZGMtMzM0Y2EzYTBiMjNlLmpwZw==.jpg",
+    "https://images.cointelegraph.com/images/717_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvODNhMzZhMTUtMTZlZS00NDExLTk3MDktNjk4NzcxYTA4ZTE4LmpwZw==.jpg",
+    "https://images.cointelegraph.com/images/480_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvYTAwZThjZTAtYjMzNy00ZTJiLTg0YTQtYTFkZDY2NGQ1M2FhLmpwZw==.jpg",
+    "https://images.cointelegraph.com/images/480_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvNWE5NWY4ZDQtNDBjOS00YTg0LWEzZDItOTY5OTI1OTExZTEyLmpwZw==.jpg",
+    "https://images.cointelegraph.com/images/717_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvODc3YjU3MDUtMjZjYy00OGYzLTk4ZjEtNDYzZjJlNzkyM2NjLmpwZw==.jpg",
+    "https://images.cointelegraph.com/images/717_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvZTRlZjkxODEtNzFlOC00MDU3LTg0YjgtNmYzNGMxOWRlYTBkLmpwZw==.jpg",
+    "https://images.cointelegraph.com/images/717_aHR0cHM6Ly9zMy5jb2ludGVsZWdyYXBoLmNvbS91cGxvYWRzLzIwMjItMDMvMzE5MDMxMmEtYjEyYi00Yjk4LWE3NTQtOGJjODY4YzlmNTc4LmpwZw==.jpg"
+  ];
 
   @override
   void initState(){
@@ -54,46 +64,68 @@ class FeedScreenState extends State<FeedScreen>{
       blur: 20,
       opacity: 0.2,
       borderRadius: const BorderRadius.all(Radius.circular(5)),
-      child: Container(
-        height: 150,
-        padding: const EdgeInsets.only(left: 10, right: 10),
-        width: MediaQuery.of(context).size.width - 10,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Stack(
-                alignment: AlignmentDirectional.topEnd,
-                children: [
-                  SizedBox(
-                    height: 130,
-                    width: 130,
-                    child: CachedNetworkImage(
-                      imageUrl: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                      imageBuilder: (context, imageProvider) => Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+      child: Column(
+        children: [
+          Container(
+            height: enableLiveStreamBlock ? 150 : 0,
+            padding: const EdgeInsets.only(left: 10, right: 10),
+            width: MediaQuery.of(context).size.width - 10,
+            child: enableLiveStreamBlock ? SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: liveStreamData.asMap().entries.map((entry) {
+                  return Stack(
+                    alignment: AlignmentDirectional.topEnd,
+                    children: [
+                      Container(
+                        height: 130,
+                        width: 130,
+                        margin: EdgeInsets.only(left: entry.key > 0 ? 10 : 0),
+                        child: CachedNetworkImage(
+                          imageUrl: entry.value,
+                          imageBuilder: (context, imageProvider) => Container(
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(5)
                             ),
-                            borderRadius: BorderRadius.circular(5)
+                          ),
+                          placeholder: (context, url) => const CupertinoActivityIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
                         ),
                       ),
-                      placeholder: (context, url) => const CupertinoActivityIndicator(),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
-                    ),
-                  ),
-                  const LiveBadge(bgColor: Colors.blue, width: 20   ),
-                ],
+                      Container(
+                        width: 20,
+                        height: 20,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white.withOpacity(0.7),
+                        ),
+                        child: const LiveBadge(bgColor: Colors.red, width: 10, milliSecond: 1000),
+                      ),
+                      
+                    ],
+                  );
+                }).toList()
               ),
-              const SizedBox(width: 10),    
-              
-            ],
+            ) : const SizedBox.shrink(),
           ),
-        ),
-      ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                enableLiveStreamBlock = !enableLiveStreamBlock;
+              });
+            }, 
+            icon: Icon(enableLiveStreamBlock ? Icons.expand_less : Icons.expand_more, size: 30, color: primaryWhiteTextColor,)
+          )
+          
+        ],
+      )
     );
   }
 
@@ -181,6 +213,7 @@ class FeedScreenState extends State<FeedScreen>{
                         ),
                       ],
                     ),
+
                     /// Search Form
                     Glassmorphism(
                       blur: 20, 
@@ -203,12 +236,9 @@ class FeedScreenState extends State<FeedScreen>{
                               feedBloc.searchKey = value;
                               try
                               {
-                                // ignore: unnecessary_null_comparison
-                                if(timer != null) {
-                                  timer.cancel();
-                                }
                                 timer = Timer(const Duration(seconds: 1), () => {
-                                  feedBloc..add(FeedFetchEvent(filterOption: selectedOption))
+                                  feedBloc.add(FeedFetchEvent(filterOption: selectedOption)),
+                                  timer.cancel()
                                 });
                               }
                               catch(exception)
@@ -259,114 +289,126 @@ class FeedScreenState extends State<FeedScreen>{
                     
                     const SizedBox(height: 10),
                     liveStreamBlock(),
-
+                    const SizedBox(height: 10),
                     /// Feed List
                     Expanded(
                       child: state is FeedLoadingState ?
                       const CupertinoActivityIndicator() :
                       RefreshIndicator(
-                          child: PaginationList<FeedModel>(
-                            shrinkWrap: true,
-                            physics: const BouncingScrollPhysics(),
-                            prefix: [
-                              state is FeedLoadDoneState ?
-                              Column(
-                                children: [
-                                  /// Slider
-                                  
-                                  
-                                  const SizedBox(height: 10,)
-                                ],
-                              ):
-                              state is NoCommunityState ?
-                              Column(
-                                children: const [
-                                  SizedBox.shrink()
-                                ],
-                              ):
-                              const SizedBox.shrink()
-                            ],
-                            padding: const EdgeInsets.only(
-                              left: 5,
-                              right: 5,
-                            ),
-                            itemBuilder: (BuildContext context, FeedModel feed) {
-                              return FeedItem(feed: feed, userModel: feedBloc.userModel, isDetail: false, isProfile: false,);
-                            },
-                            onPageLoading: const CupertinoActivityIndicator(),
-                            onLoading: const CupertinoActivityIndicator(),
-                            pageFetch: feedBloc.pageFetch,
-                            onError: (dynamic error) => const Center(
-                              child: Text('Something Went Wrong'),
-                            ),
-                            initialData: const <FeedModel>[],
-                            onEmpty: state is NoCommunityState ?
-                            Container(
-                              padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
-                              child: Column(
-                                children: [
-                                  const Text(
-                                    noCommunityFoundText,
-                                    textScaleFactor: 1.0,
-                                    style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryButtonFontSize
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      Location location = Location();
-
-                                      bool _serviceEnabled;
-                                      PermissionStatus _permissionGranted;
-                                      LocationData _locationData;
-
-                                      _serviceEnabled = await location.serviceEnabled();
-                                      if (!_serviceEnabled) {
-                                        _serviceEnabled = await location.requestService();
-                                        if (!_serviceEnabled) {
-                                          showToast(locationPermissionDeniedErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
-                                          return;
-                                        }
-                                      }
-
-                                      _permissionGranted = await location.hasPermission();
-                                      if (_permissionGranted == PermissionStatus.denied) {
-                                        _permissionGranted = await location.requestPermission();
-                                        if (_permissionGranted != PermissionStatus.granted) {
-                                          showToast(locationPermissionDeniedErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
-                                          return;
-                                        }
-                                      }
-
-                                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
-                                        create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
-                                        child: const CommunityScreen(),
-                                      )));
-                                    },
-                                    child: const Text(
-                                      joinCommunityText,
+                          child: NotificationListener(
+                            child: PaginationList<FeedModel>(
+                              shrinkWrap: true,
+                              physics: const BouncingScrollPhysics(),
+                              prefix: [
+                                state is FeedLoadDoneState ?
+                                Column(
+                                  children: [
+                                    /// Slider
+                                    
+                                    // const SizedBox(height: 10,)
+                                  ],
+                                ):
+                                state is NoCommunityState ?
+                                Column(
+                                  children: const [
+                                    SizedBox.shrink()
+                                  ],
+                                ):
+                                const SizedBox.shrink()
+                              ],
+                              padding: const EdgeInsets.only(
+                                left: 5,
+                                right: 5,
+                              ),
+                              itemBuilder: (BuildContext context, FeedModel feed) {
+                                return FeedItem(feed: feed, userModel: feedBloc.userModel, isDetail: false, isProfile: false,);
+                              },
+                              onPageLoading: const CupertinoActivityIndicator(),
+                              onLoading: const CupertinoActivityIndicator(),
+                              pageFetch: feedBloc.pageFetch,
+                              onError: (dynamic error) => const Center(
+                                child: Text('Something Went Wrong'),
+                              ),
+                              initialData: const <FeedModel>[],
+                              onEmpty: state is NoCommunityState ?
+                              Container(
+                                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      noCommunityFoundText,
                                       textScaleFactor: 1.0,
                                       style: TextStyle(
-                                        color: primaryWhiteTextColor,
-                                        fontSize: primaryButtonFontSize,
-                                        decoration: TextDecoration.underline,
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryButtonFontSize
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ):
-                            Container(
-                              padding: state is NoCommunityState ? EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35) : EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
-                              child: const Text(
-                                noFeedFoundText,
-                                style: TextStyle(
-                                    color: primaryWhiteTextColor,
-                                    fontSize: primaryButtonFontSize
+                                    GestureDetector(
+                                      onTap: () async {
+                                        Location location = Location();
+
+                                        bool _serviceEnabled;
+                                        PermissionStatus _permissionGranted;
+                                        LocationData _locationData;
+
+                                        _serviceEnabled = await location.serviceEnabled();
+                                        if (!_serviceEnabled) {
+                                          _serviceEnabled = await location.requestService();
+                                          if (!_serviceEnabled) {
+                                            showToast(locationPermissionDeniedErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                                            return;
+                                          }
+                                        }
+
+                                        _permissionGranted = await location.hasPermission();
+                                        if (_permissionGranted == PermissionStatus.denied) {
+                                          _permissionGranted = await location.requestPermission();
+                                          if (_permissionGranted != PermissionStatus.granted) {
+                                            showToast(locationPermissionDeniedErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                                            return;
+                                          }
+                                        }
+
+                                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
+                                          create: (context) => CommunityBloc(communityRepository: CommunityRepository()),
+                                          child: const CommunityScreen(),
+                                        )));
+                                      },
+                                      child: const Text(
+                                        joinCommunityText,
+                                        textScaleFactor: 1.0,
+                                        style: TextStyle(
+                                          color: primaryWhiteTextColor,
+                                          fontSize: primaryButtonFontSize,
+                                          decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ):
+                              Container(
+                                padding: state is NoCommunityState ? EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.35) : EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.3),
+                                child: const Text(
+                                  noFeedFoundText,
+                                  style: TextStyle(
+                                      color: primaryWhiteTextColor,
+                                      fontSize: primaryButtonFontSize
+                                  ),
                                 ),
                               ),
                             ),
+                            onNotification: (t) {
+                              if (t is ScrollStartNotification) {
+                                print("scroll start notification");
+                                setState(() {
+                                  enableLiveStreamBlock = false;
+                                });
+                              }else if (t is ScrollNotification) {
+
+                              }
+                              return true;
+                            },
                           ),
                           onRefresh: () async {
                             await Future.delayed(

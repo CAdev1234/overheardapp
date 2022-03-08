@@ -19,6 +19,7 @@ import 'package:overheard/ui/auth/signup.dart';
 import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/community.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
+import 'package:overheard/ui/components/live_badge.dart';
 import 'package:overheard/ui/components/video_player.dart';
 import 'package:overheard/ui/home/bloc/home_bloc.dart';
 import 'package:overheard/ui/home/home.dart';
@@ -502,6 +503,7 @@ class SignInScreenState extends State<SignInScreen>{
                         //   color: Colors.green,
 
                         // )
+                        
                       ],
                     ),
                   ),
