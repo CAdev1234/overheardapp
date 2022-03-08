@@ -33,11 +33,11 @@ class _LiveBadgeState extends State<LiveBadge> with TickerProviderStateMixin  {
     _animation = _tween.animate(CurvedAnimation(parent: _controller, curve: Curves.elasticInOut));
   }
 
-  // @override
-  // void dispose() {
-  //   _controller.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

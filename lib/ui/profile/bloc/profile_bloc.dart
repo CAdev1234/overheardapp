@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:overheard/constants/colorset.dart';
@@ -147,32 +148,29 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>{
       'lng': currentPosition?.longitude
     };
     var result = await profileRepository.fetchCommunity(params);
-    List<CommunityModel> fetchedCommunities = [];
+    List<CommunityModel> communities = [];
     if(result['status']){
       userModel = UserModel.fromJson(result['user']);
       if(userModel.community_id != null){
         joinedCommunity = userModel.community_id!;
       }
-      fetchedCommunities = (result['communities'] as List).map((community) => CommunityModel.fromJson(community)).toList();
-      if(fetchedCommunities.isNotEmpty && fetchedCommunities.last.id! > lastFetchedId){
+      communities = (result['communities'] as List).map((community) => CommunityModel.fromJson(community)).toList();
+      if(communities.isNotEmpty && communities.last.id! > lastFetchedId){
         currentPage++;
-        lastFetchedId = fetchedCommunities.last.id!;
-        this.fetchedCommunities = fetchedCommunities;
+        lastFetchedId = communities.last.id!;
+        fetchedCommunities = communities;
         emit(const CommunityDoneState());
         return;
       }
       else{
-        if (result['message']) {
-          showToast(result['message'], gradientStart);
-        }
-        this.fetchedCommunities = [];
-        emit(const CommunityLoadFailedState());
+        fetchedCommunities = [];
+        emit(const CommunityDoneState());
         return;
       }
     }
     else{
-      showToast(result['message'], gradientStart);
-      this.fetchedCommunities = [];
+      showToast(result['message'], gradientEnd, gravity: ToastGravity.CENTER);
+      fetchedCommunities = [];
       emit(const CommunityLoadFailedState());
       return;
     }

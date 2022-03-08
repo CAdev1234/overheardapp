@@ -67,7 +67,7 @@ class FeedScreenState extends State<FeedScreen>{
               Stack(
                 alignment: AlignmentDirectional.topEnd,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 130,
                     width: 130,
                     child: CachedNetworkImage(
@@ -85,117 +85,10 @@ class FeedScreenState extends State<FeedScreen>{
                       errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                   ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    child: Glassmorphism(
-                      blur: 30,
-                      opacity: 0.2,
-                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(100)),
-                      child: Column(
-                        children: [
-                          LiveBadge(bgColor: Colors.white, width: 10,),
-                        ],
-                      )
-                    ),
-                  )
+                  const LiveBadge(bgColor: Colors.blue, width: 20   ),
                 ],
               ),
-              const SizedBox(width: 10),
-              SizedBox(
-                height: 130,
-                width: 130,
-                child: CachedNetworkImage(
-                  imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                  placeholder: (context, url) => const CupertinoActivityIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              const SizedBox(width: 10,),
-              SizedBox(
-                height: 130,
-                width: 130,
-                child: CachedNetworkImage(
-                  imageUrl: "https://images.unsplash.com/photo-1590005354167-6da97870c757?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                  placeholder: (context, url) => const CupertinoActivityIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              const SizedBox(width: 10,),
-              SizedBox(
-                height: 130,
-                width: 130,
-                child: CachedNetworkImage(
-                  imageUrl: "https://images.unsplash.com/photo-1584306670957-acf935f5033c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                  placeholder: (context, url) => const CupertinoActivityIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              const SizedBox(width: 10,),
-              SizedBox(
-                height: 130,
-                width: 130,
-                child: CachedNetworkImage(
-                  imageUrl: "https://images.unsplash.com/photo-1576179635662-9d1983e97e1e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                  placeholder: (context, url) => const CupertinoActivityIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              const SizedBox(width: 10,),
-              SizedBox(
-                height: 130,
-                width: 130,
-                child: CachedNetworkImage(
-                  imageUrl: "https://images.unsplash.com/photo-1512578659172-63a4634c05ec?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                  imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                  ),
-                  placeholder: (context, url) => const CupertinoActivityIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
+              const SizedBox(width: 10),    
               
             ],
           ),

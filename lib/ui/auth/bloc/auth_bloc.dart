@@ -32,6 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
         else if (event is TwitterSignInEvent) {_mapTwitterSignInToState(event);}
         else if (event is TwitterSignUpEvent) {_mapTwitterSignUpToState(event);}
         else if (event is AppleSignInEvent) {_mapAppleSignInToState(event);}
+        else if (event is AppleSignUpEvent) {_mapAppleSignUpToState(event);}
       },
     );
   }
@@ -42,47 +43,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   }
 
 
-  // Stream<AuthState> mapEventToState(AuthEvent event) async* {
-  //   if(event is SignInEvent) {
-  //     yield* _mapSignInToState(event);
-  //   }
-  //   else if(event is SignUpEvent){
-  //     yield* _mapSignUpToState(event);
-  //   }
-  //   else if(event is EmailVerifyEvent){
-  //     yield* _mapEmailVerifyToState(event);
-  //   }
-  //   else if(event is EmailVerifyResendEvent){
-  //     yield* _mapEmailVerifyResendToState(event);
-  //   }
-  //   else if(event is FacebookSignInEvent){
-  //     yield* _mapFacebookSignInToState(event);
-  //   }
-  //   else if(event is FacebookSignUpEvent){
-  //     yield* _mapFacebookSignUpToState(event);
-  //   }
-  //   else if(event is TwitterSignInEvent){
-  //     yield* _mapTwitterSignInToState(event);
-  //   }
-  //   else if(event is TwitterSignUpEvent){
-  //     yield* _mapTwitterSignUpToState(event);
-  //   }
-  //   else if(event is AppleSignInEvent){
-  //     yield* _mapAppleSignInToState(event);
-  //   }
-  //   else if(event is AppleSignUpEvent){
-  //     yield* _mapAppleSignUpToState(event);
-  //   }
-  //   else if(event is SignInWithTokenEvent){
-  //     yield* _mapSignInWithTokenToState(event);
-  //   }
-  //   else if(event is RestorePasswordEvent){
-  //     yield* _mapRestorePasswordToState(event);
-  //   }
-  //   else if(event is ResetPasswordEvent){
-  //     yield* _mapResetPasswordToState(event);
-  //   }
-  // }
 
   void _mapSignInToState(SignInEvent event) async {
     emit(const LoadingState());
@@ -406,10 +366,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     if(result == null){
       emit(const LoginFailedState());
     }
-    else if(result == {}){
+    else if(result.isEmpty){
       emit(const LoginCancelledState());
     }
     else {
+      // if(result) {}
       String uid = result['userid']!;
       String name = result['name']!;
       String email = result['email']!;
@@ -448,6 +409,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
   }
 
   void _mapAppleSignUpToState(AppleSignUpEvent appleSignUpEvent) async {
+    print("object");
     emit(const LoadingState());
     var result = await authRepository.signInWithApple();
     if(result == null){
