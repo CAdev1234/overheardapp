@@ -6,6 +6,15 @@ abstract class FeedState extends Equatable{
   const FeedState();
 }
 
+class FeedInitState extends FeedState {
+  const FeedInitState(): super();
+
+  @override
+  List<Object> get props => [];
+  @override
+  String toString() => 'Feed state for null safety';
+}
+
 class FeedLoadingState extends FeedState {
   const FeedLoadingState(): super();
 

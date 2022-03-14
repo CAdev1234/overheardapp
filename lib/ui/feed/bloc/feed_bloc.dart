@@ -35,7 +35,7 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
   late FeedModel feedItem;
   late CommentModel commentItem;
 
-  FeedBloc({required this.feedRepository}) : super(const FeedLoadingState()) {
+  FeedBloc({required this.feedRepository}) : super(const FeedInitState()) {
     on<FeedEvent>(
       (event, emit) {
         if (event is FeedFetchEvent) {_mapFetchFeedEventToState(event);}
