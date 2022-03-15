@@ -54,7 +54,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     };
     var response = await authRepository.signInWithEmail(credential);
     if(response == null) {
-      showToast("SignIn Failed", gradientStart);
       emit(const SignInFailedState());
       return;
     }
@@ -73,7 +72,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       }
     }
     else{
-      showToast(response['message'], gradientStart);
       emit(const SignInFailedState());
       return;
     }
@@ -94,7 +92,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       return;
     }
     else if(!response['status']) {
-      showToast(response['message'], gradientStart);
       emit(const SignInFailedState());
       return;
     }
@@ -131,12 +128,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     var result = await authRepository.signUpWithEmail(credential);
     
     if(result!['status']){
-      showToast(result['message'], gradientStart);
       emit(const SignUpSuccessState());
       return;
     }
     else{
-      showToast(result['message'], gradientStart);
+      showToast(result['message'], gradientEnd);
       emit(const SignUpFailedState());
       return;
     }
@@ -152,7 +148,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       return;
     }
     else{
-      showToast(result['message'], gradientStart);
+      showToast(result['message'], gradientEnd);
       emit(const VerifyFailedState());
       return;
     }
@@ -168,7 +164,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       return;
     }
     else{
-      showToast(result['message'], gradientStart);
+      showToast(result['message'], gradientEnd);
       emit(const VerifyFailedState());
       return;
     }
@@ -370,12 +366,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
       emit(const LoginCancelledState());
     }
     else {
-      // if(result) {}
-      String uid = result['userid']!;
-      String name = result['name']!;
-      String email = result['email']!;
-      String avatar = result['profile_image_url']!;
-      String token = result['token']!;
+      if(result['userid'] == null) return;
+      String uid = result['userid'];
+      String name = result['name'];
+      String email = result['email'];
+      // String avatar = result['profile_image_url'];
+      String token = result['token'];
 
       var credential = {
         'firebaseUID': uid,
@@ -417,7 +413,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     }
     else{
       String uid = result['userid'];
-      String name = result['name'];
+      String name = result['name']?? '';
       String email = result['email'];
       String avatar = result['profile_image_url'];
       String token = result['token'];

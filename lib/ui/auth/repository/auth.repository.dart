@@ -295,7 +295,7 @@ class AuthRepository extends RestApiClient{
         'userid': user.uid,
         'token': token,
         'email': user.email,
-        'name': "${appleCredential.givenName} ${appleCredential.familyName}",
+        'name': user.displayName,
         'profile_image_url': user.photoURL
       };
     }
