@@ -253,7 +253,9 @@ class ChatScreenState extends State<ChatScreen>{
     return BlocListener(
       bloc: chatBloc,
       listener: (context, state) {
-        if (state is ChatItemFetchDoneState) {print('fech done state');}
+        if (state is ChatItemFetchDoneState) {
+          print('fetch done state');
+        }
       },
       child: Container(
         decoration: primaryBoxDecoration,

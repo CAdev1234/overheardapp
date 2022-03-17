@@ -554,7 +554,7 @@ class CreateScreenState extends State<CreateScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
+                                                XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
                                                 // ignore: unnecessary_null_comparison
                                                 if(image == null){
                                                   return;
@@ -597,8 +597,8 @@ class CreateScreenState extends State<CreateScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile video = await ImagePicker().pickVideo(
-                                                    source: ImageSource.camera) as XFile;
+                                                XFile? video = await ImagePicker().pickVideo(
+                                                    source: ImageSource.camera);
                                                 if(video == null){
                                                   return;
                                                 }
@@ -685,8 +685,8 @@ class CreateScreenState extends State<CreateScreen>{
                                                   return;
                                                 }
                                                 Navigator.of(context).pop();
-                                                XFile image = await ImagePicker().pickImage(
-                                                    source: ImageSource.gallery) as XFile;
+                                                XFile? image = await ImagePicker().pickImage(
+                                                    source: ImageSource.gallery);
                                                 // ignore: unnecessary_null_comparison
                                                 if(image == null){
                                                   return;
@@ -725,8 +725,8 @@ class CreateScreenState extends State<CreateScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile video = await ImagePicker().pickVideo(
-                                                    source: ImageSource.gallery) as XFile;
+                                                XFile? video = await ImagePicker().pickVideo(
+                                                    source: ImageSource.gallery);
                                                 // ignore: unnecessary_null_comparison
                                                 if(video == null){
                                                   return;

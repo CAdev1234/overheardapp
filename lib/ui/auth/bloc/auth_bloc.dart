@@ -368,7 +368,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     else {
       if(result['userid'] == null) return;
       String uid = result['userid'];
-      String name = result['name'];
+      String name = result['name']?? '';
       String email = result['email'];
       // String avatar = result['profile_image_url'];
       String token = result['token'];
@@ -387,43 +387,49 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
           prefs.setString('AccessToken', response['access_token']);
           if(user.firstname == null){
             emit(SignInSuccessState(isFirstLogin: true, userModel: user));
+            return;
           }
           else{
             emit(SignInSuccessState(isFirstLogin: false, userModel: user));
+            return;
           }
         }
         else{
           emit(const SignInFailedState());
+          return;
         }
       }
       catch(exception){
         emit(const SignInFailedState());
+        return;
       }
-      emit(const SignInFailedState());
     }
 
   }
 
   void _mapAppleSignUpToState(AppleSignUpEvent appleSignUpEvent) async {
-    print("object");
     emit(const LoadingState());
     var result = await authRepository.signInWithApple();
     if(result == null){
       emit(const LoginFailedState());
     }
     else{
+      if (result.isEmpty) {
+        emit(const SignUpFailedState());
+      }
       String uid = result['userid'];
       String name = result['name']?? '';
-      String email = result['email'];
-      String avatar = result['profile_image_url'];
+      String email = result['email']?? '';
+      String avatar = result['profile_image_url']?? '';
       String token = result['token'];
-      String authSource = profileSourceFacebook;
+      String authSource = profileSourceApple;
 
       var credential = {
         'firebaseUID': uid,
         'email': email,
         'name': name,
-        'avatar': avatar
+        'avatar': avatar,
+        'authSource': authSource
       };
       bool _result = await authRepository.signUpWithFirebase(credential);
       if(_result){

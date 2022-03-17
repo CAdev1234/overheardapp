@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -89,62 +90,68 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                                   children: [
                                     /// Feed Content
                                     FeedItem(feed: state.feed!, userModel: state.userModel!, isDetail: true, isProfile: true,),
-                                    /// Divider
-                                    state.feed!.comments.isNotEmpty ?
-                                    Container(
-                                      height: 1,
-                                      decoration: BoxDecoration(
-                                          color: primaryWhiteTextColor.withOpacity(0.7)
-                                      ),
-                                    ):
-                                    const SizedBox.shrink(),
+                                    
                                     /// Comments
                                     state.feed!.comments.isNotEmpty ?
                                     Container(
+                                      margin: const EdgeInsets.only(top: 20),
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
                                       decoration: BoxDecoration(
-                                          color: primaryWhiteTextColor.withOpacity(0.2)
+                                          color: primaryWhiteTextColor.withOpacity(0.2),
+                                          borderRadius: const BorderRadius.all(Radius.circular(10))
                                       ),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          const Icon(Icons.arrow_drop_down, color: primaryWhiteTextColor,),
-                                          DropdownButton(
-                                              dropdownColor: gradientEnd,
-                                              underline: Container(height: 1, color: Colors.transparent,),
-                                              value: feedBloc.filterOption,
-                                              icon: const Icon(Icons.arrow_drop_down, color: Colors.transparent,),
-                                              items: const [
-                                                DropdownMenuItem(
-                                                  child: Text(
-                                                    "Recent",
-                                                    style: TextStyle(
-                                                        color: primaryWhiteTextColor,
-                                                        fontSize: primaryButtonMiddleFontSize
+                                          const Text(
+                                            commentsText,
+                                            style: TextStyle(color: primaryWhiteTextColor, fontSize: appBarTitleFontSize, fontWeight: FontWeight.bold),
+                                          ),
+                                          Row(
+                                            children: [
+                                              const Icon(Icons.arrow_drop_down, color: primaryWhiteTextColor,),
+                                              DropdownButton(
+                                                dropdownColor: gradientEnd,
+                                                underline: Container(height: 1, color: Colors.transparent,),
+                                                value: feedBloc.filterOption,
+                                                icon: const Icon(Icons.arrow_drop_down, color: Colors.transparent,),
+                                                items: const [
+                                                  DropdownMenuItem(
+                                                    child: Text(
+                                                      "Recent",
+                                                      style: TextStyle(
+                                                          color: primaryWhiteTextColor,
+                                                          fontSize: primaryButtonMiddleFontSize
+                                                      ),
                                                     ),
+                                                    value: 1,
                                                   ),
-                                                  value: 1,
-                                                ),
-                                                DropdownMenuItem(
-                                                  child: Text(
-                                                    "Old",
-                                                    style: TextStyle(
-                                                        color: primaryWhiteTextColor,
-                                                        fontSize: primaryButtonMiddleFontSize
+                                                  DropdownMenuItem(
+                                                    child: Text(
+                                                      "Old",
+                                                      style: TextStyle(
+                                                          color: primaryWhiteTextColor,
+                                                          fontSize: primaryButtonMiddleFontSize
+                                                      ),
                                                     ),
-                                                  ),
-                                                  value: 2,
-                                                )
-                                              ],
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  feedBloc.filterOption = value as int;
-                                                  feedBloc.add(GetFeedEvent(feedId: widget.feedId));
-                                                });
-                                              }),
+                                                    value: 2,
+                                                  )
+                                                ],
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    feedBloc.filterOption = value as int;
+                                                    feedBloc.add(GetFeedEvent(feedId: widget.feedId));
+                                                  });
+                                                }
+                                              ),
+                                            ],
+                                          ),
+                                          
                                         ],
                                       ),
                                     ):
                                     const SizedBox.shrink(),
+                                    const SizedBox(height: 10,),
                                     Column(
                                       children: state.feed!.comments.map((comment) => CommentItem(comment: comment,)).toList(),
                                     )
@@ -232,16 +239,17 @@ class PostDetailScreenState extends State<PostDetailScreen>{
                             onPressed: (){
                               if(state is FeedLoadDoneState){
                                 if(commentController.text == ""){
-                                  showToast("Comment has not be empty", gradientStart);
+                                  showToast("Comment has not be empty", gradientEnd, gravity: ToastGravity.BOTTOM);
                                   return;
                                 }
                                 // feedBloc.add(LeaveCommentEvent(feed: state.feed!, comment: commentController.text));
-                                else if(state.feed!.publisher!.id != state.userModel!.id){
-                                  commentController.text = '';
+                                else if(state.feed!.publisher!.id != state.userModel!.id){                                  
                                   feedBloc.add(LeaveCommentEvent(feed: state.feed!, comment: commentController.text));
+                                  commentController.text = '';
                                 }
                                 else if(state.feed!.publisher!.id == state.userModel!.id){
-                                  showToast('You can not commit your posting', gradientStart);
+                                  showToast('You can not commit your posting', gradientEnd, gravity: ToastGravity.BOTTOM);
+                                  return;
                                 }
                               }
                             },

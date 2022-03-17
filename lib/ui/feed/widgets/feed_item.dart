@@ -181,7 +181,7 @@ class FeedItemState extends State<FeedItem> {
                                     ),
                                   ),
                                   Text(
-                                    feedBloc.feedItem.postDatetime != null ? timeago.format(DateTime.parse(feedBloc.feedItem.postDatetime!)) : '',
+                                    feedBloc.feedItem.postDatetime != null ? timeago.format(DateTime.parse(feedBloc.feedItem.postDatetime!).toLocal()) : '',
                                     style: const TextStyle(
                                         color: primaryWhiteTextColor,
                                         fontSize: primaryFeedAuthorFontSize - 3
@@ -275,7 +275,7 @@ class FeedItemState extends State<FeedItem> {
                                               }
                                             },
                                           ):
-                                          const Text(''),
+                                          const SizedBox.shrink(),
                                           widget.userModel.id == feedBloc.feedItem.publisher!.id ?
                                           CupertinoActionSheetAction(
                                             child: const Text(
@@ -344,7 +344,7 @@ class FeedItemState extends State<FeedItem> {
                                               );
                                             },
                                           ):
-                                          const Text(''),
+                                          const SizedBox.shrink(),
                                         ],
                                         cancelButton: CupertinoActionSheetAction(
                                           child: const Text(
@@ -408,7 +408,7 @@ class FeedItemState extends State<FeedItem> {
                                 items: feedBloc.feedItem.media.asMap().entries.map((entry) {
                                   return Builder(
                                     builder: (BuildContext context) {
-                                      String mimeType = mime(entry.value.url) as String;
+                                      String? mimeType = mime(entry.value.url);
                                       if (imageMimeTypes.contains(mimeType)) {
                                         return Stack(
                                           children: [
@@ -462,7 +462,6 @@ class FeedItemState extends State<FeedItem> {
                                                 color: Colors.transparent,
                                                 width: 400 * 16 / 9,
                                                 child: CustomCachedVideoPlayer(videoUrl: entry.value.url!, autoPlay: true,)
-                                                // child: CustomVideoPlayer(videoLink: entry.value.url!),
                                             ),
                                             Positioned(
                                               child: Container(

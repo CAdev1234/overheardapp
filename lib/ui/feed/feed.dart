@@ -400,7 +400,6 @@ class FeedScreenState extends State<FeedScreen>{
                             ),
                             onNotification: (t) {
                               if (t is ScrollStartNotification) {
-                                print("scroll start notification");
                                 setState(() {
                                   enableLiveStreamBlock = false;
                                 });

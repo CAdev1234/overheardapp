@@ -49,6 +49,7 @@ class CommentItemState extends State<CommentItem> {
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: primaryWhiteTextColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(10)
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -77,146 +78,153 @@ class CommentItemState extends State<CommentItem> {
                       ),
                     ),
                     const SizedBox(width: 10),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width - 150,
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        feedBloc.commentItem.commentUser![0].firstname! + ' ' + feedBloc.commentItem.commentUser![0].lastname!,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            color: primaryWhiteTextColor,
-                                            fontSize: primaryFeedAuthorFontSize,
-                                            fontWeight: FontWeight.bold
-                                        ),
-                                        textScaleFactor: 1.0,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Flexible(
-                                      child: Text(
-                                        timeago.format(DateTime.parse(feedBloc.commentItem.comment!.commentDatetime!), locale: 'es_short'),
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: primaryWhiteTextColor,
-                                          fontSize: primaryFeedAuthorFontSize,
-                                        ),
-                                        textScaleFactor: 1.0,
-                                        textAlign: TextAlign.right,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        /// Comment Content
-                        const SizedBox(height: 10,),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
-                          child: Text(
-                            feedBloc.commentItem.comment!.commentContent!,
-                            style: const TextStyle(
-                                color: primaryWhiteTextColor,
-                                fontSize: postContentFontSize
-                            ),
-                            textScaleFactor: 1.0,
-                          ),
-                        ),
-
-                        /// Votes
-                        const SizedBox(height: 10,),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Row(
+                    Expanded(
+                      child: SizedBox(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 10 * 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  /// Down Count
-                                  GestureDetector(
-                                    onTap: (){
-                                      feedBloc.add(CommentVoteEvent(commentId: feedBloc.commentItem.comment!.id!, isUp: false));
-                                    },
-                                    child: SizedBox(
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.arrow_drop_down,
-                                            color: primaryWhiteTextColor,
-                                            size: 15,
-                                          ),
-                                          Text(
-                                            feedBloc.commentItem.comment!.downvotes.toString(),
-                                            textScaleFactor: 1.0,
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width - 150,
+                                    child: Row(
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            feedBloc.commentItem.commentUser![0].firstname! + ' ' + feedBloc.commentItem.commentUser![0].lastname!,
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 color: primaryWhiteTextColor,
-                                                fontSize: postTagFontSize
+                                                fontSize: primaryFeedAuthorFontSize,
+                                                fontWeight: FontWeight.bold
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                            textScaleFactor: 1.0,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(width: 10,),
-                                  /// Up Count
-                                  GestureDetector(
-                                    onTap: (){
-                                      feedBloc.add(CommentVoteEvent(commentId: feedBloc.commentItem.comment!.id!, isUp: true));
-                                    },
-                                    child: SizedBox(
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.arrow_drop_up,
-                                            color: primaryWhiteTextColor,
-                                            size: 15,
-                                          ),
-                                          Text(
-                                            feedBloc.commentItem.comment!.upvotes.toString(),
-                                            textScaleFactor: 1.0,
+                                  Container(
+                                    width: 50,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            timeago.format(DateTime.parse(feedBloc.commentItem.comment!.commentDatetime!), locale: 'es_short'),
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
-                                                color: primaryWhiteTextColor,
-                                                fontSize: postTagFontSize
+                                              color: primaryWhiteTextColor,
+                                              fontSize: primaryFeedAuthorFontSize,
                                             ),
-                                          )
-                                        ],
-                                      ),
+                                            textScaleFactor: 1.0,
+                                            textAlign: TextAlign.right,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   )
                                 ],
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    )
+                            ),
+                            /// Comment Content
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              child: Flexible(
+                                child: Text(
+                                  feedBloc.commentItem.comment!.commentContent!,
+                                  style: const TextStyle(
+                                      color: primaryWhiteTextColor,
+                                      fontSize: postContentFontSize
+                                  ),
+                                  textScaleFactor: 1.0,
+                                  softWrap: true,
+
+                                ),
+                              )
+                            ),
+
+                            /// Votes
+                            const SizedBox(height: 10,),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 10 * 2 - 50 - 10,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      /// Down Count
+                                      GestureDetector(
+                                        onTap: (){
+                                          feedBloc.add(CommentVoteEvent(commentId: feedBloc.commentItem.comment!.id!, isUp: false));
+                                        },
+                                        child: SizedBox(
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.arrow_drop_down,
+                                                color: primaryWhiteTextColor,
+                                                size: 15,
+                                              ),
+                                              Text(
+                                                feedBloc.commentItem.comment!.downvotes.toString(),
+                                                textScaleFactor: 1.0,
+                                                style: const TextStyle(
+                                                    color: primaryWhiteTextColor,
+                                                    fontSize: postTagFontSize
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 10,),
+                                      /// Up Count
+                                      GestureDetector(
+                                        onTap: (){
+                                          feedBloc.add(CommentVoteEvent(commentId: feedBloc.commentItem.comment!.id!, isUp: true));
+                                        },
+                                        child: SizedBox(
+                                          child: Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.arrow_drop_up,
+                                                color: primaryWhiteTextColor,
+                                                size: 15,
+                                              ),
+                                              Text(
+                                                feedBloc.commentItem.comment!.upvotes.toString(),
+                                                textScaleFactor: 1.0,
+                                                style: const TextStyle(
+                                                    color: primaryWhiteTextColor,
+                                                    fontSize: postTagFontSize
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+
+                      )
+                    ),
+                    
                   ],
                 ),
               ),
-              /// Divider
-              Container(
-                height: 1,
-                decoration: BoxDecoration(
-                    color: primaryWhiteTextColor.withOpacity(0.7)
-                ),
+              /// Divider)
+              const SizedBox(
+                height: 5,
               ),
             ],
           );

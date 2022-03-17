@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -122,7 +123,7 @@ class EditScreenState extends State<EditScreen>{
                   id: feedBloc.feedItem.id!,
                   title: titleController.text,
                   content: contentController.text,
-                  tags: feedBloc.feedItem.tags.map((e) => e.tag).toList() as List<String>,
+                  tags: feedBloc.feedItem.tags.map((e) => e.tag ?? '').toList(),
                   location: locationController.text,
                   attaches: feedBloc.pickedFiles,
                   urls: feedBloc.pickedThumbnails
@@ -636,8 +637,9 @@ class EditScreenState extends State<EditScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile image = await ImagePicker().pickImage(
-                                                    source: ImageSource.camera) as XFile;
+                                                XFile? image = await ImagePicker().pickImage(
+                                                    source: ImageSource.camera);
+                                                if (image == null) return;
                                                 setState(() {
                                                   feedBloc.pickedFiles.add(File(image.path));
                                                   feedBloc.thumbnails.add(File(image.path));
@@ -672,9 +674,9 @@ class EditScreenState extends State<EditScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile video = await ImagePicker().pickImage(
-                                                    source: ImageSource.camera) as XFile;
-
+                                                XFile? video = await ImagePicker().pickImage(
+                                                    source: ImageSource.camera);
+                                                if (video == null) return;
                                                 final thumbnail = await VideoThumbnail.thumbnailFile(
                                                   video: video.path,
                                                   imageFormat: ImageFormat.PNG,
@@ -754,9 +756,9 @@ class EditScreenState extends State<EditScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile image = await ImagePicker().pickImage(
-                                                    source: ImageSource.gallery) as XFile;
-                                                
+                                                XFile? image = await ImagePicker().pickImage(
+                                                    source: ImageSource.gallery);
+                                                if(image == null) return;
                                                 setState(() {
                                                   feedBloc.pickedFiles.add(File(image.path));
                                                   feedBloc.thumbnails.add(File(image.path));
@@ -791,9 +793,9 @@ class EditScreenState extends State<EditScreen>{
                                             GestureDetector(
                                               onTap: () async {
                                                 Navigator.of(context).pop();
-                                                XFile video = await ImagePicker().pickImage(
-                                                    source: ImageSource.gallery) as XFile;
-                                                
+                                                XFile? video = await ImagePicker().pickImage(
+                                                    source: ImageSource.gallery);
+                                                if (video == null) return;
                                                 final thumbnail = await VideoThumbnail.thumbnailFile(
                                                   video: video.path,
                                                   imageFormat: ImageFormat.PNG,
