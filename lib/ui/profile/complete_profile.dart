@@ -163,7 +163,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                           textScaleFactor: 1.0,
                                       ),
                                       onPressed: () async {
-                                        XFile image = await ImagePicker().pickImage(source: ImageSource.camera) as XFile;
+                                        XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
                                         if(image != null){
                                           final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                             create: (context) => ProfileBloc(profileRepository: ProfileRepository()),
@@ -191,7 +191,7 @@ class CompleteProfileScreenState extends State<CompleteProfileScreen>{
                                           textScaleFactor: 1.0,
                                       ),
                                       onPressed: () async {
-                                        XFile image = await ImagePicker().pickImage(source: ImageSource.gallery) as XFile;
+                                        XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
                                         if(image != null){
                                           final croppedImage = await Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => BlocProvider(
                                             create: (context) => ProfileBloc(profileRepository: ProfileRepository()),

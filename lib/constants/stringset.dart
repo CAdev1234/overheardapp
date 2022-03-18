@@ -10,8 +10,8 @@ const String accessToken = 'AccessToken';
 const String firebaseToken = 'Firebasetoken';
 
 /// Mime Params
-const List<String> supportedMediaTypes = ['jpg', 'png', 'jpeg', 'avi', 'mp4'];
-const List<String> videoMimeTypes = ['video/avi', 'video/mp4'];
+const List<String> supportedMediaTypes = ['jpg', 'png', 'jpeg', 'avi', 'mp4', 'mov'];
+const List<String> videoMimeTypes = ['video/avi', 'video/mp4', 'video/mov'];
 const List<String> imageMimeTypes = ['image/jpg', 'image/png', 'image/jpeg'];
 
 /// UI texts
@@ -107,6 +107,7 @@ const String copyLinkText = 'Copy Link';
 const String editText = 'Edit';
 const String deleteText = 'Delete';
 const String voteErrorText = "You can't vote again";
+const String commentsText = "Comments";
 
 const String commentPlaceholder = 'Leave Comment ...';
 const String reportAppBarTitle = 'Report';
