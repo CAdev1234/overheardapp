@@ -263,6 +263,7 @@ class FeedItemState extends State<FeedItem> {
                                               ),
                                               textScaleFactor: 1.0,
                                             ),
+                                            isDestructiveAction: true,
                                             onPressed: () async {
                                               Navigator.of(context).pop();
                                               var result = await Navigator.of(context).push(MaterialPageRoute(builder: (context) => BlocProvider(
@@ -274,8 +275,7 @@ class FeedItemState extends State<FeedItem> {
                                                 feedBloc.add(GetFeedEvent(feedId: feedBloc.feedItem.id!));
                                               }
                                             },
-                                          ):
-                                          const Text(''),
+                                          ): const SizedBox.shrink(),
                                           widget.userModel.id == feedBloc.feedItem.publisher!.id ?
                                           CupertinoActionSheetAction(
                                             child: const Text(
@@ -344,7 +344,7 @@ class FeedItemState extends State<FeedItem> {
                                               );
                                             },
                                           ):
-                                          const Text(''),
+                                          const SizedBox.shrink(),
                                         ],
                                         cancelButton: CupertinoActionSheetAction(
                                           child: const Text(

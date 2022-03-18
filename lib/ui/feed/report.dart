@@ -76,11 +76,11 @@ class ReportScreenState extends State<ReportScreen>{
             trailing: GestureDetector(
               onTap: (){
                 if(reasonController.text == ""){
-                  showToast(reportReasonEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
+                  showToast(reportReasonEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                   return;
                 }
                 if(contentController.text == ""){
-                  showToast(reportContentEmptyErrorText, gradientStart, gravity: ToastGravity.CENTER);
+                  showToast(reportContentEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                   return;
                 }
                 feedBloc.add(ReportFeedEvent(
