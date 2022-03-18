@@ -275,12 +275,7 @@ class FeedItemState extends State<FeedItem> {
                                                 feedBloc.add(GetFeedEvent(feedId: feedBloc.feedItem.id!));
                                               }
                                             },
-<<<<<<< HEAD
                                           ): const SizedBox.shrink(),
-=======
-                                          ):
-                                          const SizedBox.shrink(),
->>>>>>> 85aa86da19282a6c77b261345808252279133904
                                           widget.userModel.id == feedBloc.feedItem.publisher!.id ?
                                           CupertinoActionSheetAction(
                                             child: const Text(
