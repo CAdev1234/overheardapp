@@ -279,8 +279,8 @@ class SignInScreenState extends State<SignInScreen>{
                       children: [
                         SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.width * 0.4,
+                          width: 100,
+                          height: 100,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               image: const DecorationImage(
@@ -289,6 +289,7 @@ class SignInScreenState extends State<SignInScreen>{
                               )
                           ),
                         ),
+                        const SizedBox(height: 10),
                         const Text(
                           appName,
                           style: TextStyle(
