@@ -642,11 +642,11 @@ class CreateScreenState extends State<CreateScreen>{
                                         )
                                       ],
                                     ),
-                                    onPressed: (){},
+                                    onPressed: () {},
                                   )
                                 ],
                                 cancelButton: CupertinoActionSheetAction(
-                                  child: const Icon(Icons.close, color: gradientStart,),
+                                  child: const Icon(Icons.close, color: gradientStart),
                                   onPressed: (){
                                     Navigator.of(context).pop();
                                   },
