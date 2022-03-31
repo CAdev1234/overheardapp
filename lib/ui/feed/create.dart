@@ -318,7 +318,7 @@ class CreateScreenState extends State<CreateScreen>{
                                       Location location = Location();
                                       bool _serviceEnabled;
                                       PermissionStatus _permissionGranted;
-                                      // LocationData _locationData;
+                                      LocationData _locationData;
 
                                       _serviceEnabled = await location.serviceEnabled();
                                       if (!_serviceEnabled) {
@@ -348,17 +348,21 @@ class CreateScreenState extends State<CreateScreen>{
                                         double longitude = double.parse(result['lng']);
 
                                         // final coordinates = Coordinates(latitude: latitude, longitude: longitude);
-                                        try{
-                                          GeoCode geoCode = GeoCode();
-                                          Address address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
-                                          String dd = "${address.city}, ${address.countryCode}";
-                                          setState((){
-                                            locationController.text = "${address.city}, ${address.countryCode}";
-                                          });
-                                        }
-                                        catch(exception){
+                                        GeoCode geoCode = GeoCode();
+                                        Address address;
+                                        try {
+                                          address = await geoCode.reverseGeocoding(latitude: latitude, longitude: longitude);
+                                          if (address == null) {
+                                            showToast(locationPickErrorText, gradientEnd, gravity: ToastGravity.CENTER);
+                                          }else {
+                                            setState((){
+                                              locationController.text = "${address.city}, ${address.countryCode}";
+                                            });
+                                          }
+                                        } catch (e) {
                                           showToast(locationPickErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                                         }
+                                        
                                       }
                                     },
                                     child: Container(

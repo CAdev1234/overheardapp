@@ -23,7 +23,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState>{
   Position? currentPosition;
   List<CommunityModel> fetchedCommunities = [];
 
-   CommunityBloc({required this.communityRepository}) : super(const CommunityLoadingState()) {
+   CommunityBloc({required this.communityRepository}) : super(const CommunityInitState()) {
      on<CommunityEvent>(
        (event, emit) {
          if (event is CommunityResetEvent) {_mapResetEventToState(event);}

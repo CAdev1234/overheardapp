@@ -6,6 +6,13 @@ abstract class CommunityEvent extends Equatable{
   List<Object> get pros => [];
 }
 
+class CommunityInitEvent extends CommunityEvent {
+  const CommunityInitEvent() : super();
+
+  @override
+  List<Object> get props => [];
+}
+
 class FetchCommunityEvent extends CommunityEvent {
   const FetchCommunityEvent(): super();
 

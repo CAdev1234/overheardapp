@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/stringset.dart';
 import 'package:overheard/ui/auth/bloc/auth_state.dart';
@@ -128,13 +129,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState>{
     var result = await authRepository.signUpWithEmail(credential);
     
     if(result!['status']){
+      showToast(result['message'], gradientStart, gravity: ToastGravity.BOTTOM);
       emit(const SignUpSuccessState());
-      return;
     }
     else{
       showToast(result['message'], gradientEnd);
       emit(const SignUpFailedState());
-      return;
     }
   }
 

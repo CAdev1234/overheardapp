@@ -4,6 +4,16 @@ abstract class CommunityState extends Equatable{
   const CommunityState();
 }
 
+class CommunityInitState extends CommunityState {
+  const CommunityInitState() : super();
+
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => "Community State for null safety";
+}
+
 class CommunityLoadingState extends CommunityState {
   const CommunityLoadingState() : super();
 

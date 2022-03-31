@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
@@ -48,12 +49,12 @@ class SignUpScreenState extends State<SignUpScreen>{
     return BlocListener(
       bloc: authBloc,
       listener: (context, state){
-        if(state is SignUpSuccessState){
-          showToast(signUpSuccessText, gradientStart);
-        }
-        else if(state is SignUpFailedState){
-          showToast(signUpFailedText, gradientStart);
-        }
+        // if(state is SignUpSuccessState){
+        //   showToast(signUpSuccessText, gradientStart, gravity: ToastGravity.CENTER);
+        // }
+        // else if(state is SignUpFailedState){
+        //   showToast(signUpFailedText, gradientEnd, gravity: ToastGravity.BOTTOM);
+        // }
       },
       child: Container(
         decoration: primaryBoxDecoration,

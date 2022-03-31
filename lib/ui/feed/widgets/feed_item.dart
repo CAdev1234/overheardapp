@@ -111,7 +111,7 @@ class FeedItemState extends State<FeedItem> {
                               width: 50,
                               height: 50,
                               child: CircularProfileAvatar(
-                                '',
+                                'assets/images/user_avatar.png',
                                 child: feedBloc.feedItem.publisher!.avatar == null || feedBloc.feedItem.publisher!.avatar!.isEmpty ? Image.asset(
                                   'assets/images/user_avatar.png',
                                 ):

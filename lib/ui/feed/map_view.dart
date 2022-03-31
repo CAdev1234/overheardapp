@@ -104,11 +104,16 @@ class LocationScreenState extends State<LocationScreen> {
               builder: (context, state){
                 return GestureDetector(
                   onTap: (){
-                    Navigator.of(context).pop({
-                      'lat': _currentLocation.target.latitude.toString(),
-                      'lng': _currentLocation.target.longitude.toString()
-                    });
-                    feedBloc.add(GetLocationEvent(lat: _currentLocation.target.latitude, lng: _currentLocation.target.longitude));
+                    try {
+                      Navigator.of(context).pop({
+                        'lat': _currentLocation.target.latitude.toString(),
+                        'lng': _currentLocation.target.longitude.toString()
+                      });
+                      feedBloc.add(GetLocationEvent(lat: _currentLocation.target.latitude, lng: _currentLocation.target.longitude));
+                    } catch (e) {
+                      print(e.toString());
+                    }
+                    
                   },
                   child: Align(
                     alignment: Alignment.bottomCenter,

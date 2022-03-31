@@ -141,11 +141,13 @@ class FeedBloc extends Bloc<FeedEvent, FeedState>{
       'lng': getLocationEvent.lng
     };
     var result = await feedRepository.getLocation(params);
-    if(result['status']){
-      userModel = UserModel.fromJson(result['user']);
-      emit(const FeedLocationGetDoneState());
-    }else if(result.isEmpty) {
+    if (result == null || result.isEmpty) {
       emit(const FeedLocationGetFailState());
+    }else {
+      if(result['status']){
+        userModel = UserModel.fromJson(result['user']);
+        emit(const FeedLocationGetDoneState());
+      }
     }
     
   }

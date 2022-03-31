@@ -30,6 +30,7 @@ class SubmitCommunityScreenState extends State<SubmitCommunityScreen>{
   void initState(){
     super.initState();
     communityBloc = CommunityBloc(communityRepository: CommunityRepository());
+    communityBloc.add(const CommunityInitEvent());
     communityNameController = TextEditingController();
   }
 
