@@ -25,11 +25,10 @@ class CustomCachedVideoPlayerState extends State<CustomCachedVideoPlayer> {
 
   @override
   void initState() {
-    controller = VideoPlayerController.network(
-        widget.videoUrl);
+    controller = VideoPlayerController.network(widget.videoUrl);
     controller.initialize().then((_) {
       setState(() {});
-      //controller.play();
+      // controller.play();
     });
     super.initState();
   }
@@ -81,7 +80,8 @@ class CustomCachedVideoPlayerState extends State<CustomCachedVideoPlayer> {
                 const SizedBox.shrink():
                 ControlsOverlay(controller: controller)
               ],
-            ):
+            )
+            :
             const Center(
               child: CupertinoActivityIndicator(),
             )
@@ -108,12 +108,12 @@ class ControlsOverlayState extends State<ControlsOverlay> {
         AnimatedSwitcher(
           duration: const Duration(milliseconds: 50),
           reverseDuration: const Duration(milliseconds: 200),
-          child: widget.controller.value.isPlaying
-              ? const SizedBox.shrink()
-              : Container(
-            color: Colors.transparent,
-            child: Center(
-              child: Icon(Icons.play_circle, color: primaryWhiteTextColor.withOpacity(0.6), size: 60,
+          child: widget.controller.value.isPlaying ? const SizedBox.shrink()
+            : 
+            Container(
+              color: Colors.transparent,
+              child: Center(
+                child: Icon(Icons.play_circle, color: primaryWhiteTextColor.withOpacity(0.6), size: 60,
               ),
             ),
           ),

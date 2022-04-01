@@ -58,7 +58,8 @@ class EditScreenState extends State<EditScreen>{
     feedBloc.add(FeedMediaFetchEvent(feedId: feedBloc.feedItem.id!));
 
     titleController = TextEditingController();
-    titleController.text = feedBloc.feedItem.title!;
+    titleController.text = feedBloc.feedItem.title ?? '';
+    
 
     contentController = TextEditingController();
     contentController.text = feedBloc.feedItem.content!;

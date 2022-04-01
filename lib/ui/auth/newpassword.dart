@@ -153,11 +153,11 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                         GestureDetector(
                           onTap: (){
                             if(newPasswordController.text == ""){
-                              showToast(passwordEmptyErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                              showToast(passwordEmptyErrorText, gradientEnd.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(confirmPasswordController.text == ""){
-                              showToast(passwordMismatchErrorText, gradientStart.withOpacity(0.8), gravity: ToastGravity.CENTER);
+                              showToast(passwordMismatchErrorText, gradientEnd.withOpacity(0.8), gravity: ToastGravity.CENTER);
                               return;
                             }
                             if(confirmPasswordController.text != newPasswordController.text){

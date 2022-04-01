@@ -19,6 +19,7 @@ import 'package:overheard/ui/auth/signup.dart';
 import 'package:overheard/ui/community/bloc/community_bloc.dart';
 import 'package:overheard/ui/community/community.dart';
 import 'package:overheard/ui/community/repository/community.repository.dart';
+import 'package:overheard/ui/components/custom_video_player.dart';
 import 'package:overheard/ui/components/live_badge.dart';
 import 'package:overheard/ui/components/video_player.dart';
 import 'package:overheard/ui/home/bloc/home_bloc.dart';
@@ -498,12 +499,19 @@ class SignInScreenState extends State<SignInScreen>{
                             const SizedBox(width: 20),
                           ],
                         ),
-                        // CustomVideoPlayer(videoLink: "http://192.168.1.15:8000/assets/uploads/post_media/2/image_picker490105486.mp4")
-                        // Container(
-                        //   width: 300,
-                        //   color: Colors.green,
 
-                        // )
+                        // Container(
+                        //   height: 400,
+                        //   color: Colors.transparent,
+                        //   width: 400 * 16 / 9,
+                        //   child: const CustomCachedVideoPlayer(
+                        //     videoUrl: 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4',
+                        //     // videoUrl: 'http://192.168.1.3:8000/assets/uploads/post_media/5/image_picker1945077119.mp4',
+                        //     autoPlay: true
+                        //   )
+                        //   // child: CustomVideoPlayer(),
+                        // ),
+                        
                         
                       ],
                     ),

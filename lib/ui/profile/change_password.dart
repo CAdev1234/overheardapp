@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:overheard/constants/colorset.dart';
 import 'package:overheard/constants/fontsizeset.dart';
 import 'package:overheard/constants/stringset.dart';
@@ -84,19 +85,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 trailing: GestureDetector(
                   onTap: () async {
                     if(oldPasswordController.text == ""){
-                      showToast(passwordEmptyErrorText, gradientStart);
+                      showToast(passwordEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                       return;
                     }
                     if(newPasswordController.text == ""){
-                      showToast(passwordEmptyErrorText, gradientStart);
+                      showToast(passwordEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                       return;
                     }
                     if(confirmPasswordController.text == ""){
-                      showToast(passwordEmptyErrorText, gradientStart);
+                      showToast(passwordEmptyErrorText, gradientEnd, gravity: ToastGravity.CENTER);
                       return;
                     }
                     if(newPasswordController.text != confirmPasswordController.text){
-                      showToast(passwordMismatchErrorText, gradientStart);
+                      showToast(passwordMismatchErrorText, gradientEnd, gravity: ToastGravity.CENTER);
+                      return;
                     }
                     profileBloc.add(ChangePasswordEvent(oldPassword: oldPasswordController.text, newPassword: newPasswordController.text));
                   },

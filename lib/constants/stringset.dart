@@ -219,9 +219,9 @@ const String photoVideoText = "Photo/Video";
 
 /// API routes
 /// Auth Related Urls
-const String BASE_ROUTE = 'https://overheard.net';
+// const String BASE_ROUTE = 'https://overheard.net';
 // const String BASE_ROUTE = 'http://10.0.2.2:8000';
-// const String BASE_ROUTE = 'http://192.168.1.3:8000';
+const String BASE_ROUTE = 'http://192.168.1.3:8000';
 const String SOCKET_URL = 'ws://192.168.1.15:6001';
 const String SIGNIN_URL = '/api/auth/signin';
 const String FIREBASE_SIGNIN_URL = '/api/auth/firebaseSignIn';
